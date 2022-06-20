@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Model
 {
-    internal class Cantons
+    public class City
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [ForeignKey("Provinces")]
-        public int ProvincesId { get; set; }
+        [ForeignKey("Cantons")]
+        public int CantonId { get; set; }
     }
 }
