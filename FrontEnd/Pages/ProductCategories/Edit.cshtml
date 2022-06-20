@@ -1,17 +1,18 @@
 ﻿@page
-@model FrontEnd.Pages.ProductCategories.CreateModel
+@model FrontEnd.Pages.ProductCategories.EditModel
 
 <form method="post">
+    <input hidden asp-for="ProductCategory.Id" />
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary pl-3">Create Product Category</h2>
+            <h2 class="text-primary pl-3">Edit Product Category</h2>
             <hr />
         </div>
         <div class="mb-3">
             <label asp-for="ProductCategory.Name"></label>
             <input asp-for="ProductCategory.Name" class="form-control"/>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
     </div>
 </form>

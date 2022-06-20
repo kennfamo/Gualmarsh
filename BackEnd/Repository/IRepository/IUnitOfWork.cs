@@ -8,6 +8,7 @@ namespace BackEnd.Repository.IRepository
 {
     public interface IUnitOfWork : IDisposable
     {
+        IProductCategoryRepository ProductCategory { get; }
         void Save();
     }
 }

@@ -18,14 +18,12 @@ namespace BackEnd.Repository
         {
             _db = db;
         }
-        public void Save()
-        {
-            _db.SaveChanges();
-        }
-
+        
         public void Update(ProductCategory productCategory)
         {
-            throw new NotImplementedException();
+            var obj = _db.ProductCategory.FirstOrDefault(u=>u.Id == productCategory.Id);
+            obj.Name = productCategory.Name;
+            
         }
     }
 }
