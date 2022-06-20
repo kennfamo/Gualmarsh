@@ -1,0 +1,51 @@
+﻿@page
+@model FrontEnd.Pages.Products.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Product</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Name"></label>
+            <input asp-for="Product.Name" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Description"></label>
+            <input asp-for="Product.Description" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.SKU"></label>
+            <input asp-for="Product.SKU" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Brand"></label>
+            <input asp-for="Product.Brand" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Weight"></label>
+            <input asp-for="Product.Weight" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.ContainerType"></label>
+            <input asp-for="Product.ContainerType" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Inventory"></label>
+            <input asp-for="Product.Inventory" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Price"></label>
+            <input asp-for="Product.Price" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.ProductCategoryId"></label>
+            <select asp-for="Product.ProductCategoryId" asp-items="Model.ProductCategoryList" class="form-select">
+                <option disabled selected>--Select Product Category--</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>

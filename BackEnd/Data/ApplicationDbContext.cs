@@ -17,6 +17,7 @@ namespace BackEnd.Data
 
         public DbSet<Province> Province { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         
     }

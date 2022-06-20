@@ -1,4 +1,5 @@
 ﻿using BackEnd.Data;
+using BackEnd.Model;
 using BackEnd.Repository.IRepository;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,12 @@ namespace BackEnd.Repository
         {
             _db = db;
             ProductCategory = new ProductCategoryRepository(_db);
+            Product = new ProductRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
+        public IProductRepository Product { get; private set; }
+
         public void Dispose()
         {
             _db.Dispose();
