@@ -4,7 +4,8 @@ using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FrontEnd.Pages.ProductCategories
+
+namespace FrontEnd.Pages.Discounts
 {
     [BindProperties]
     public class DeleteModel : PageModel
@@ -15,18 +16,18 @@ namespace FrontEnd.Pages.ProductCategories
             _db = db;
         }
 
-        public ProductCategory ProductCategory { get; set; }
+        public Discount Discount { get; set; }
         public void OnGet(int id)
         {
-            ProductCategory = _db.ProductCategory.GetFirstOrDefault(u => u.Id == id);
+            Discount = _db.Discount.GetFirstOrDefault(u => u.Id == id);
         }
 
         public async Task<IActionResult> OnPost()
         {
-            var productCategoryFromDb = _db.ProductCategory.GetFirstOrDefault(u => u.Id == ProductCategory.Id);
-            if (productCategoryFromDb != null)
+            var discountFromDb = _db.Discount.GetFirstOrDefault(u => u.Id == Discount.Id);
+            if (discountFromDb != null)
             {
-                _db.ProductCategory.Remove(productCategoryFromDb);
+                _db.Discount.Remove(discountFromDb);
                 _db.Save();
             }
 
