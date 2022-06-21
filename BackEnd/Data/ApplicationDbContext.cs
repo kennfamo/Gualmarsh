@@ -22,6 +22,7 @@ namespace BackEnd.Data
         public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<UserPayment> UserPayment { get; set; }
 
         
     }

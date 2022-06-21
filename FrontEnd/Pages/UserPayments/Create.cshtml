@@ -1,0 +1,43 @@
+﻿@page
+@model FrontEnd.Pages.UserPayments.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create User Payment</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.PaymentType"></label>
+            <select asp-for="UserPayment.PaymentType" asp-items="Model.PaymentTypeList" class="form-select">
+                <option disabled selected>--Select Payment Type--</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.Provider"></label>
+            <select asp-for="UserPayment.Provider" asp-items="Model.ProviderList" class="form-select">
+                <option disabled selected>--Select Provider--</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.CCNumber"></label>
+            <input asp-for="UserPayment.CCNumber" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.ExpirationDate"></label>
+            <input asp-for="UserPayment.ExpirationDate" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.SecurityCode"></label>
+            <input asp-for="UserPayment.SecurityCode" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserPayment.ApplicationUserId"></label>
+            <select asp-for="UserPayment.ApplicationUserId" asp-items="Model.ApplicationUserList" class="form-select">
+                <option disabled selected>--Select User--</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>
