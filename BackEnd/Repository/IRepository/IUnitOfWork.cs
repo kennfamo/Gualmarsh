@@ -13,6 +13,7 @@ namespace BackEnd.Repository.IRepository
         IProvinceRepository Province { get; }
         IUserPaymentRepository UserPayment { get; }
         IApplicationUserRepository ApplicationUser { get; }
+        ICantonRepository Canton { get; }
         void Save();
     }
 }

@@ -23,18 +23,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ProductCategories/Index">Product Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Provinces/Index">Province</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/UserPayments/Index">User Payment</a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-page="/Provinces/Index">Province</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/UserPayments/Index">User Payment</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>    
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-page="/ProductCategories/Index">Product Category</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Products/Index">Product</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>  
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orders</a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>    
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

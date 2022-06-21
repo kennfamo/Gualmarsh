@@ -21,6 +21,7 @@ namespace BackEnd.Repository
             Province = new ProvinceRepository(_db);
             UserPayment = new UserPaymentRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
+            Canton = new CantonRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -28,6 +29,7 @@ namespace BackEnd.Repository
         public IProvinceRepository Province { get; private set; }
         public IUserPaymentRepository UserPayment { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
+        public ICantonRepository Canton { get; private set; }
 
         public void Dispose()
         {
