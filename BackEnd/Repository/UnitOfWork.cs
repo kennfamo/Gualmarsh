@@ -18,10 +18,12 @@ namespace BackEnd.Repository
             _db = db;
             ProductCategory = new ProductCategoryRepository(_db);
             Product = new ProductRepository(_db);
+            Province = new ProvinceRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
         public IProductRepository Product { get; private set; }
+        public IProvinceRepository Province { get; private set; }
 
         public void Dispose()
         {

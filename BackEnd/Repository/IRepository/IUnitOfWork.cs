@@ -10,6 +10,7 @@ namespace BackEnd.Repository.IRepository
     {
         IProductCategoryRepository ProductCategory { get; }
         IProductRepository Product { get; }
+        IProvinceRepository Province { get; }
         void Save();
     }
 }

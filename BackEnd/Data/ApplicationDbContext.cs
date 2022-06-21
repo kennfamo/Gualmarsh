@@ -17,6 +17,8 @@ namespace BackEnd.Data
         }
 
         public DbSet<Province> Province { get; set; }
+        public DbSet<Canton> Canton { get; set; }
+        public DbSet<City> City { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }

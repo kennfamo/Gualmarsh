@@ -11,10 +11,11 @@ namespace BackEnd.Model
     public class City
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [ForeignKey("Cantons")]
+        public int Id { get; set; }        
+        public string Name { get; set; }        
         public int CantonId { get; set; }
+        [ForeignKey("CantonId")]
+        public Canton Canton { get; set; }
+        public int PostalCode { get; set; }
     }
 }
