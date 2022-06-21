@@ -21,8 +21,7 @@ namespace BackEnd.Repository
         
         public void Update(Discount discount)
         {
-            var obj = _db.Discount.FirstOrDefault(u=>u.Id == discount.Id);
-            obj.Name = discount.Name;
+            var obj = _db.Discount.FirstOrDefault(u=>u.Name == discount.Name);            
             obj.Description = discount.Description;
             obj.DiscountPercent = discount.DiscountPercent;
             obj.Active = discount.Active;

@@ -10,7 +10,6 @@ namespace BackEnd.Model
     public class Discount
     {
         [Key]
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

@@ -17,14 +17,14 @@ namespace FrontEnd.Pages.Discounts
         }
 
         public Discount Discount { get; set; }
-        public void OnGet(int id)
+        public void OnGet(string id)
         {
-            Discount = _db.Discount.GetFirstOrDefault(u => u.Id == id);
+            Discount = _db.Discount.GetFirstOrDefault(u => u.Name == id);
         }
 
         public async Task<IActionResult> OnPost()
         {
-            var discountFromDb = _db.Discount.GetFirstOrDefault(u => u.Id == Discount.Id);
+            var discountFromDb = _db.Discount.GetFirstOrDefault(u => u.Name == Discount.Name);
             if (discountFromDb != null)
             {
                 _db.Discount.Remove(discountFromDb);

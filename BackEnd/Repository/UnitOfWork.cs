@@ -23,7 +23,8 @@ namespace BackEnd.Repository
             ApplicationUser = new ApplicationUserRepository(_db);
             Canton = new CantonRepository(_db);
             City = new CityRepository(_db);
-            Discount = new DiscountRepository(_db); 
+            Discount = new DiscountRepository(_db);
+            UserAddress = new UserAddressRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -34,7 +35,7 @@ namespace BackEnd.Repository
         public ICantonRepository Canton { get; private set; }
         public ICityRepository City { get; private set; }
         public IDiscountRepository Discount { get; private set; }
-
+        public IUserAddressRepository UserAddress { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

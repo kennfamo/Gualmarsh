@@ -16,6 +16,7 @@ namespace BackEnd.Repository.IRepository
         ICantonRepository Canton { get; }
         ICityRepository City { get; }
         IDiscountRepository Discount { get; }
+        IUserAddressRepository UserAddress { get; }
         void Save();
     }
 }
