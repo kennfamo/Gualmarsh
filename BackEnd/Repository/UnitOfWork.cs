@@ -26,6 +26,7 @@ namespace BackEnd.Repository
             Discount = new DiscountRepository(_db);
             UserAddress = new UserAddressRepository(_db);
             Review = new ReviewRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -38,6 +39,7 @@ namespace BackEnd.Repository
         public IDiscountRepository Discount { get; private set; }
         public IUserAddressRepository UserAddress { get; private set; }
         public IReviewRepository Review { get; private set; }
+        public IOrderDetailRepository OrderDetail { get; private set; }
         public void Dispose()
         {
             _db.Dispose();
