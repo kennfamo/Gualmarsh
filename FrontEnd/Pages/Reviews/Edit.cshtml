@@ -1,0 +1,28 @@
+﻿@page
+@model FrontEnd.Pages.Reviews.EditModel
+
+<form method="post">
+    <input hidden asp-for="Review.Id" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Edit Review</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Review.Title"></label>
+            <input asp-for="Review.Title" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Review.Body"></label>
+            <input asp-for="Review.Body" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Review.Rating"></label>
+            <select asp-for="Review.Rating" asp-items="Model.RatingList" class="form-select">
+                <option disabled selected>--Select Rating--</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>

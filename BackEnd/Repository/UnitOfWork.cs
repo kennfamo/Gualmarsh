@@ -25,6 +25,7 @@ namespace BackEnd.Repository
             City = new CityRepository(_db);
             Discount = new DiscountRepository(_db);
             UserAddress = new UserAddressRepository(_db);
+            Review = new ReviewRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -36,6 +37,7 @@ namespace BackEnd.Repository
         public ICityRepository City { get; private set; }
         public IDiscountRepository Discount { get; private set; }
         public IUserAddressRepository UserAddress { get; private set; }
+        public IReviewRepository Review { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

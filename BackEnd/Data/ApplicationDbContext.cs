@@ -25,6 +25,7 @@ namespace BackEnd.Data
         public DbSet<UserPayment> UserPayment { get; set; }
         public DbSet<Discount> Discount { get; set; }
         public DbSet<UserAddress> UserAddress { get; set; }
+        public DbSet<Review> Review { get; set; }
 
 
 
