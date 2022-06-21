@@ -10,6 +10,7 @@ namespace FrontEnd.Pages.Cantons
     {
         private readonly IUnitOfWork _db;
         public IEnumerable<Canton> Cantons { get; set; }
+        public IEnumerable<Province> Provinces { get; set; }
 
         public IndexModel(IUnitOfWork db)
         {
@@ -18,6 +19,7 @@ namespace FrontEnd.Pages.Cantons
         public void OnGet()
         {
             Cantons = _db.Canton.GetAll(includeProperties: "Province");
+            Provinces = _db.Province.GetAll();
         }
     }
 }

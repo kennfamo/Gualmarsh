@@ -1,0 +1,38 @@
+﻿@page
+@model FrontEnd.Pages.UserAddresses.EditModel
+
+<form method="post">
+    <input hidden asp-for="UserAddress.Id" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Edit User Address</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserAddress.AddressLine1"></label>
+            <input asp-for="UserAddress.AddressLine1" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserAddress.AddressLine2"></label>
+            <input asp-for="UserAddress.AddressLine2" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserAddress.Phone"></label>
+            <input asp-for="UserAddress.Phone" class="form-control"/>
+        </div>        
+        <div class="mb-3">
+            <label asp-for="UserAddress.CityId"></label>
+            <select asp-for="UserAddress.CityId" asp-items="Model.CityList" class="form-select">
+                <option disabled selected>--Select City--</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserAddress.ApplicationUserId"></label>
+            <select asp-for="UserAddress.ApplicationUserId" asp-items="Model.ApplicationUserList" class="form-select">
+                <option disabled selected>--Select User--</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>

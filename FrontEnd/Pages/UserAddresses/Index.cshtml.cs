@@ -4,13 +4,13 @@ using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FrontEnd.Pages.Cities
+namespace FrontEnd.Pages.UserAddresses
 {
     public class IndexModel : PageModel
     {
         private readonly IUnitOfWork _db;
+        public IEnumerable<UserAddress> UserAddresses { get; set; }
         public IEnumerable<City> Cities { get; set; }
-        public IEnumerable<Canton> Cantons { get; set; }
 
         public IndexModel(IUnitOfWork db)
         {
@@ -18,8 +18,7 @@ namespace FrontEnd.Pages.Cities
         }
         public void OnGet()
         {
-            Cities = _db.City.GetAll(includeProperties: "Canton");
-            Cantons = _db.Canton.GetAll();
+            UserAddresses = _db.UserAddress.GetAll(includeProperties: "City,ApplicationUser,City.Canton,City.Canton.Province");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace BackEnd.Repository.IRepository
         IApplicationUserRepository ApplicationUser { get; }
         ICantonRepository Canton { get; }
         ICityRepository City { get; }
+        IUserAddressRepository UserAddress { get;  }
         void Save();
     }
 }
