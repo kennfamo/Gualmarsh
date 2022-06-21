@@ -1,0 +1,25 @@
+﻿@page
+@model FrontEnd.Pages.Discounts.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Discount</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Discount.Name"></label>
+            <input asp-for="Discount.Name" class="form-control"/>
+            <label asp-for="Discount.Description"></label>
+            <input asp-for="Discount.Description" class="form-control"/>
+            <label asp-for="Discount.DiscountPercent"></label>
+            <input asp-for="Discount.DiscountPercent" class="form-control"/>
+            <label asp-for="Discount.Active"></label>
+            <input asp-for="Discount.Active" class="form-control"/>
+            <label asp-for="Discount.CreatedDate"></label>
+            <input asp-for="Discount.CreatedDate" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>

@@ -22,6 +22,7 @@ namespace BackEnd.Repository
             UserPayment = new UserPaymentRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             Canton = new CantonRepository(_db);
+            Discount = new DiscountRepository(_db); 
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -30,6 +31,7 @@ namespace BackEnd.Repository
         public IUserPaymentRepository UserPayment { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public ICantonRepository Canton { get; private set; }
+        public IDiscountRepository Discount { get; private set; }
 
         public void Dispose()
         {
