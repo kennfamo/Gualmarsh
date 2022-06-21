@@ -45,6 +45,12 @@
                 <option disabled selected>--Select Product Category--</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label asp-for="Product.DiscountCode"></label>
+            <select asp-for="Product.DiscountCode" asp-items="Model.DiscountList" class="form-select">
+                <option disabled selected>--Select Product Discount--</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
     </div>

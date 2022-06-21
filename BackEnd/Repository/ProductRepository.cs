@@ -30,6 +30,7 @@ namespace BackEnd.Repository
             obj.Inventory = product.Inventory;
             obj.Price = product.Price;
             obj.ProductCategoryId = product.ProductCategoryId;
+            obj.DiscountCode = product.DiscountCode;
 
             if(obj.Image1 != null)
             {

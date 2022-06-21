@@ -30,6 +30,9 @@ namespace BackEnd.Model
         public int ProductCategoryId { get; set; }
         [ForeignKey("ProductCategoryId")]
         public ProductCategory ProductCategory { get; set; }
+        public string? DiscountCode { get; set; }
+        [ForeignKey("DiscountCode")]
+        public Discount Discount { get; set; }
 
         public Product()
         {

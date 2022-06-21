@@ -18,6 +18,7 @@ namespace FrontEnd.Pages.Products
         
         public Product Product { get; set; }
         public IEnumerable<SelectListItem> ProductCategoryList { get; set; }
+        public IEnumerable<SelectListItem> DiscountList { get; set; }
         public void OnGet(int id)
         {
             Product = _db.Product.GetFirstOrDefault(u => u.Id == id);
@@ -25,6 +26,11 @@ namespace FrontEnd.Pages.Products
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
+            });
+            DiscountList = _db.Discount.GetAll().Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Name
             });
         }
 

@@ -13,6 +13,7 @@ namespace FrontEnd.Pages.Products
         private readonly IUnitOfWork _db;
         public Product Product { get; set; }
         public IEnumerable<SelectListItem> ProductCategoryList { get; set; }
+        public IEnumerable<SelectListItem> DiscountList { get; set; }
         public CreateModel(IUnitOfWork db)
         {
             _db = db;
@@ -24,6 +25,11 @@ namespace FrontEnd.Pages.Products
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
+            });
+            DiscountList = _db.Discount.GetAll().Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Name
             });
         }
 
