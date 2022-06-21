@@ -14,6 +14,7 @@ namespace BackEnd.Repository.IRepository
         IUserPaymentRepository UserPayment { get; }
         IApplicationUserRepository ApplicationUser { get; }
         ICantonRepository Canton { get; }
+        ICityRepository City { get; }
         IDiscountRepository Discount { get; }
         void Save();
     }
