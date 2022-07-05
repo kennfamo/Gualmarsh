@@ -4302,3 +4302,17 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 .list{
   list-style-type: none;
 }
+
+.product-thumb{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-thumb img{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: table;
+    margin: 1rem auto 0;
+}
