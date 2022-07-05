@@ -142,13 +142,13 @@
 }
 .noti-icon .noti-dot {
   position: absolute;
-  display: inline-block;
-  height: 10px;
-  width: 10px;
   background-color: #FFC220;
   border-radius: 50%;
-  top: 20px;
-  right: 5px;
+  top: 8px;
+  right: 8px;
+  font-weight: 900;
+  padding: 2px 6px;
+  color: black;
 }
 .notification-item .d-flex {
   padding: 0.75rem 1rem;
