@@ -77,7 +77,7 @@ namespace FrontEnd.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Email Address")]
             public string Email { get; set; }
 
             /// <summary>
@@ -90,10 +90,13 @@ namespace FrontEnd.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
             [Required]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
             [Required]
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
             [Required]
+            [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
             /// <summary>
@@ -101,8 +104,9 @@ namespace FrontEnd.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Required]
+            [Display(Name = "Confirm Password")]
+            [Compare("Password", ErrorMessage = "The passwords do not match.")]
             public string ConfirmPassword { get; set; }
         }
 

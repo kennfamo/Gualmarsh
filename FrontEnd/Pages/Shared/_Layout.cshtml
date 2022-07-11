@@ -25,7 +25,7 @@
 			<div class="navbar-header" style="background-color: #0071CE;">
 				<div class="d-flex">
 					<div class="navbar-brand-box" style="background-color: #0071CE;">
-						<a href="#" class="logo">
+						<a asp-page="/Index" class="logo">
 							<img src="~/images/logo-light.png" alt="logo-light">  
 						</a>                    
 					</div>
@@ -220,20 +220,7 @@
 							</div>							
 						</div>
 					</div>
-					<div class="dropdown d-inline-block user-dropdown">
-						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="d-none d-xl-inline-block ms-1">{{user.username}}</span>
-							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-						</button>
-						<div class="dropdown-menu dropdown-menu-end">
-							<!-- item--> <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i>Cuenta</a>
-							<a class="dropdown-item" href="#" key="t-my-wallet" ><i class="ri-wallet-2-line align-middle me-1"></i>Ordenes</a>
-							<a class="dropdown-item d-block" href="#" key="t-t-settings"><i class="ri-settings-2-line align-middle me-1"></i>Configuración</a>
-							<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href=""><i class="mdi mdi-lock text-muted font-size-16 align-middle me-1"></i> <span class="align-middle" key="t-lock-screen">Cambiar Contraseña</span></a>
-								<a class="dropdown-item text-danger" href=""><i class="ri-shut-down-line align-middle me-1 text-danger"></i> <span class="align-middle" key="t-logout">Cerrar Sesión</span></a>
-						</div>
-					</div>					
+					<partial name="_LoginPartial"/>			
 				</div>          
 			</div>
 		</header> 

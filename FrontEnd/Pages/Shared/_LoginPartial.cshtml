@@ -3,25 +3,39 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+<div class="dropdown d-inline-block user-dropdown">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="d-none d-xl-inline-block ms-1">@UserManager.GetUserName(User)</span>
+		    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+	    </button>
+	    <div class="dropdown-menu dropdown-menu-end">
+		    <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i>Account</a>
+		    <a class="dropdown-item" href="#" key="t-my-wallet" ><i class="ri-wallet-2-line align-middle me-1"></i>Orders</a>
+		    <a class="dropdown-item d-block" href="#" key="t-t-settings"><i class="ri-settings-2-line align-middle me-1"></i>Settings</a>
+		    <div class="dropdown-divider"></div>
+			    <a class="dropdown-item" href=""><i class="mdi mdi-lock text-muted font-size-16 align-middle me-1"></i> <span class="align-middle" key="t-lock-screen">Change Password</span></a>
+			    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+				<button class="dropdown-item text-danger" type="submit">
+                    <i class="ri-shut-down-line align-middle me-1 text-danger"></i>
+                    <span class="align-middle" key="t-logout">Log Out</span>
+                </button>
+				</form>
+        </div>
+    }
+    else
+    {
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="d-none d-xl-inline-block ms-1">Register/LogIn</span>
+		    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+	    </button>
+	    <div class="dropdown-menu dropdown-menu-end">
+		    <a class="dropdown-item" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="ri-login-box-line align-middle me-1"></i>Log In</a>
+		    <a class="dropdown-item" id="register" asp-area="Identity" asp-page="/Account/Register"><i class=" ri-user-add-line align-middle me-1"></i>Create Account</a>
+		    
+        </div>
+    }
+
+</div>	
+
