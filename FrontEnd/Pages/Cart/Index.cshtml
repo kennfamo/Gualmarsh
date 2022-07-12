@@ -1,0 +1,166 @@
+﻿@page
+@model FrontEnd.Pages.Cart.IndexModel
+@section Styles {
+   @{
+	<partial name="_ShoppingCartStylesPartial"/>
+    }
+}
+<form method="post">
+    <br />
+    @if(Model.ShoppingCartList.Count() == 0)
+    {
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <div class="maintenance-img">
+                                <img src="~/images/empty_cart.png" alt="empty_cart" class="img-fluid d-block avatar-huge" style="margin-left: 11%">
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mt-5">Your cart is empty!</h3>
+					<a href="./Index" class="btn btn-primary">Start Shopping</a>
+                </div>                            
+            </div>
+            <div class="col-2"></div>                        
+		</div>
+	}
+	else
+	{
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+					<h4 class="mb-sm-0">{{title}}</h4>
+					<div class="page-title-right">
+						<ol class="breadcrumb m-0">
+							<li class="breadcrumb-item"><a href="javascript: void(0);">{{pageview}}</a>
+							</li>
+							<li class="breadcrumb-item active">{{title}}</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8">
+				<a href="./Index" class="btn btn-secondary w-lg waves-effect waves-light float-sm-end">Continue Shopping</a>
+				<br />
+				<br />
+				<div class="card mt-3">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-centered mb-0 table-nowrap">
+								<thead class="bg-light">
+									<tr>
+										<th style="width: 120px">Product</th>
+										<th>Product Description</th>
+										<th>Price</th>
+										<th>Quantity</th>
+										<th>Total</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>						
+								<tbody>
+									@foreach(var item in Model.ShoppingCartList){
+									<tr>
+										<td>
+											<img src="@item.Product.Image1" alt="product-img"
+												title="product-img" class="avatar-md" />
+										</td>
+										<td>
+											<h5 class="font-size-14 text-truncate"><a href="product_detail.html" class="text-dark">@item.Product.Name</a></h5>
+											<p class="mb-0">Brand: <span class="fw-medium">@item.Product.Brand</span></p>
+											<p class="mb-0">Category: <span class="fw-medium">@item.Product.ProductCategory.Name</span></p>
+										</td>
+										<td>
+											₡@item.Product.Price
+										</td>	
+										<td>
+											@item.Quantity
+										</td>
+										<td>
+											@{var calc = item.Product.Price * item.Quantity ;}
+											₡@calc.ToString();
+										</td>
+										<td>
+											<div class="product-cart-touchspin">
+												<span class="input-group-btn input-group-prepend">
+													<button class="btn btn-primary bootstrap-touchspin-down" asp-page-handler="minus" 
+													asp-route-cartId="@item.Id" type="submit">-</button>
+												</span>											
+												<span class="input-group-btn input-group-append">
+													<button class="btn btn-primary bootstrap-touchspin-up" asp-page-handler="plus" 
+													asp-route-cartId="@item.Id" type="submit">+</button>
+												</span>		
+											</div>																			
+										</td>
+										<td style="width: 90px;" class="text-center">
+											<button style="border: none; background: none;" type="submit" asp-page-handler="remove" 
+													asp-route-cartId="@item.Id" class="action-icon text-danger"> 
+												<i class="mdi mdi-trash-can font-size-18"></i>
+											</button>
+										</td>
+									</tr>
+									}
+									<tr class="bg-light text-end">
+													
+										<th scope="row" colspan="6">
+											Sub Total :
+										</th>
+													
+										<td>
+											₡@Model.CartTotal
+										</td>
+									</tr>
+									<tr class="bg-light text-end">
+													
+										<th scope="row" colspan="6">
+											Discount:
+										</th>
+													
+										<td>
+											- $ 30
+										</td>
+									</tr>
+									<tr class="bg-light text-end">
+													
+										<th scope="row" colspan="6">
+											Shipping Charge:
+										</th>
+													
+										<td>
+											₡1500
+										</td>
+									</tr>
+									<tr class="bg-light text-end">
+													
+										<th scope="row" colspan="6">
+											Total:
+										</th>
+													
+										<td>
+											@{var totalCalc = Model.CartTotal + 1500 ;}
+											₡@totalCalc.ToString();
+										</td>
+									</tr>
+								</tbody>												
+							</table>
+						</div>
+					</div>
+				</div>		
+				<button type="submit" class="btn btn-primary w-lg waves-effect waves-light float-sm-end">Checkout</button>                                                        					
+			</div>
+			<div class="col-lg-2"></div>
+		</div>
+	}
+</form>	
+@section Scripts {
+   @{
+	<partial name="_ShoppingCartScriptsPartial"/>
+    }
+}

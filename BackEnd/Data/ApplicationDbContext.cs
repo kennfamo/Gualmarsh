@@ -28,6 +28,7 @@ namespace BackEnd.Data
         public DbSet<Review> Review { get; set; }
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
 
     }

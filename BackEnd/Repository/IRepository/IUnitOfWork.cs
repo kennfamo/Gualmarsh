@@ -19,6 +19,7 @@ namespace BackEnd.Repository.IRepository
         IUserAddressRepository UserAddress { get; }
         IReviewRepository Review { get; }
         IOrderDetailRepository OrderDetail { get; }
+        IShoppingCartRepository ShoppingCart { get;  }
         void Save();
     }
 }

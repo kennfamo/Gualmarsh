@@ -3594,9 +3594,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   margin-right: 14px;
 }
 .product-cart-touchspin {
-  border: 1px solid #ced4da;
-  background-color: #fff;
-  border-radius: 0.25rem;
+  
 }
 .product-cart-touchspin .form-control {
   border-color: transparent;
@@ -3606,7 +3604,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   background-color: transparent !important;
   border-color: transparent !important;
   color: #0071CE !important;
-  font-size: 16px;
+  font-size: 20px;
   padding: 3px 12px;
   -webkit-box-shadow: none;
   box-shadow: none;
