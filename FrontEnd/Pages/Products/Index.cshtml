@@ -1,62 +1,279 @@
 ﻿@page
 @model FrontEnd.Pages.Products.IndexModel
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-9">
-            <h2 class="text-primary">Product List</h2>
+@section Styles {
+   @{
+    <partial name="_ProductStylesPartial"/>
+    }
+}
+<div class="row">
+<div class="col-xl-3 col-lg-4">
+    <div class="card">
+        <div class="card-header bg-transparent border-bottom">
+            <h5 class="mb-0">Filtros</h5>
         </div>
-        <div class="col-3">
-            <a asp-page="Create" class="btn btn-primary">
-                <i class="bi bi-plus-square"></i> &nbsp;Create New Product
-            </a>
+
+        <div class="card-body">
+            <h5 class="font-size-14 mb-3">Categorías</h5>
+
+            <div class="accordion ecommerce" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> Electrónicos
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-unstyled categories-list mb-0">
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Móvil</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Accesorios Móvil</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Computadoras</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Laptops</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Parlantes</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <i class="mdi mdi-hanger font-size-16 align-middle me-2"></i> Moda
+                    </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-unstyled categories-list mb-0">
+                            <li class="active"><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Zapatos</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Relojes</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa de Deporte</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <i class="mdi mdi-pinwheel-outline font-size-16 align-middle me-2"></i> Niños y Bebés
+                    </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-unstyled categories-list mb-0">
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Zapatos</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Juguetes</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Cuidado del Bebé</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion-item mb-3">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <i class="mdi mdi-dumbbell font-size-16 align-middle me-2"></i> Fitness
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <ul class="list-unstyled categories-list mb-0">
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Equipo de Gimnasio</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Yoga</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Mancuernas</a></li>
+                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Suplementos</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body border-top">
+            <div>
+                <h5 class="font-size-14 mb-4">Precio</h5>
+
+                <input type="text" id="pricerange">
+            </div>
+        </div>
+
+        <div class="custom-accordion">
+            <div class="card-body border-top">
+                <div>
+                    <h5 class="font-size-14 mb-0"><a href="#collapseExample1" class="text-dark d-block" data-bs-toggle="collapse" >Descuento <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
+
+                    <div class="collapse show" id="collapseExample1">
+    
+                        <div class="mt-4">
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio6" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio6">50% o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio5" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio5">40% o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio4" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio4">30% o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio3" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio3">20% o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio2" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio2">10% o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productdiscountRadio1" name="productdiscountRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productdiscountRadio1">Menos de 10%</label>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body border-top">
+                <div>
+                    <h5 class="font-size-14 mb-0"><a href="#collapseExample2" class="text-dark d-block" data-bs-toggle="collapse">Talla <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
+
+                    <div class="collapse show" id="collapseExample2">
+    
+                        <div class="mt-4">
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productsizeRadio1" name="productsizeRadio" class="form-check-input">
+                                <label class="form-check-label" for="productsizeRadio1">XL</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productsizeRadio2" name="productsizeRadio" class="form-check-input">
+                                <label class="form-check-label" for="productsizeRadio2">L</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productsizeRadio3" name="productsizeRadio" class="form-check-input">
+                                <label class="form-check-label" for="productsizeRadio3">M</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productsizeRadio4" name="productsizeRadio" class="form-check-input">
+                                <label class="form-check-label" for="productsizeRadio4">S</label>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top">
+                <div>
+                    <h5 class="font-size-14 mb-0"><a href="#collapseExample3" class="collapsed text-dark d-block" data-bs-toggle="collapse">Valoraciones <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
+
+                    <div class="collapse" id="collapseExample3">
+    
+                        <div class="mt-4">
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productratingRadio1" name="productratingRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productratingRadio1">4 <i class="mdi mdi-star text-warning"></i>  o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productratingRadio2" name="productratingRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productratingRadio2">3 <i class="mdi mdi-star text-warning"></i>  o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productratingRadio3" name="productratingRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productratingRadio3">2 <i class="mdi mdi-star text-warning"></i>  o más</label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="radio" id="productratingRadio4" name="productratingRadio1" class="form-check-input">
+                                <label class="form-check-label" for="productratingRadio4">1 <i class="mdi mdi-star text-warning"></i></label>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <br />
-    <br />
-    <table class="table table-bordered table-striped" style="width: 100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>SKU</th>
-                <th>Brand</th>
-                <th>Weight</th>
-                <th>Container Type</th>
-                <th>Inventory</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th>Created Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var obj in Model.Products)
-            {
-                <tr>
-                    <td>@obj.Name</td>
-                    <td>@obj.Description</td>
-                    <td>@obj.ProductCategory.Name</td>
-                    <td>@obj.SKU</td>
-                    <td>@obj.Brand</td>
-                    <td>@obj.Weight</td>
-                    <td>@obj.ContainerType</td>
-                    <td>@obj.Inventory</td>
-                    <td>@obj.Price</td>
-                    <td>@obj.Discount.Description</td>
-                    <td>@obj.CreatedDate</td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }            
-        </tbody>
-    </table>
 </div>
+<div class="col-lg-9">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <h5>Breakfast & Cereal</h5>                            
+                        </div>
+                    </div>                                      
+                </div>
+
+                <ul class="list-inline my-3 ecommerce-sortby-list">
+                    <li class="list-inline-item"><span class="fw-medium font-family-secondary">Ordenar por:</span></li>
+                    <li class="list-inline-item active"><a href="#">Popularidad</a></li>
+                    <li class="list-inline-item"><a href="#">Reciente</a></li>
+                    <li class="list-inline-item"><a href="#">Descuento</a></li>
+                </ul>
+                    <div class="row g-0">
+                    @foreach(var product in Model.ProductList)
+                    {
+                        <div class="col-xl-4">
+                            <div class="product-box">
+                                <div class="product-img">
+                                    <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
+                                </div>
+                                <br>                    
+                                <div class="text-center mt-2">
+                                    <p class="font-size-12 mb-1">@product.Brand</p>
+                                    <h5 class="font-size-14"><a asp-page="Details" asp-route-id="@product.Id" class="text-dark">@product.Name</a></h5>
+
+                                    <h5 class="mt-3 mb-0">₡@product.Price</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    
+
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <div>
+                            <p class="mb-sm-0 mt-2">Page <span class="fw-bold">2</span> Of <span class="fw-bold">113</span></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="float-sm-end">
+                            <ul class="pagination pagination-rounded mb-sm-0">
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">5</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-end"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts{
+    @{
+    <partial name="_ProductScriptsPartial"/>
+    }
+}

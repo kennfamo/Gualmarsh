@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 
-namespace FrontEnd.Pages.Products.Breakfast_Cereal
+namespace FrontEnd.Pages.Products
 {
     public class DetailsModel : PageModel
     {
@@ -20,15 +20,13 @@ namespace FrontEnd.Pages.Products.Breakfast_Cereal
 
         public void OnGet(int id)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            
 
             ShoppingCart = new()
             {
-                ApplicationUserId = claim.Value,
                 Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "ProductCategory"),
                 ProductId = id
-            };            
+            };
         }
 
         public IActionResult OnPost()
@@ -38,9 +36,12 @@ namespace FrontEnd.Pages.Products.Breakfast_Cereal
                 ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
                     filter: u => u.ApplicationUserId == ShoppingCart.ApplicationUserId &&
                     u.ProductId == ShoppingCart.ProductId);
-                if(shoppingCartFromDb == null)
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                if (shoppingCartFromDb == null)
                 {
                     ShoppingCart.Quantity = 1;
+                    ShoppingCart.ApplicationUserId = claim.Value;
                     _unitOfWork.ShoppingCart.Add(ShoppingCart);
                     _unitOfWork.Save();
                     return RedirectToPage("Index");
@@ -48,6 +49,7 @@ namespace FrontEnd.Pages.Products.Breakfast_Cereal
                 else
                 {
                     ShoppingCart.Quantity = 1;
+                    ShoppingCart.ApplicationUserId = claim.Value;
                     _unitOfWork.ShoppingCart.IncrementCount(shoppingCartFromDb, ShoppingCart.Quantity);
                     return RedirectToPage("Index");
                 }

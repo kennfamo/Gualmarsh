@@ -1,5 +1,5 @@
 ﻿@page
-@model FrontEnd.Pages.Products.Breakfast_Cereal.DetailsModel
+@model FrontEnd.Pages.Products.DetailsModel
 <div class="row">
     <div class="col-12">
 	    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -64,7 +64,7 @@
                                     </div>   
                                         <form method="post">
                                         <input asp-for="ShoppingCart.ProductId" hidden />
-                                        <input asp-for="ShoppingCart.ApplicationUserId" hidden />
+                                        <input asp-for="ShoppingCart.ApplicationUserId" hidden value="0"/>
                                         <div class="row text-center mt-2">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-6">

@@ -2,21 +2,27 @@ using BackEnd.Model;
 using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
 
 namespace FrontEnd.Pages.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly IUnitOfWork _db;
-        public IEnumerable<Product> Products { get; set; }
+        private readonly IUnitOfWork _unitOfWork;
 
-        public IndexModel(IUnitOfWork db)
+        public IndexModel(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
-        public void OnGet()
+
+        public IEnumerable<Product> ProductList { get; set; }
+        public IEnumerable<ProductCategory> ProductCategoryList { get; set; }
+
+        public void OnGet(int id)
         {
-            Products = _db.Product.GetAll(includeProperties: "ProductCategory,Discount");
+            
+            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductCategoryId == id, includeProperties: "ProductCategory");
+
         }
     }
 }
