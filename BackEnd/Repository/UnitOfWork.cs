@@ -27,6 +27,8 @@ namespace BackEnd.Repository
             UserAddress = new UserAddressRepository(_db);
             Review = new ReviewRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
+            OrderDetails = new OrderDetailsRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -40,6 +42,8 @@ namespace BackEnd.Repository
         public IUserAddressRepository UserAddress { get; private set; }
         public IReviewRepository Review { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
+        public IOrderDetailsRepository OrderDetails { get; private set; }
+        public IOrderHeaderRepository OrderHeader { get; private set; }
         public void Dispose()
         {
             _db.Dispose();
