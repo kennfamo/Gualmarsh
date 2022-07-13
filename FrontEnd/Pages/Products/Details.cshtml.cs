@@ -33,26 +33,33 @@ namespace FrontEnd.Pages.Products
         {
             if (ModelState.IsValid)
             {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                ShoppingCart.ApplicationUserId = claim.Value;
                 ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
                     filter: u => u.ApplicationUserId == ShoppingCart.ApplicationUserId &&
                     u.ProductId == ShoppingCart.ProductId);
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                if (shoppingCartFromDb == null)
+                
+                if(claim != null)
                 {
-                    ShoppingCart.Quantity = 1;
-                    ShoppingCart.ApplicationUserId = claim.Value;
-                    _unitOfWork.ShoppingCart.Add(ShoppingCart);
-                    _unitOfWork.Save();
+                    if (shoppingCartFromDb == null)
+                    {
+                        ShoppingCart.Quantity = 1;                        
+                        _unitOfWork.ShoppingCart.Add(ShoppingCart);
+                        _unitOfWork.Save();
+                        return RedirectToPage("Index");
+                    }
+                    else
+                    {
+                        ShoppingCart.Quantity = 1;
+                        _unitOfWork.ShoppingCart.IncrementCount(shoppingCartFromDb, ShoppingCart.Quantity);                        
+                    }
                     return RedirectToPage("Index");
                 }
                 else
                 {
-                    ShoppingCart.Quantity = 1;
-                    ShoppingCart.ApplicationUserId = claim.Value;
-                    _unitOfWork.ShoppingCart.IncrementCount(shoppingCartFromDb, ShoppingCart.Quantity);
-                    return RedirectToPage("Index");
-                }
+                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                }                
             }
             return Page();
         }
