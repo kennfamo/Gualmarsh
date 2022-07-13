@@ -1,5 +1,5 @@
 ﻿@using BackEnd.Model
-@model IEnumerable<ProductCategory>
+@model IEnumerable<ProductSubcategory>
 <div class="dropdown dropdown-mega d-none d-lg-block ms-4">
 	<button type="button" class="btn header-item waves-effect" style="font-size: 18px;" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false" key="t-megamenu">Mega Menu <i class="mdi mdi-chevron-down"></i> 
 	</button>
@@ -7,13 +7,13 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row">
-					@foreach (var category in Model)
+					@foreach (var item in Model)
 					{
-					<div class="col-md-4">
-						<h5 class="font-size-14">@category.Name</h5>
+					<div class="col-md-2">
+						<h5 class="font-size-14">@item.ProductCategory.Name</h5>
 						<ul class="list-unstyled megamenu-list">
 							
-							<li> <a asp-route-id="@category.Id" asp-page="/Products/Index">@category.Name</a>
+							<li> <a asp-route-id="@item.Id" asp-page="/Products/Index">@item.Name</a>
 							</li>
 							
 						</ul>

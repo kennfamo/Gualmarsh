@@ -16,12 +16,12 @@ namespace FrontEnd.Pages.Products
         }
 
         public IEnumerable<Product> ProductList { get; set; }
-        public IEnumerable<ProductCategory> ProductCategoryList { get; set; }
+        public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
 
         public void OnGet(int id)
         {
             
-            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductCategoryId == id, includeProperties: "ProductCategory");
+            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
 
         }
     }

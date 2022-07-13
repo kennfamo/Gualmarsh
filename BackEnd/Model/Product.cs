@@ -27,9 +27,9 @@ namespace BackEnd.Model
         public string? Image3 { get; set; }
         public string? Image4 { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int ProductCategoryId { get; set; }
-        [ForeignKey("ProductCategoryId")]
-        public ProductCategory ProductCategory { get; set; }
+        public int ProductSubcategoryId { get; set; }
+        [ForeignKey("ProductSubcategoryId")]
+        public ProductSubcategory ProductSubcategory { get; set; }
         public string? DiscountCode { get; set; }
         [ForeignKey("DiscountCode")]
         public Discount Discount { get; set; }

@@ -29,7 +29,7 @@ namespace BackEnd.Repository
             obj.ContainerType = product.ContainerType;
             obj.Inventory = product.Inventory;
             obj.Price = product.Price;
-            obj.ProductCategoryId = product.ProductCategoryId;
+            obj.ProductSubcategoryId = product.ProductSubcategoryId;
             obj.DiscountCode = product.DiscountCode;
 
             if(obj.Image1 != null)

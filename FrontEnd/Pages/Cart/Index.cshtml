@@ -60,7 +60,8 @@
 										<td>
 											<h5 class="font-size-14 text-truncate"><a href="product_detail.html" class="text-dark">@item.Product.Name</a></h5>
 											<p class="mb-0">Brand: <span class="fw-medium">@item.Product.Brand</span></p>
-											<p class="mb-0">Category: <span class="fw-medium">@item.Product.ProductCategory.Name</span></p>
+											<p class="mb-0">Category: <span class="fw-medium">@item.Product.ProductSubcategory.ProductCategory.Name</span></p>
+											<p class="mb-0">Subcategory: <span class="fw-medium">@item.Product.ProductSubcategory.Name</span></p>
 										</td>
 										<td>
 											₡@item.Product.Price

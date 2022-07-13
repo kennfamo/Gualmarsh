@@ -12,14 +12,14 @@ namespace FrontEnd.Pages.Components.Menu
         {
             _unitOfWork = unitOfWork;
         }
-        public IEnumerable<ProductCategory> ProductCategoryList { get; set; }
+        public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
 
 
         public IViewComponentResult Invoke()
         {
-            ProductCategoryList = _unitOfWork.ProductCategory.GetAll();
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
 
-            return View("Default", ProductCategoryList);
+            return View("Default", ProductSubcategoryList);
         }
     }
 }

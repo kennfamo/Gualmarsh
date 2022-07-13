@@ -16,7 +16,7 @@ namespace FrontEnd.Pages.Products
         }
         public void OnGet()
         {
-            Products = _db.Product.GetAll(includeProperties: "ProductCategory,Discount");
+            Products = _db.Product.GetAll(includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory,Discount");
         }
     }
 }

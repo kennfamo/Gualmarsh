@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-xl-3">
                         <div class="mt-4 mt-xl-3">
-                            <a href="#" class="text-primary">@Model.ShoppingCart.Product.ProductCategory.Name</a>
+                            <a href="#" class="text-primary">@Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</a>
                             <h5 class="mt-1 mb-3">@Model.ShoppingCart.Product.Name</h5>
 
                             <div class="d-inline-flex">
@@ -107,7 +107,7 @@
                                         <h5 class="font-size-14">Specification :</h5>
                                         <ul class="list-unstyled product-desc-list">
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.Brand</li>
-                                            <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.ProductCategory.Name</li>
+                                            <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</li>
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.ContainerType</li>
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.Weight</li>
                                         </ul>
@@ -147,7 +147,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row" style="width: 400px;">Category</th>
-                                                        <td>@Model.ShoppingCart.Product.ProductCategory.Name</td>
+                                                        <td>@Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Brand</th>

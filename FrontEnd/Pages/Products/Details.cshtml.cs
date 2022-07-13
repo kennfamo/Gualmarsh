@@ -19,12 +19,10 @@ namespace FrontEnd.Pages.Products
         public ShoppingCart ShoppingCart { get; set; }
 
         public void OnGet(int id)
-        {
-            
-
+        {           
             ShoppingCart = new()
             {
-                Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "ProductCategory"),
+                Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
                 ProductId = id
             };
         }

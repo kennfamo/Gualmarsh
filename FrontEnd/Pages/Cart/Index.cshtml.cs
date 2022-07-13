@@ -27,7 +27,7 @@ namespace FrontEnd.Pages.Cart
             if (claim != null)
             {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u=>u.ApplicationUserId == claim.Value,
-                    includeProperties:"Product,Product.ProductCategory");
+                    includeProperties:"Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
                 foreach(var cartItem in ShoppingCartList)
                 {
                     CartTotal += (cartItem.Product.Price * cartItem.Quantity);

@@ -30,7 +30,7 @@ namespace FrontEnd.Pages.Products
                 _db.Save();
             }
             
-            return RedirectToPage("Index");
+            return RedirectToPage("Index2");
         }
     }
 }

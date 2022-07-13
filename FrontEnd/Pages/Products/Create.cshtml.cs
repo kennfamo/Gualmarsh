@@ -12,7 +12,7 @@ namespace FrontEnd.Pages.Products
     {
         private readonly IUnitOfWork _db;
         public Product Product { get; set; }
-        public IEnumerable<SelectListItem> ProductCategoryList { get; set; }
+        public IEnumerable<SelectListItem> ProductSubcategoryList { get; set; }
         public IEnumerable<SelectListItem> DiscountList { get; set; }
         public CreateModel(IUnitOfWork db)
         {
@@ -21,7 +21,7 @@ namespace FrontEnd.Pages.Products
         
         public void OnGet()
         {
-            ProductCategoryList = _db.ProductCategory.GetAll().Select(i => new SelectListItem()
+            ProductSubcategoryList = _db.ProductSubcategory.GetAll().Select(i => new SelectListItem()
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
@@ -37,7 +37,7 @@ namespace FrontEnd.Pages.Products
         {
             _db.Product.Add(Product);
             _db.Save();
-            return RedirectToPage("Index");
+            return RedirectToPage("Index2");
         }
     }
 }
