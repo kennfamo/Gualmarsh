@@ -20,7 +20,7 @@ namespace FrontEnd.Pages.Products
 
         public void OnGet(int id)
         {
-            
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Id == id, includeProperties: "ProductCategory");
             ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
 
         }

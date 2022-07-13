@@ -33,6 +33,7 @@ namespace BackEnd.Model
         public string? DiscountCode { get; set; }
         [ForeignKey("DiscountCode")]
         public Discount Discount { get; set; }
+        
 
         public Product()
         {

@@ -11,6 +11,7 @@ namespace FrontEnd.Pages.Products
     public class CreateModel : PageModel
     {
         private readonly IUnitOfWork _db;
+
         public Product Product { get; set; }
         public IEnumerable<SelectListItem> ProductSubcategoryList { get; set; }
         public IEnumerable<SelectListItem> DiscountList { get; set; }
