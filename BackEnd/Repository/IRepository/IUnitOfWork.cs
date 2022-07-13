@@ -21,6 +21,7 @@ namespace BackEnd.Repository.IRepository
         IShoppingCartRepository ShoppingCart { get; }
         IOrderDetailsRepository OrderDetails { get; }
         IOrderHeaderRepository OrderHeader { get;  }
+        IProductSubcategoryRepository ProductSubcategory { get; }
         void Save();
     }
 }

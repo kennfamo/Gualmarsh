@@ -1,0 +1,23 @@
+﻿@page
+@model FrontEnd.Pages.ProductSubcategories.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Product Subcategory</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductSubcategory.Name"></label>
+            <input asp-for="ProductSubcategory.Name" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductSubcategory.ProductCategoryId"></label>
+            <select asp-for="ProductSubcategory.ProductCategoryId" asp-items="Model.ProductCategoryList" class="form-select">
+                <option disabled selected>--Select Product Category--</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
+    </div>
+</form>

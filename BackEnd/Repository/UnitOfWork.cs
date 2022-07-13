@@ -29,6 +29,7 @@ namespace BackEnd.Repository
             ShoppingCart = new ShoppingCartRepository(_db);
             OrderDetails = new OrderDetailsRepository(_db);
             OrderHeader = new OrderHeaderRepository(_db);
+            ProductSubcategory = new ProductSubcategoryRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -44,6 +45,7 @@ namespace BackEnd.Repository
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IOrderDetailsRepository OrderDetails { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
+        public IProductSubcategoryRepository ProductSubcategory { get; private set; }
         public void Dispose()
         {
             _db.Dispose();
