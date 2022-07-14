@@ -34,16 +34,18 @@ namespace FrontEnd.Pages.Products
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 
-                ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
-                    filter: u => u.ApplicationUserId == ShoppingCart.ApplicationUserId &&
-                    u.ProductId == ShoppingCart.ProductId);
+                
                 
                 if(claim != null)
                 {
+                    ShoppingCart.ApplicationUserId = claim.Value;
+                    ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
+                    filter: u => u.ApplicationUserId == ShoppingCart.ApplicationUserId &&
+                    u.ProductId == ShoppingCart.ProductId);
                     if (shoppingCartFromDb == null)
                     {
                         ShoppingCart.Quantity = 1;
-                        ShoppingCart.ApplicationUserId = claim.Value;
+                        
                         _unitOfWork.ShoppingCart.Add(ShoppingCart);
                         _unitOfWork.Save();
                         return RedirectToPage("Index");
