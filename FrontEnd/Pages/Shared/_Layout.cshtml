@@ -54,78 +54,7 @@
 							</form>
 						</div>
 					</div>
-					<div class="dropdown d-inline-block">
-						<button type="button" class="btn header-item noti-icon waves-effect" style="padding:14px 28px" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-shopping-cart-fill"></i>
-							<span class="noti-dot">15</span>
-						</button>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
-							<div class="p-3">
-								<div class="row align-items-center">
-									<div class="col">
-										<h6 class="m-0"> Cart Items </h6>
-									</div>
-									<div class="col-auto"> <a asp-page="/Cart/Index" class="small"> View All</a>
-									</div>
-								</div>
-							</div>
-							<div data-simplebar style="max-height: 230px;">
-								<a href="" class="text-reset notification-item">
-									<div class="d-flex">
-										<div class="avatar-xs me-3"> <span class="avatar-title bg-primary rounded-circle font-size-16">
-													<i class="ri-shopping-cart-line"></i>
-												</span>
-										</div>
-										<div class="flex-1">
-											<h6 class="mb-1" key="t-your-order">Your order is placed</h6>
-											<div class="font-size-12 text-muted">
-												<p class="mb-1">If several languages coalesce the grammar</p>
-												<p class="mb-0"><i class="mdi mdi-clock-outline" key="t-min-ago"></i> 3 min ago</p>
-											</div>
-										</div>
-									</div>
-								</a>
-								<a href="" class="text-reset notification-item">
-									<div class="d-flex">
-										<img src="" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-										<div class="flex-1">
-											<h6 class="mb-1">James Lemire</h6>
-											<div class="font-size-12 text-muted">
-												<p class="mb-1">It will seem like simplified English.</p>
-												<p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
-											</div>
-										</div>
-									</div>
-								</a>
-								<a href="" class="text-reset notification-item">
-									<div class="d-flex">
-										<div class="avatar-xs me-3"> <span class="avatar-title bg-success rounded-circle font-size-16">
-													<i class="ri-checkbox-circle-line"></i>
-												</span>
-										</div>
-										<div class="flex-1">
-											<h6 class="mb-1">Your item is shipped</h6>
-											<div class="font-size-12 text-muted">
-												<p class="mb-1">If several languages coalesce the grammar</p>
-												<p class="mb-0" key="t-min-ago"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
-											</div>
-										</div>
-									</div>
-								</a>
-								<a href="" class="text-reset notification-item">
-									<div class="d-flex">
-										<img src="" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-										<div class="flex-1">
-											<h6 class="mb-1">Salena Layfield</h6>
-											<div class="font-size-12 text-muted">
-												<p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
-												<p class="mb-0" key="t-hours-ago"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
-											</div>
-										</div>
-									</div>
-								</a>
-							</div>							
-						</div>
-					</div>
+					@await Component.InvokeAsync("Cart")
 					<partial name="_LoginPartial"/>			
 				</div>          
 			</div>

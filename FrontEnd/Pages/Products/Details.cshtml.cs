@@ -9,7 +9,7 @@ namespace FrontEnd.Pages.Products
     public class DetailsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        
         public DetailsModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -33,7 +33,7 @@ namespace FrontEnd.Pages.Products
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                ShoppingCart.ApplicationUserId = claim.Value;
+                
                 ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
                     filter: u => u.ApplicationUserId == ShoppingCart.ApplicationUserId &&
                     u.ProductId == ShoppingCart.ProductId);
@@ -42,7 +42,8 @@ namespace FrontEnd.Pages.Products
                 {
                     if (shoppingCartFromDb == null)
                     {
-                        ShoppingCart.Quantity = 1;                        
+                        ShoppingCart.Quantity = 1;
+                        ShoppingCart.ApplicationUserId = claim.Value;
                         _unitOfWork.ShoppingCart.Add(ShoppingCart);
                         _unitOfWork.Save();
                         return RedirectToPage("Index");

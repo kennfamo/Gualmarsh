@@ -1,0 +1,42 @@
+﻿@model FrontEnd.Pages.Components.Cart.CartViewModel
+<div class="dropdown d-inline-block">
+	<button type="button" class="btn header-item noti-icon waves-effect" style="padding:14px 28px" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-shopping-cart-fill"></i>
+		<span class="noti-dot">@Model.ShoppingCartListViewModel.Count()</span>
+		<p class="font-size-2">₡@Model.CartTotalViewModel</p>
+	</button>
+	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+		<div class="p-3">
+			<div class="row align-items-center">
+				<div class="col">
+					<h6 class="m-0"> Cart Items </h6>
+				</div>
+				<div class="col-auto"> <a asp-page="/Cart/Index" class="small"> View All</a>
+				</div>
+			</div>
+		</div>
+		<div data-simplebar style="max-height: 230px;">
+			@foreach (var item in Model.ShoppingCartListViewModel)
+			{
+				<a href="" class="text-reset notification-item">
+				<div class="d-flex">
+					<div class="avatar-xs me-3"> <span class="avatar-title bg-primary rounded-circle font-size-16">
+								<img src="@item.Product.Image1" alt="product-img"
+												title="product-img" class="avatar-md" />
+							</span>
+					</div>
+					<div class="flex-1">
+						<h6 class="mb-1" key="t-your-order">@item.Product.Name</h6>
+						<div class="font-size-12 text-muted">
+							<p class="mb-1">Quantity: @item.Quantity</p>
+						</div>
+						<div class="font-size-12 text-muted">
+							<p class="mb-1">Total: ₡@(item.Product.Price * item.Quantity)</p>
+						</div>
+					</div>
+				</div>
+				</a>
+			}
+			
+		</div>							
+	</div>
+</div>
