@@ -24,5 +24,16 @@ namespace FrontEnd.Pages.Products
             ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
 
         }
+        public IActionResult OnPostAutoComplete(string prefix)
+        {
+            ProductList = _unitOfWork.Product.GetAll(filter: u => u.Name.Contains(prefix), includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+
+
+            return new JsonResult(ProductList);
+        }
+        public void OnPostSubmit()
+        {
+            
+        }
     }
 }

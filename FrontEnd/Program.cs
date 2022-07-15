@@ -3,6 +3,8 @@ using BackEnd.Data;
 using BackEnd.Repository;
 using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,11 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = "/Identity/Account/Logout";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
+
+builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.PropertyNamingPolicy = null);
+builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 var app = builder.Build();
 
 

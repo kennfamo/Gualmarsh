@@ -1,0 +1,11 @@
+﻿@model FrontEnd.Pages.Components.Search.SearchViewComponent
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+<form class="app-search d-none d-lg-block">
+	@Html.AntiForgeryToken()
+	<div class="position-relative">
+		<input type="search" id="autoComplete" class="form-control" placeholder="Search..." asp-page-handler="Submit">
+		<input type="hidden" id="hfProduct" name="ProductId"/>
+		<span class="ri-search-line"></span>
+	</div>
+</form>    
+<script defer src="~/js/Pages/search.js"></script>
