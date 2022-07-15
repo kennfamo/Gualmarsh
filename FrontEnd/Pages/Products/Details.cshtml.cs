@@ -48,14 +48,14 @@ namespace FrontEnd.Pages.Products
                         
                         _unitOfWork.ShoppingCart.Add(ShoppingCart);
                         _unitOfWork.Save();
-                        return RedirectToPage("Index");
+                        return RedirectToPage("/Cart/Index");
                     }
                     else
                     {
                         ShoppingCart.Quantity = 1;
                         _unitOfWork.ShoppingCart.IncrementCount(shoppingCartFromDb, ShoppingCart.Quantity);                        
                     }
-                    return RedirectToPage("Index");
+                    return RedirectToPage("/Cart/Index");
                 }
                 else
                 {
