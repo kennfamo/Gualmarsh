@@ -2,6 +2,7 @@ using BackEnd.Model;
 using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FrontEnd.Pages.Products
@@ -24,12 +25,17 @@ namespace FrontEnd.Pages.Products
             ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
 
         }
-        public IActionResult OnPostAutoComplete(string prefix)
+        public IActionResult OnGetAutoComplete()
         {
-            ProductList = _unitOfWork.Product.GetAll(filter: u => u.Name.Contains(prefix), includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+            ProductList = _unitOfWork.Product.GetAll(includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+            List<string> products = new List<string>();
 
+            foreach (var product in ProductList)
+            {
+                products.Add(product.Name);
+            }
 
-            return new JsonResult(ProductList);
+            return new JsonResult(products);
         }
         public void OnPostSubmit()
         {
