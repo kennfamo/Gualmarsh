@@ -1,9 +1,9 @@
 ﻿@model FrontEnd.Pages.Components.Search.SearchViewComponent
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
-<form class="app-search d-none d-lg-block">
+<form class="app-search d-none d-lg-block" id="search-form">
 	@Html.AntiForgeryToken()
 	<div class="position-relative">
-		<input type="search" id="autoComplete" >
+		<input type="search" id="autoComplete" name="searchbox">
 		<span class="ri-search-line"></span>
 	</div>
 </form>    

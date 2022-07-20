@@ -62,7 +62,7 @@ const autoCompleteJS = new autoComplete(
         noResults: false,
     },
     resultItem: {
-        highlight: true,
+        highlight: false,
     },
     events: {
         input: {
@@ -76,11 +76,24 @@ const autoCompleteJS = new autoComplete(
 autoCompleteJS.input.addEventListener("selection", function (event) {
     const feedback = event.detail;
     autoCompleteJS.input.blur();
-    // Prepare User's Selected Value
     const selection = feedback.selection.value;
     console.log(selection)
+    var selectedText;
     autoCompleteJS.input.value = selection;
-    window.location.replace('/Products/')
+    $.ajax({
+        async: false,
+        url: '/Products/Index?search=' + selection + '&handler=ProdId',
+        dataType: 'json',
+        success: function (data) {
+            selectedText = data;
+        }
+    });
+    window.location.replace('/Products/Details?id=' + selectedText)
     
 
 });
+
+$(function () {
+    $('#search-form').disableAutoFill();
+});
+

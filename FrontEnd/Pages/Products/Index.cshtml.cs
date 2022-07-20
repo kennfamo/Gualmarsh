@@ -33,9 +33,22 @@ namespace FrontEnd.Pages.Products
             foreach (var product in ProductList)
             {
                 products.Add(product.Name);
+                products.Add((product.Id).ToString());
             }
 
             return new JsonResult(products);
+        }
+        public IActionResult OnGetProdId(string search)
+        {
+            ProductList = _unitOfWork.Product.GetAll(filter: u => u.Name == search);
+            List<int> product = new List<int>();
+            foreach (var p in ProductList)
+            {
+                product.Add(p.Id);
+            }
+
+
+            return new JsonResult(product);
         }
         public void OnPostSubmit()
         {

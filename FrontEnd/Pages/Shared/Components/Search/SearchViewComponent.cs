@@ -21,6 +21,6 @@ namespace FrontEnd.Pages.Components.Search
 
             return View("Default", SearchString);
         }
-
+        
     }
 }

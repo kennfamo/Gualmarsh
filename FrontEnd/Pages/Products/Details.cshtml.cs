@@ -17,7 +17,6 @@ namespace FrontEnd.Pages.Products
 
         [BindProperty]
         public ShoppingCart ShoppingCart { get; set; }
-
         public void OnGet(int id)
         {           
             ShoppingCart = new()
@@ -26,7 +25,7 @@ namespace FrontEnd.Pages.Products
                 ProductId = id
             };
         }
-
+        
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
