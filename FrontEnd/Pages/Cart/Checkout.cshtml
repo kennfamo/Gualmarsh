@@ -144,48 +144,24 @@
                                 </div>
                                 <div class="tab-pane" id="shipping-info">
                                     <h5 class="card-title">Shipping information</h5>
-                                    <p class="card-title-desc">It will be as simple as occidental in fact</p>
                                     <div class="row">
+                                        @foreach(var address in Model.UserAddressList){
                                         <div class="col-lg-4 col-sm-6">
                                             <div class="card shipping-address">
                                                 <div class="card-body">
                                                     <a href="reviews.html" class="float-right ml-1">Edit</a>
                                                     <h5 class="font-size-14 mb-4">Address 1</h5>
                             
-                                                    <h5 class="font-size-14">Bradley McMillian</h5>
-                                                    <p class="mb-1">109 Clarksburg Park Road Show Low, AZ 85901</p>
-                                                    <p class="mb-0">Mo. 012-345-6789</p>                                                                    
+                                                    <h5 class="font-size-14">@address.FirstName @address.LastName</h5>
+                                                    <p class="mb-0">@address.AddressLine1, @address.AddressLine2</p>
+                                                    <p class="mb-0">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
+                                                    <p class="mb-0">Tel: @address.Phone</p>                                                                    
                                                                         
                                                     <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
                                                 </div>   
                                             </div>                                                              
                                         </div>
-                                        <div class="col-lg-4 col-sm-6">
-                                            <div class="card shipping-address">
-                                                <div class="card-body">
-                                                    <a href="#" class="float-right ml-1">Edit</a>
-                                                    <h5 class="font-size-14 mb-4">Address 2</h5>
-                            
-                                                    <h5 class="font-size-14">Bradley McMillian</h5>
-                                                    <p class="mb-1">109 Clarksburg Park Road Show Low, AZ 85901</p>
-                                                    <p class="mb-0">Mo. 012-345-6789</p>
-                                                    <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-6">
-                                            <div class="card shipping-address">
-                                                <div class="card-body">
-                                                    <a href="#" class="float-right ml-1">Edit</a>
-                                                    <h5 class="font-size-14 mb-4">Address 2</h5>
-                            
-                                                    <h5 class="font-size-14">Bradley McMillian</h5>
-                                                    <p class="mb-1">109 Clarksburg Park Road Show Low, AZ 85901</p>
-                                                    <p class="mb-0">Mo. 012-345-6789</p>
-                                                    <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        }                                        
                                     </div>
                                     <hr>
                                     <h5 class="card-title">Add new shipping address</h5>
@@ -348,7 +324,7 @@
                 <div class="card checkout-order-summary">
                     <div class="card-body">
                         <div class="p-3 bg-light mb-4">
-                            <h5 class="font-size-14 mb-0">Order Summary <span class="float-right ml-2">#SK2356</span></h5>
+                            <h5 class="font-size-14 mb-0">Order Summary</h5>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-centered mb-0 table-nowrap">
@@ -360,34 +336,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach(var item in Model.ShoppingCartList){
                                     <tr>
-                                        <th scope="row"><img src="static/images/product/img-1.png" alt="product-img" title="product-img" class="avatar-md" /></th>
+                                        <th scope="row"><img src="@item.Product.Image1" alt="product-img" title="product-img" class="avatar-md" /></th>
                                         <td>
-                                            <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Full sleeve T-shirt</a></h5>
-                                            <p class="text-muted mb-0">$ 240 x 2</p>
+                                            <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark" style="white-space: pre-line">@item.Product.Name</a></h5>
+                                            <p class="text-muted mb-0">₡@item.Product.Price x @item.Quantity</p>
                                         </td>
-                                        <td>$ 480</td>
+                                        <td>₡@(item.Product.Price * item.Quantity)</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row"><img src="static/images/product/img-2.png" alt="product-img" title="product-img" class="avatar-md" /></th>
-                                        <td>
-                                            <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark">Half sleeve T-shirt</a></h5>
-                                            <p class="text-muted mb-0">$ 225 x 1</p>
-                                        </td>
-                                        <td>$ 225</td>
-                                    </tr>
+                                    }
                                     <tr>
                                         <td colspan="2">
                                             <h6 class="m-0 text-right">Sub Total:</h6>
                                         </td>
                                         <td>
-                                            $ 705
+                                            ₡@Model.OrderHeader.Subtotal
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
                                             <div class="bg-soft-primary p-3 rounded">
-                                                <h5 class="font-size-14 text-primary mb-0"><i class="fas fa-shipping-fast mr-2"></i> Shipping <span class="float-right">Free</span></h5>
+                                                <h5 class="font-size-14 text-primary mb-0"><i class="fas fa-shipping-fast mr-2"></i> Shipping: <span class="float-right">Free</span></h5>
                                             </div>
                                         </td>
                                     </tr>

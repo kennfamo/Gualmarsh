@@ -52,7 +52,7 @@
   -ms-flex-align: center;
   align-items: center;
   margin: 0 auto;
-  height: 70px;
+  height: 90px;
   padding: 0 calc(24px / 2) 0 0;
 }
 .navbar-header .dropdown .show.header-item {
@@ -117,7 +117,7 @@
   padding: calc(70px + 24px) calc(24px / 2) 60px calc(24px / 2);
 }
 .header-item {
-  height: 70px;
+  height: 80px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   color: #ffffff;
@@ -140,15 +140,38 @@
   font-size: 30px;
   color: #ffffff;
 }
-.noti-icon .noti-dot {
-  position: absolute;
-  background-color: #FFC220;
-  border-radius: 50%;
-  top: 8px;
-  right: 8px;
-  font-weight: 900;
-  padding: 2px 6px;
-  color: black;
+.noti-icon .noti-dot-small {
+    position: absolute;
+    background-color: #FFC220;
+    text-align: center;
+    border-radius: 50%;
+    top: 8px;
+    right: 20px;
+    font-weight: 900;
+    padding: 2px 8px;
+    color: black;
+}
+.noti-icon .noti-dot-small-sm {
+    position: absolute;
+    background-color: #FFC220;
+    border-radius: 50%;
+    text-align: center;
+    top: 8px;
+    right: 20px;
+    font-weight: 900;
+    padding: 2px 8px;
+    color: black;
+}
+.noti-icon .noti-dot-big {
+    position: absolute;
+    background-color: #FFC220;
+    border-radius: 50%;
+    text-align: center;
+    top: 8px;
+    right: 20px;
+    font-weight: 900;
+    padding: 3px 5px;
+    color: black;
 }
 .notification-item .d-flex {
   padding: 0.75rem 1rem;
