@@ -2,7 +2,7 @@
 @model FrontEnd.Pages.Cart.SummaryModel
 @section Styles {
    @{
-	<partial name="_CheckoutStylesPartial"/>
+    <partial name="_CheckoutStylesPartial"/>
     }
 }
 <div class="row">
@@ -170,15 +170,24 @@
                                         <div>
                                             <div>                                                                    
                                                 <div class="form-group mb-4">
-                                                    <label for="billing-address">Address</label>
-                                                    <textarea class="form-control" id="billing-address" rows="3" placeholder="Enter full address"></textarea>
+                                                    <label for="billing-address">Address Line 1</label>
+                                                    <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
                                                 </div>
-
+                                                <div class="form-group mb-4">
+                                                    <label for="billing-address">Address Line 2</label>
+                                                    <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                </div>
                                                 <div class="row">                                                                        
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4">
-                                                            <label for="billing-name">Name</label>
-                                                            <input type="text" class="form-control" id="billing-name" placeholder="Enter name" />
+                                                            <label for="billing-name">First Name</label>
+                                                            <input type="text" class="form-control" placeholder="Enter first name" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group mb-4">
+                                                            <label for="billing-name">Last Name</label>
+                                                            <input type="text" class="form-control" placeholder="Enter last name" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
@@ -186,38 +195,32 @@
                                                             <label for="billing-phone">Phone</label>
                                                             <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no." />
                                                         </div>
-                                                    </div>
+                                                    </div>                                                    
+                                                </div>                                                                  
+                                                <div class="row">    
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4 mb-lg-0">
-                                                            <label>Province</label>
-                                                            <select class="form-control custom-select" title="Country">
-                                                                                    
+                                                            <label asp-for="UserAddress.City.Canton.Province"></label>
+                                                            <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
+                                                            onChange="GetCanton();" id="province" name="ProvinceId" class="form-select">
+                                                                <option disabled selected>--Select Province--</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                                   
-                            
-                                                <div class="row">
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4 mb-lg-0">
-                                                            <label>City</label>
-                                                            <select class="form-control custom-select" title="Country">                                                                                    
+                                                            <label asp-for="UserAddress.City.Canton"></label>
+                                                            <select asp-for="UserAddress.City.CantonId" id="canton" class="form-select">
+                                                                <option disabled selected>--Select City--</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                            
-                                                    <div class="col-lg-4 mb-4">
-                                                        <div class="form-group mb-4 mb-lg-0">
-                                                            <label for="billing-city">Canton</label>
-                                                            <input type="text" class="form-control" id="billing-city" placeholder="Enter City" />
-                                                        </div>
-                                                    </div>
-                            
                                                     <div class="col-lg-4">
-                                                        <div class="form-group mb-0">
-                                                            <label for="zip-code">Zip / Postal code</label>
-                                                            <input type="text" class="form-control" id="zip-code" placeholder="Enter Postal code" />
+                                                        <div class="form-group mb-4 mb-lg-0">
+                                                            <label asp-for="UserAddress.City"></label>
+                                                            <select asp-for="UserAddress.CityId" asp-items="Model.CityList" class="form-select">
+                                                                <option disabled selected>--Select City--</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,6 +383,6 @@
 </div>
 @section Scripts {
    @{
-	<partial name="_CheckoutScriptsPartial"/>
+    <partial name="_CheckoutScriptsPartial"/>
     }
 }
