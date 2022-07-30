@@ -202,7 +202,7 @@
                                                         <div class="form-group mb-4 mb-lg-0">
                                                             <label asp-for="UserAddress.City.Canton.Province"></label>
                                                             <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
-                                                            onChange="GetCanton();" id="province" name="ProvinceId" class="form-select">
+                                                            id="province" name="ProvinceId" class="form-select">
                                                                 <option disabled selected>--Select Province--</option>
                                                             </select>
                                                         </div>
@@ -210,15 +210,15 @@
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4 mb-lg-0">
                                                             <label asp-for="UserAddress.City.Canton"></label>
-                                                            <select asp-for="UserAddress.City.CantonId" id="canton" class="form-select">
-                                                                <option disabled selected>--Select City--</option>
+                                                            <select disabled dasp-for="UserAddress.City.CantonId" id="canton" class="form-select">
+                                                                <option disabled selected>--Select Canton--</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4 mb-lg-0">
                                                             <label asp-for="UserAddress.City"></label>
-                                                            <select asp-for="UserAddress.CityId" asp-items="Model.CityList" class="form-select">
+                                                            <select disabled asp-for="UserAddress.CityId" id="city" asp-items="Model.CityList" class="form-select">
                                                                 <option disabled selected>--Select City--</option>
                                                             </select>
                                                         </div>
@@ -240,7 +240,6 @@
                                                 <div>
                                                     <label class="card-radio-label mb-3">
                                                         <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" />
-                            
                                                         <div class="card-radio">
                                                             <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
                                                             <span>Credit / Debit Card</span>

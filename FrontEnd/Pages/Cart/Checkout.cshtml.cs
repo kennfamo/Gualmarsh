@@ -45,25 +45,27 @@ namespace FrontEnd.Pages.Cart
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-                });               
-
-                CityList = _unitOfWork.City.GetAll().Select(i => new SelectListItem()
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                });
+                }); 
             }
         }
 
-        public JsonResult OnGetCanton([FromQuery] int param)
+        public JsonResult OnGetCanton(int provinceId)
         {
-            //int province = Int32.Parse(param);
-            CantonList = _unitOfWork.Canton.GetAll(filter: u => u.ProvinceId == param).Select(i => new SelectListItem()
+            CantonList = _unitOfWork.Canton.GetAll(filter: u => u.ProvinceId == provinceId).Select(i => new SelectListItem()
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
             });
             return new JsonResult(CantonList);
+        }
+        public JsonResult OnGetCity(int cantonId)
+        {
+            CityList = _unitOfWork.City.GetAll(filter: u => u.CantonId == cantonId).Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
+            return new JsonResult(CityList);
         }
     }
 }

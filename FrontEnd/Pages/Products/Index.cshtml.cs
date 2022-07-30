@@ -25,7 +25,7 @@ namespace FrontEnd.Pages.Products
             ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
 
         }
-        public IActionResult OnGetAutoComplete()
+        public JsonResult OnGetAutoComplete()
         {
             ProductList = _unitOfWork.Product.GetAll(includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
             List<string> products = new List<string>();
