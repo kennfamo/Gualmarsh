@@ -36,3 +36,13 @@ $('#canton').change(function () {
         },
     })
 });
+
+$('#shipping').on("click", function () {
+
+    $('#checkout-nav-pills-wizard').bootstrapWizard('show', 1);
+});
+$('#payment').on("click", function () {
+
+    $('#checkout-nav-pills-wizard').bootstrapWizard('show', 2);
+});
+
