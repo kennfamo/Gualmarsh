@@ -1711,6 +1711,32 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
 .card-radio-input:checked + .card-radio {
   border-color: #0071CE !important;
 }
+.card-radio-site {
+    background-color: #fff;
+    border: 2px solid #f1f5f7;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 13rem;
+}
+
+.card-radio-site:hover {
+    cursor: pointer;
+}
+
+.card-radio-site-label {
+    display: block;
+}
+
+.card-radio-site-input {
+    display: none;
+}
+
+.card-radio-site-input:checked + .card-radio-site {
+    border-color: #0071CE !important;
+}
 .navs-carousel .owl-nav {
   margin-top: 16px;
 }
@@ -4336,4 +4362,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
     height: auto;
     display: table;
     margin: 1rem auto 0;
+}
+
+.address-site-font{
+    font-weight: 100;
 }

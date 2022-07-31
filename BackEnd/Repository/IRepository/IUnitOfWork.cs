@@ -22,6 +22,7 @@ namespace BackEnd.Repository.IRepository
         IOrderDetailsRepository OrderDetails { get; }
         IOrderHeaderRepository OrderHeader { get;  }
         IProductSubcategoryRepository ProductSubcategory { get; }
+        ISiteRepository Site { get;  }
         void Save();
     }
 }

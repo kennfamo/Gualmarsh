@@ -39,10 +39,8 @@ namespace BackEnd.Model
         [ForeignKey("DiscountCode")]
         public Discount Discount { get; set; }
         [DisplayFormat(DataFormatString = "{0:N}")]
-        public decimal Tax { get; set; }        
-        public int? UserPaymentId { get; set; }
-        [ForeignKey("UserPaymentId")]
-        public UserPayment UserPayment { get; set; }
+        public double Shipping { get; set; }
+        public string PaymentType { get; set; }
         public int? UserAddressId { get; set; }
         [ForeignKey("UserAddressId")]
         public UserAddress UserAddress { get; set; }

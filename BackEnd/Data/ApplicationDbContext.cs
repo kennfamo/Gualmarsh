@@ -30,6 +30,7 @@ namespace BackEnd.Data
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<ProductSubcategory> ProductSubcategory { get; set; }
+        public DbSet<Site> Site { get; set; }
 
 
     }

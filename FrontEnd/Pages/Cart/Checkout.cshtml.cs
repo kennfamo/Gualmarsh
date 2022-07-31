@@ -16,6 +16,7 @@ namespace FrontEnd.Pages.Cart
         public IEnumerable<SelectListItem> CityList { get; set; }
         public IEnumerable<SelectListItem> ProvinceList { get; set; }
         public IEnumerable<SelectListItem> CantonList { get; set; }
+        public IEnumerable<Site> SiteList { get; set; }
         public OrderHeader OrderHeader { get; set; }
         public UserAddress UserAddress { get; set; }
         private readonly IUnitOfWork _unitOfWork;
@@ -31,6 +32,7 @@ namespace FrontEnd.Pages.Cart
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
             {
+                SiteList = _unitOfWork.Site.GetAll();
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
 
