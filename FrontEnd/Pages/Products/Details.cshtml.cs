@@ -28,6 +28,7 @@ namespace FrontEnd.Pages.Products
         
         public IActionResult OnPost()
         {
+            string returnUrl = Url.Content(HttpContext.Request.Path + HttpContext.Request.QueryString.ToString());
             if (ModelState.IsValid)
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -58,7 +59,7 @@ namespace FrontEnd.Pages.Products
                 }
                 else
                 {
-                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                    return RedirectToPage("/Account/Login", new { area = "Identity", ReturnUrl = returnUrl });
                 }                
             }
             return Page();

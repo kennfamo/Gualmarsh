@@ -16,14 +16,16 @@
 				else
 				{
 					<span class="noti-dot-big">@Model.ShoppingCartListViewModel.Count()</span>
-				}				
-			}			
+				}	
+				
+			}
+			<p class="font-size-2">₡@Model.CartTotalViewModel</p>
 		}
 		else
 		{
-			<span class="noti-dot">0</span>
+			<span class="noti-dot-small">0</span>
 		}	
-		<p class="font-size-2">₡@Model.CartTotalViewModel</p>
+		
 	</button>
 	
 	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
@@ -41,7 +43,7 @@
 			{
 				@foreach (var item in Model.ShoppingCartListViewModel)
 				{
-				<a href="" class="text-reset notification-item">
+				<a href="~/Products/Details?id=@item.ProductId" class="text-reset notification-item">
 				<div class="d-flex">
 					<div class="avatar-xs me-3"> <span class="avatar-title bg-primary rounded-circle font-size-16">
 								<img src="@item.Product.Image1" alt="product-img"
