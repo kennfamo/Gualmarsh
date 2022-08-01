@@ -1,5 +1,6 @@
 using BackEnd.Model;
 using BackEnd.Repository.IRepository;
+using BackEnd.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -68,6 +69,29 @@ namespace FrontEnd.Pages.Cart
                 Value = i.Id.ToString()
             });
             return new JsonResult(CityList);
+        }
+
+        public void OnPost()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {                
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
+                    includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
+
+                foreach (var cartItem in ShoppingCartList)
+                {
+                    OrderHeader.Subtotal += (cartItem.Product.Price * cartItem.Quantity);
+                }
+
+                OrderHeader.Status = StaticDetails.StatusPending;
+                OrderHeader.OrderDate = System.DateTime.Now;
+                OrderHeader.ApplicationUserId = claim.Value;
+
+                _unitOfWork.OrderHeader.Add(OrderHeader);
+                
+            }
         }
     }
 }

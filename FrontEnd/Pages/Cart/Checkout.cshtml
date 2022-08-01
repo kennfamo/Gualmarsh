@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="tab-pane" id="payment-info">
                                     <h5 class="card-title">Payment information</h5>
-                                    <p class="card-title-desc">It will be as simple as occidental in fact</p>
+                                    <p class="card-title-desc">Please select your payment method.</p>
                             
                                     <div>
                                         <h5 class="font-size-14">Payment method :</h5>
@@ -180,33 +180,29 @@
                                             <div class="col-lg-4 col-sm-6">
                                                 <div>
                                                     <label class="card-radio-label mb-3">
-                                                        <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" />
+                                                        <input onclick="cc_debit()" type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" />
                                                         <div class="card-radio">
                                                             <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
                                                             <span>Credit / Debit Card</span>
                                                         </div>
                                                     </label>
                                                 </div>
-                                            </div>
-                            
+                                            </div>                            
                                             <div class="col-lg-4 col-sm-6">
                                                 <div>
                                                     <label class="card-radio-label mb-3">
-                                                        <input type="radio" name="pay-method" id="pay-methodoption2" class="card-radio-input" />
-                            
+                                                        <input onclick="sinpe()" type="radio" name="pay-method" id="pay-methodoption2" class="card-radio-input" />
                                                         <div class="card-radio">
                                                             <i class="fas fa-mobile-alt font-size-24 align-middle me-2"></i>
                                                             <span>SINPE Móvil</span>
                                                         </div>
                                                     </label>
                                                 </div>
-                                            </div>
-                            
+                                            </div>                            
                                             <div class="col-lg-4 col-sm-6">
                                                 <div>
                                                     <label class="card-radio-label mb-3">
-                                                        <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input" checked />
-                            
+                                                        <input onclick="cash()" type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input"/>
                                                         <div class="card-radio">
                                                             <i class="far fa-money-bill-alt font-size-24 align-middle me-2"></i>
                                                             <span>Cash on Delivery</span>
@@ -215,36 +211,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                            
-                                        <h5 class="my-3 font-size-14">For card Payment</h5>
-                                        <div class="p-4 border">
-                                            <form>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="cardnameInput">Name on card</label>
-                                                    <input type="text" class="form-control" id="cardnameInput" placeholder="Name on Card" />
-                                                </div>
-                            
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-6">
-                                                        <div class="mb-3 mb-lg-0">
-                                                            <label class="form-label" for="cardnumberInput">Card Number</label>
-                                                            <input type="text" class="form-control" id="cardnumberInput" placeholder="0000 0000 0000 0000" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6">
-                                                        <div class="mb-3 mb-lg-0">
-                                                            <label class="form-label" for="expirydateInput">Expiry date</label>
-                                                            <input type="text" class="form-control" id="expirydateInput" placeholder="MM/YY" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6">
-                                                        <div class="mb-3 mb-lg-0">
-                                                            <label class="form-label" for="cvvcodeInput">CVV Code</label>
-                                                            <input type="text" class="form-control" id="cvvcodeInput" placeholder="Enter CVV Code" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                        <div id="sinpe-toggle" style="display: none">
+                                            <h5 class="my-3 font-size-14">For SINPE Móvil payment</h5>
+                                            <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
                                         </div>
                                         <div class="mt-4 text-end">
                                             <a href="#" class="btn btn-success">
@@ -253,8 +222,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>                            
                             <ul class="pager wizard twitter-bs-wizard-pager-link">
                                 <li class="previous"><a href="#">Previous</a></li>
                                 <li class="next"><a href="#">Next</a></li>
