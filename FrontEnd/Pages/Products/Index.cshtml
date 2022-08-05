@@ -14,81 +14,27 @@
 
         <div class="card-body">
             <h5 class="font-size-14 mb-3">Categorías</h5>
-
             <div class="accordion ecommerce" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> Electrónicos
-                    </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <ul class="list-unstyled categories-list mb-0">
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Móvil</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Accesorios Móvil</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Computadoras</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Laptops</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Parlantes</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <i class="mdi mdi-hanger font-size-16 align-middle me-2"></i> Moda
-                    </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <ul class="list-unstyled categories-list mb-0">
-                            <li class="active"><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Zapatos</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Relojes</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa de Deporte</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <i class="mdi mdi-pinwheel-outline font-size-16 align-middle me-2"></i> Niños y Bebés
-                    </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <ul class="list-unstyled categories-list mb-0">
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Ropa</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Zapatos</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Juguetes</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Cuidado del Bebé</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                </div>
-                <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <i class="mdi mdi-dumbbell font-size-16 align-middle me-2"></i> Fitness
-                        </button>
-                    </h2>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                        <ul class="list-unstyled categories-list mb-0">
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Equipo de Gimnasio</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Yoga</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Mancuernas</a></li>
-                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> Suplementos</a></li>
-                        </ul>
-                        </div>
-                    </div>
-                </div>
+                    @foreach (var item in Model.ProductSubcategoryListFilter)
+                    {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @item.ProductCategory.Name
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <ul class="list-unstyled categories-list mb-0">
+                                            <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> @item.Name</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                    }
+
             </div>
-
         </div>
-
         <div class="card-body border-top">
             <div>
                 <h5 class="font-size-14 mb-4">Precio</h5>
