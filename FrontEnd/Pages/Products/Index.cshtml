@@ -26,7 +26,7 @@
                             <div id="collapse@(item.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <ul class="list-unstyled categories-list mb-0">
-                                        <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i> @item.Name</a></li>
+                                        <li><a asp-route-id="@item.Id" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @item.Name</a></li>
                                     </ul>
                                 </div>
                             </div>
