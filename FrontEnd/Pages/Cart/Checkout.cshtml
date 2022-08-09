@@ -5,6 +5,7 @@
     <partial name="_CheckoutStylesPartial"/>
     }
 }
+<form method="post">
 <div class="row">
     <div class="col-xl-2"></div>
     <div class="col-xl-8">
@@ -28,201 +29,200 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="tab-content twitter-bs-wizard-tab-content">                                
-                                <div class="tab-pane" id="shipping-info">
-                                    <h5 class="card-title">Delivery Method</h5>
-                                    <div class="row">
-                                        <div class="col-lg-2"></div>
-                                        <div class="col-lg-4">
-                                            <div>
-                                                <label class="card-radio-label mb-3">
-                                                    <input onclick="pickUpMethod()" type="radio" name="delivery-method" id="delivery-methodoption1" class="card-radio-input" />
-                                                    <div class="card-radio">
-                                                        <i class="fas fa-building font-size-24 align-middle me-2"></i>
-                                                        <span>Pick Up on Site</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div>
-                                                <label class="card-radio-label mb-3">
-                                                    <input onclick="deliverAddressMethod()" type="radio" name="delivery-method" id="delivery-methodoption2" class="card-radio-input" />
-                                                    <div class="card-radio">
-                                                        <i class="fas fa-shipping-fast font-size-24 align-middle me-2"></i>
-                                                        <span>Deliver to Address</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div id="pickup-method-toggle" style="display: none">
-                                        <h5 class="card-title">Gualmarsh Sites</h5>
-                                        <p class="card-title-desc">Choose the site where you want to pickup your order.</p>
-                                        <div class="row mb-2">
-                                            @foreach(var site in Model.SiteList){
+                            
+                                <div class="tab-content twitter-bs-wizard-tab-content">                                
+                                    <div class="tab-pane" id="shipping-info">
+                                        <h5 class="card-title">Delivery Method</h5>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
                                             <div class="col-lg-4">
                                                 <div>
-                                                    <label class="card-radio-site-label mb-3">
-                                                        <input type="radio" name="site-address" id="site-address'@site.Id'" class="card-radio-site-input" />
-                                                        <div class="card-radio-site">
-                                                            <h5 class="font-size-14 mb-2">@site.Name</h5>
-                                                            <p class="fw-light mb-0" style="white-space: pre-line">@site.Address</p>
-                                                            <p class="fw-light mb-0"><strong>Phone:</strong> @site.Phone</p>
-                                                            <p class="fw-light" style="white-space: pre-line"><strong>Schedule:</strong> @site.ScheduleHour, @site.ScheduleDay</p>
+                                                    <label class="card-radio-label mb-3">
+                                                        <input asp-for="OrderHeader.DeliveryType" onclick="pickUpMethod()" type="radio" id="delivery-methodoption1" class="card-radio-input" value="Pick Up" />
+                                                        <div class="card-radio">
+                                                            <i class="fas fa-building font-size-24 align-middle me-2"></i>
+                                                            <span>Pick Up on Site</span>
                                                         </div>
                                                     </label>
                                                 </div>
                                             </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div id="deliver-method-toggle" style="display: none">
-                                         <h5 class="card-title">Shipping information</h5>
-                                        <div class="row">
-                                            @foreach(var address in Model.UserAddressList){
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div class="card shipping-address">
-                                                    <div class="card-body">
-                                                        <a href="reviews.html" class="float-right ml-1">Edit</a>
-                            
-                                                        <h5 class="font-size-14">@address.FirstName @address.LastName</h5>
-                                                        <p class="mb-0">@address.AddressLine1, @address.AddressLine2</p>
-                                                        <p class="mb-0">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
-                                                        <p class="mb-0">Phone: @address.Phone</p>                                                                    
-                                                                        
-                                                        <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
-                                                    </div>   
-                                                </div>                                                              
-                                            </div>
-                                            }                                        
-                                        </div>
-                                        <button onclick="newShippingAddress()" class="btn btn-primary float-end">Add New Address</button>
-                                        <br />
-                                        <br />
-                                        <hr>
-                                        <div id="add-shipping-toggle" style="display: none">
-                                            <h5 class="card-title">Add new shipping address</h5>
-                                            <br>
-                                            <form>
+                                            <div class="col-lg-4">
                                                 <div>
-                                                    <div>                                                                    
-                                                        <div class="form-group mb-4">
-                                                            <label for="billing-address">Address Line 1</label>
-                                                            <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                    <label class="card-radio-label mb-3">
+                                                        <input asp-for="OrderHeader.DeliveryType" onclick="deliverAddressMethod()" type="radio" id="delivery-methodoption2" class="card-radio-input"  value="Deliver to Address"/>
+                                                        <div class="card-radio">
+                                                            <i class="fas fa-shipping-fast font-size-24 align-middle me-2"></i>
+                                                            <span>Deliver to Address</span>
                                                         </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="billing-address">Address Line 2</label>
-                                                            <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
-                                                        </div>
-                                                        <div class="row">                                                                        
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="billing-name">First Name</label>
-                                                                    <input type="text" class="form-control" placeholder="Enter first name" />
-                                                                </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div id="pickup-method-toggle" style="display: none">
+                                            <h5 class="card-title">Gualmarsh Sites</h5>
+                                            <p class="card-title-desc">Choose the site where you want to pickup your order.</p>
+                                            <div class="row mb-2">
+                                                @foreach(var site in Model.SiteList){
+                                                <div class="col-lg-4">
+                                                    <div>
+                                                        <label class="card-radio-site-label mb-3">
+                                                            <input asp-for="OrderHeader.SiteId" type="radio" id=@("site-address" + @site.Id) class="card-radio-site-input" value="@site.Id"/>
+                                                            <div class="card-radio-site">
+                                                                <h5 class="font-size-14 mb-2">@site.Name</h5>
+                                                                <p class="fw-light mb-0" style="white-space: pre-line">@site.Address</p>
+                                                                <p class="fw-light mb-0"><strong>Phone:</strong> @site.Phone</p>
+                                                                <p class="fw-light" style="white-space: pre-line"><strong>Schedule:</strong> @site.ScheduleHour, @site.ScheduleDay</p>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="billing-name">Last Name</label>
-                                                                    <input type="text" class="form-control" placeholder="Enter last name" />
-                                                                </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div id="deliver-method-toggle" style="display: none">
+                                             <h5 class="card-title">Shipping information</h5>
+                                            <div class="row">
+                                                @foreach(var address in Model.UserAddressList){
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div class="card shipping-address">
+                                                        <div class="card-body">
+                                                            <a href="reviews.html" class="float-right ml-1">Edit</a>
+                            
+                                                            <h5 class="font-size-14">@address.FirstName @address.LastName</h5>
+                                                            <p class="mb-0">@address.AddressLine1, @address.AddressLine2</p>
+                                                            <p class="mb-0">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
+                                                            <p class="mb-0">Phone: @address.Phone</p>                                                                    
+                                                                        
+                                                            <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
+                                                        </div>   
+                                                    </div>                                                              
+                                                </div>
+                                                }                                        
+                                            </div>
+                                            <button type="button" onclick="newShippingAddress()" class="btn btn-primary float-end">Add New Address</button>
+                                            <br />
+                                            <br />
+                                            <hr>
+                                        
+                                            <div id="add-shipping-toggle" style="display: none">
+                                                <h5 class="card-title">Add new shipping address</h5>
+                                                <br>
+                                                    <div>
+                                                        <div>                                                                    
+                                                            <div class="form-group mb-4">
+                                                                <label for="billing-address">Address Line 1</label>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="billing-phone">Phone</label>
-                                                                    <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no." />
-                                                                </div>
-                                                            </div>                                                    
-                                                        </div>                                                                  
-                                                        <div class="row">    
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4 mb-lg-0">
-                                                                    <label asp-for="UserAddress.City.Canton.Province"></label>
-                                                                    <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
-                                                                    id="province" name="ProvinceId" class="form-select">
-                                                                        <option disabled selected>--Select Province--</option>
-                                                                    </select>
-                                                                </div>
+                                                            <div class="form-group mb-4">
+                                                                <label for="billing-address">Address Line 2</label>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4 mb-lg-0">
-                                                                    <label asp-for="UserAddress.City.Canton"></label>
-                                                                    <select disabled dasp-for="UserAddress.City.CantonId" id="canton" class="form-select">
-                                                                        <option disabled selected>--Select Canton--</option>
-                                                                    </select>
+                                                            <div class="row">                                                                        
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4">
+                                                                        <label for="billing-name">First Name</label>
+                                                                        <input type="text" class="form-control" placeholder="Enter first name" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group mb-4 mb-lg-0">
-                                                                    <label asp-for="UserAddress.City"></label>
-                                                                    <select disabled asp-for="UserAddress.CityId" id="city" asp-items="Model.CityList" class="form-select">
-                                                                        <option disabled selected>--Select City--</option>
-                                                                    </select>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4">
+                                                                        <label for="billing-name">Last Name</label>
+                                                                        <input type="text" class="form-control" placeholder="Enter last name" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4">
+                                                                        <label for="billing-phone">Phone</label>
+                                                                        <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no." />
+                                                                    </div>
+                                                                </div>                                                    
+                                                            </div>                                                                  
+                                                            <div class="row">    
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4 mb-lg-0">
+                                                                        <label asp-for="UserAddress.City.Canton.Province"></label>
+                                                                        <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
+                                                                        id="province" name="ProvinceId" class="form-select">
+                                                                            <option disabled selected>--Select Province--</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4 mb-lg-0">
+                                                                        <label asp-for="UserAddress.City.Canton"></label>
+                                                                        <select disabled asp-for="UserAddress.City.CantonId" id="canton" class="form-select">
+                                                                            <option disabled selected>--Select Canton--</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group mb-4 mb-lg-0">
+                                                                        <label asp-for="UserAddress.City"></label>
+                                                                        <select disabled asp-for="UserAddress.CityId" id="city" asp-items="Model.CityList" class="form-select">
+                                                                            <option disabled selected>--Select City--</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </form>
-                                        </div>                                        
+                                            </div>                                        
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="payment-info">
-                                    <h5 class="card-title">Payment information</h5>
-                                    <p class="card-title-desc">Please select your payment method.</p>
+                                    <div class="tab-pane" id="payment-info">
+                                        <h5 class="card-title">Payment information</h5>
+                                        <p class="card-title-desc">Please select your payment method.</p>
                             
-                                    <div>
-                                        <h5 class="font-size-14">Payment method :</h5>
+                                        <div>
+                                            <h5 class="font-size-14">Payment method :</h5>
                             
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div>
-                                                    <label class="card-radio-label mb-3">
-                                                        <input onclick="cc_debit()" type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" />
-                                                        <div class="card-radio">
-                                                            <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
-                                                            <span>Credit / Debit Card</span>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>                            
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div>
-                                                    <label class="card-radio-label mb-3">
-                                                        <input onclick="sinpe()" type="radio" name="pay-method" id="pay-methodoption2" class="card-radio-input" />
-                                                        <div class="card-radio">
-                                                            <i class="fas fa-mobile-alt font-size-24 align-middle me-2"></i>
-                                                            <span>SINPE Móvil</span>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>                            
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div>
-                                                    <label class="card-radio-label mb-3">
-                                                        <input onclick="cash()" type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input"/>
-                                                        <div class="card-radio">
-                                                            <i class="far fa-money-bill-alt font-size-24 align-middle me-2"></i>
-                                                            <span>Cash on Delivery</span>
-                                                        </div>
-                                                    </label>
+                                            <div class="row">
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label mb-3">
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption1" class="card-radio-input" value="Credit / Debit Card" />
+                                                            <div class="card-radio">
+                                                                <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
+                                                                <span>Credit / Debit Card</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>                            
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label mb-3">
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="sinpe()" type="radio" id="pay-methodoption2" class="card-radio-input" value="SINPE Móvil" />
+                                                            <div class="card-radio">
+                                                                <i class="fas fa-mobile-alt font-size-24 align-middle me-2"></i>
+                                                                <span>SINPE Móvil</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>                            
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label mb-3">
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="cash()" type="radio" id="pay-methodoption3" class="card-radio-input" value="Cash on Delivery"/>
+                                                            <div class="card-radio">
+                                                                <i class="far fa-money-bill-alt font-size-24 align-middle me-2"></i>
+                                                                <span>Cash on Delivery</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div id="sinpe-toggle" style="display: none">
-                                            <h5 class="my-3 font-size-14">For SINPE Móvil payment</h5>
-                                            <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
-                                        </div>
-                                        <div class="mt-4 text-end">
-                                            <a href="#" class="btn btn-success">
-                                                Complete order
-                                            </a>
+                                            <div id="sinpe-toggle" style="display: none">
+                                                <h5 class="my-3 font-size-14">For SINPE Móvil payment</h5>
+                                                <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
+                                            </div>
+                                            <div class="mt-4 text-end">
+                                                <input type="submit" class="btn btn-success" value="Complete order"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            
                             <ul class="pager wizard twitter-bs-wizard-pager-link">
                                 <li class="previous"><a href="#">Previous</a></li>
                                 <li class="next"><a href="#">Next</a></li>
@@ -242,7 +242,7 @@
                                 <thead>
                                     <tr>
                                         <th class="border-top-0" style="width: 110px;" scope="col">Product</th>
-                                        <th class="border-top-0" scope="col">Product Desc</th>
+                                        <th class="border-top-0" scope="col">Description</th>
                                         <th class="border-top-0" scope="col">Price</th>
                                     </tr>
                                 </thead>
@@ -262,13 +262,15 @@
                                             <h6 class="m-0 text-right">Sub Total:</h6>
                                         </td>
                                         <td>
-                                            ₡@Model.OrderHeader.Subtotal
+                                           ₡@Model.OrderHeader.Subtotal
                                         </td>
+                                        <input asp-for="OrderHeader.Subtotal" type="hidden" id="subtotal" value="@Model.OrderHeader.Subtotal">
                                     </tr>
                                     <tr>
                                         <td colspan="3">
                                             <div class="bg-soft-primary p-3 rounded">
-                                                <h5 class="font-size-14 text-primary mb-0"><i class="fas fa-shipping-fast mr-2"></i> Shipping: <span class="float-right">Free</span></h5>
+                                                <h5 class="font-size-14 text-primary mb-0"><i class="fas fa-shipping-fast mr-2"></i> Shipping: <span class="float-right" id="shipping-cost-id"></span></h5>
+                                                <input asp-for="OrderHeader.Shipping" type="hidden" id="shipping-cost" value=""/>
                                             </div>
                                         </td>
                                     </tr>
@@ -276,8 +278,7 @@
                                         <td colspan="2">
                                             <h6 class="m-0 text-right">Total:</h6>
                                         </td>
-                                        <td>
-                                            $ 705
+                                        <td id="total">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -289,6 +290,7 @@
         </div>
     </div>
 </div>
+</form>
 @section Scripts {
    @{
     <partial name="_CheckoutScriptsPartial"/>

@@ -10,6 +10,7 @@ using System.Security.Claims;
 namespace FrontEnd.Pages.Cart
 {
     [Authorize]
+    [BindProperties]
     public class SummaryModel : PageModel
     {
         public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
@@ -25,14 +26,16 @@ namespace FrontEnd.Pages.Cart
         public SummaryModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            OrderHeader = new OrderHeader();
+            
         }
         public void OnGet()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            
             if (claim != null)
             {
+                OrderHeader = new OrderHeader();
                 SiteList = _unitOfWork.Site.GetAll();
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
@@ -71,27 +74,23 @@ namespace FrontEnd.Pages.Cart
             return new JsonResult(CityList);
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
             {                
-                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
-                    includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
-
-                foreach (var cartItem in ShoppingCartList)
-                {
-                    OrderHeader.Subtotal += (cartItem.Product.Price * cartItem.Quantity);
-                }
-
+                
+                OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;
                 OrderHeader.Status = StaticDetails.StatusPending;
                 OrderHeader.OrderDate = System.DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;
 
                 _unitOfWork.OrderHeader.Add(OrderHeader);
-                
+                _unitOfWork.Save();
+                return RedirectToPage("/Cart/Index");
             }
+            return Page();
         }
     }
 }

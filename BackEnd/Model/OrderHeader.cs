@@ -41,10 +41,12 @@ namespace BackEnd.Model
         [DisplayFormat(DataFormatString = "{0:N}")]
         public double Shipping { get; set; }
         public string PaymentType { get; set; }
-        public int? UserAddressId { get; set; }
+        public int? UserAddressId { get; set; } = null!;
         [ForeignKey("UserAddressId")]
         public UserAddress UserAddress { get; set; }
-
+        public int? SiteId { get; set; }
+        [ForeignKey("SiteId")]
+        public Site Site{ get; set; }
         public OrderHeader()
         {
             this.OrderDate = DateTime.Now;

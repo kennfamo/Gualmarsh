@@ -49,28 +49,25 @@ $('#payment').on("click", function () {
 function pickUpMethod() {
     var x = document.getElementById("pickup-method-toggle");
     var y = document.getElementById("deliver-method-toggle");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        y.style.display = "none";
-    }
-    else
-    {
-        x.style.display = "none";
-        y.style.display = "block";
-    }
+   
+    x.style.display = "block";
+    y.style.display = "none";
+    
+    document.getElementById("shipping-cost-id").innerHTML = "Free";
+    document.getElementById("shipping-cost").value = 0;
+    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value);
+    document.getElementById("total").innerHTML = "₡" + total;
 };
 
 function deliverAddressMethod() {
     var x = document.getElementById("pickup-method-toggle");
     var y = document.getElementById("deliver-method-toggle");
-    if (y.style.display === "none") {
-        y.style.display = "block";
-        x.style.display = "none";
-    }
-    else {
-        y.style.display = "none";
-        x.style.display = "block";
-    }
+    y.style.display = "block";
+    x.style.display = "none";
+    document.getElementById("shipping-cost-id").innerHTML = "₡1500";
+    document.getElementById("shipping-cost").value = 1500;
+    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value);
+    document.getElementById("total").innerHTML = "₡" + total;
 };
 
 function newShippingAddress() {
