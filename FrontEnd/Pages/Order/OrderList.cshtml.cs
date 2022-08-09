@@ -19,7 +19,8 @@ namespace FrontEnd.Pages.Order
         }
 
         public IEnumerable<OrderHeader> OrderHeaderList { get; set; }
-        public void OnGet(string? status=null)
+        public IEnumerable<OrderDetails> OrderDetails { get; set; }
+        public void OnGet()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -27,6 +28,7 @@ namespace FrontEnd.Pages.Order
             {
                 OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "Discount,ApplicationUser,UserAddress");
+
             }
         }
     }
