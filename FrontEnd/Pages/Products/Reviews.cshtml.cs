@@ -15,8 +15,10 @@ namespace FrontEnd.Pages.Products
             _unitOfWork = unitOfWork;
         }
         public IEnumerable<Review> ReviewList { get; set; }
+        public Product Product { get; set; }
         public void OnGet(int id)
         {
+            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
             ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser");
         }
     }
