@@ -2,6 +2,7 @@ using BackEnd.Model;
 using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace FrontEnd.Pages.Products
@@ -17,6 +18,7 @@ namespace FrontEnd.Pages.Products
 
         [BindProperty]
         public ShoppingCart ShoppingCart { get; set; }
+        public IEnumerable<Review> ReviewList { get; set; }
         public void OnGet(int id)
         {           
             ShoppingCart = new()
@@ -24,6 +26,7 @@ namespace FrontEnd.Pages.Products
                 Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
                 ProductId = id
             };
+            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
         }
         
         public IActionResult OnPost()
