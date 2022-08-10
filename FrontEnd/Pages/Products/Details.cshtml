@@ -214,7 +214,11 @@
                             
                             }
                                 @{
-                                    ratingAvg = ratingTotal / Model.ReviewList.Count();
+                                    if (Model.ReviewList.Count() != 0)
+                                    {
+                                        ratingAvg = ratingTotal / Model.ReviewList.Count();
+                                    }
+                                    
                                 }
                                 @*<div class="d-flex border-bottom py-3">
                                     <div class="flex-1">

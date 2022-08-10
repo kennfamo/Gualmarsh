@@ -21,6 +21,8 @@ namespace FrontEnd.Pages.Cart
         public IEnumerable<Site> SiteList { get; set; }
         public OrderHeader OrderHeader { get; set; }
         public UserAddress UserAddress { get; set; }
+        public string? DiscountAmount { get; set; }
+        public string? DiscountCode { get; set; }
         private readonly IUnitOfWork _unitOfWork;
 
         public SummaryModel(IUnitOfWork unitOfWork)
@@ -44,6 +46,8 @@ namespace FrontEnd.Pages.Cart
                 {
                     OrderHeader.Subtotal += (cartItem.Product.Price * cartItem.Quantity);
                 }
+                DiscountAmount = (string)TempData.Peek("DiscountAmount");
+                DiscountCode = (string)TempData.Peek("DiscountCode");
                 ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
                 UserAddressList  = _unitOfWork.UserAddress.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "City,City.Canton,City.Canton.Province,ApplicationUser");
@@ -79,9 +83,18 @@ namespace FrontEnd.Pages.Cart
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
-            {                
-                
-                OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;
+            {
+                DiscountAmount = (string)TempData.Peek("DiscountAmount");
+                DiscountCode = (string)TempData.Peek("DiscountCode");
+                if (DiscountAmount != null)
+                {
+                    OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping - Double.Parse((string)TempData["DiscountAmount"]);
+                }
+                else
+                {
+                    OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;  
+                }
+                OrderHeader.DiscountCode = DiscountCode;
                 OrderHeader.Status = StaticDetails.StatusPending;
                 OrderHeader.OrderDate = System.DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;

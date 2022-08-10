@@ -55,7 +55,7 @@ function pickUpMethod() {
     
     document.getElementById("shipping-cost-id").innerHTML = "Free";
     document.getElementById("shipping-cost").value = 0;
-    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value);
+    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value) - parseInt(document.getElementById("discount-amount").value);
     document.getElementById("total").innerHTML = "₡" + total;
 };
 
@@ -66,7 +66,7 @@ function deliverAddressMethod() {
     x.style.display = "none";
     document.getElementById("shipping-cost-id").innerHTML = "₡1500";
     document.getElementById("shipping-cost").value = 1500;
-    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value);
+    var total = parseInt(document.getElementById("shipping-cost").value) + parseInt(document.getElementById("subtotal").value) - parseInt(document.getElementById("discount-amount").value);
     document.getElementById("total").innerHTML = "₡" + total;
 };
 

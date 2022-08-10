@@ -20,7 +20,8 @@
             <input asp-for="Discount.DiscountPercent" class="form-control"/>            
         </div>
         <div class="form-floating my-2">
-            <input asp-for="Discount.Active" type="radio" name="rdActive" value=1/>Active
+            <input asp-for="Discount.Active" type="radio" value=1/>Active
+            <input asp-for="Discount.Active" type="radio" value="0"/>Inactive  
         </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back To List</a>

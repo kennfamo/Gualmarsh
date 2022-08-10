@@ -2,8 +2,8 @@
 @model FrontEnd.Pages.Cart.IndexModel
 @section Styles {
    @{
-	<partial name="_ShoppingCartStylesPartial"/>
-    }
+		<partial name="_ShoppingCartStylesPartial"/>
+	}
 }
 <form method="post">
     <br />
@@ -92,6 +92,23 @@
 										</td>
 									</tr>
 									}
+									<tr>
+										<th scope="row">
+											Discount Code: 
+										</th>		
+										<td>
+											@if(Model.Discount == null)
+											{
+												<input type="text" size="10" name="discountCode" />
+												<input type="submit" asp-page-handler="discount" value="Apply"/>
+											}
+											else
+											{
+												<input type="text" disabled size="10" name="discountCode" value="@Model.Discount.Name"/>
+												<input type="submit" asp-page-handler="discountRemove" value="Remove"/>
+											}
+										</td>
+									</tr>
 									<tr class="bg-light text-end">
 													
 										<th scope="row" colspan="6">
@@ -107,27 +124,44 @@
 										<th scope="row" colspan="6">
 											Discount:
 										</th>
-													
-										<td>
-											- $ 30
-										</td>
+										@if(Model.Discount !=null)
+										{
+											var discountAmount = Convert.ToInt32((Model.CartTotal * Model.Discount.DiscountPercent / 100));
+											var discountCode = Model.Discount.Name;
+											<input type="hidden" name="discountCode" value="@discountCode"/>
+											<input type="hidden" name="discountAmount" value="@discountAmount"/>
+											<td>
+											₡@discountAmount
+											</td>
+										}
+										else
+										{
+											<td>
+											₡0
+											</td>
+											<input type="hidden" name="discountAmount" value="0"/>
+										}
 									</tr>									
 									<tr class="bg-light text-end">
 													
 										<th scope="row" colspan="6">
 											Total:
 										</th>
-													
+										@if (Model.Discount != null)
+										{
+											Model.CartTotal = Convert.ToInt32(Model.CartTotal - (Model.CartTotal * Model.Discount.DiscountPercent / 100));
+										
+										}
 										<td>											
-											₡@(Model.CartTotal + 1500)
+											₡@Model.CartTotal
 										</td>
 									</tr>
 								</tbody>												
 							</table>
 						</div>
 					</div>
-				</div>		
-				<a asp-page="Checkout" class="btn btn-primary w-lg waves-effect waves-light float-sm-end">Checkout</a>                                                        					
+				</div>	
+				<input type="submit" class="btn btn-primary w-lg waves-effect waves-light float-sm-end" value="Checkout"/>                                                        					
 			</div>
 			<div class="col-lg-2"></div>
 		</div>
