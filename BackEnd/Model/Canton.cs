@@ -11,7 +11,8 @@ namespace BackEnd.Model
     public class Canton
     {
         [Key]
-        public int Id { get; set; }        
+        public int Id { get; set; }
+        [Display(Name = "Canton")]
         public string Name { get; set; }        
         public int ProvinceId { get; set; }
         [ForeignKey("ProvinceId")]

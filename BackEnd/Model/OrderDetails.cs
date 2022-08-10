@@ -26,6 +26,7 @@ namespace BackEnd.Model
         public int Quantity { get; set; }
         [Required]
         public double Price { get; set; }
+        [Display(Name="Product Name")]
         public string Name { get; set; }
     }
 }

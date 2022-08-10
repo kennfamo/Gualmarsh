@@ -78,12 +78,33 @@ namespace FrontEnd.Pages.Cart
             return new JsonResult(CityList);
         }
 
+        public IActionResult OnPostAddress()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {
+                UserAddress.ApplicationUserId = claim.Value;
+                _unitOfWork.UserAddress.Add(UserAddress);
+                _unitOfWork.Save();
+                return Page();
+            }
+            return Page();
+        }
+
         public IActionResult OnPost()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
             {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
+                    includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
+
+                foreach (var cartItem in ShoppingCartList)
+                {
+                    OrderHeader.Subtotal += (cartItem.Product.Price * cartItem.Quantity);
+                }
                 DiscountAmount = (string)TempData.Peek("DiscountAmount");
                 DiscountCode = (string)TempData.Peek("DiscountCode");
                 if (DiscountAmount != null)
@@ -98,8 +119,24 @@ namespace FrontEnd.Pages.Cart
                 OrderHeader.Status = StaticDetails.StatusPending;
                 OrderHeader.OrderDate = System.DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;
-
                 _unitOfWork.OrderHeader.Add(OrderHeader);
+                _unitOfWork.Save();
+
+                foreach (var item in ShoppingCartList)
+                {
+                    OrderDetails orderDetails = new()
+                    {
+                        ProductId = item.ProductId,
+                        OrderId = OrderHeader.Id,
+                        Name = item.Product.Name,
+                        Price = item.Product.Price,
+                        Quantity = item.Quantity
+                    };
+                    _unitOfWork.OrderDetails.Add(orderDetails);
+                    _unitOfWork.Save();
+                }
+
+                _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartList);
                 _unitOfWork.Save();
                 return RedirectToPage("/Cart/Index");
             }

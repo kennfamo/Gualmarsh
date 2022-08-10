@@ -11,10 +11,14 @@ namespace BackEnd.Model
     public class UserAddress
     {
         [Key]
-        public int Id { get; set; }        
+        public int Id { get; set; }
+        [Display(Name = "Address Line 1")]
         public string AddressLine1 { get; set; }
+        [Display(Name = "Address Line 2")]
         public string? AddressLine2 { get; set; }
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
         public string? Phone { get; set; }
         public string ApplicationUserId { get; set; }
