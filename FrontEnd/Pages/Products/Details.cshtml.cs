@@ -19,6 +19,8 @@ namespace FrontEnd.Pages.Products
         [BindProperty]
         public ShoppingCart ShoppingCart { get; set; }
         public IEnumerable<Review> ReviewList { get; set; }
+        public int RatingTotal { get; set; }
+        public int RatingAverage { get; set; }
         public void OnGet(int id)
         {           
             ShoppingCart = new()
@@ -27,6 +29,14 @@ namespace FrontEnd.Pages.Products
                 ProductId = id
             };
             ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
+            foreach (var review in ReviewList)
+            {
+
+                int ratingInt = Int32.Parse(review.Rating);
+                RatingTotal += ratingInt;
+
+            }
+            RatingAverage = RatingTotal / ReviewList.Count();
         }
         
         public IActionResult OnPost()
