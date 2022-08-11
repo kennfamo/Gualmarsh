@@ -26,9 +26,7 @@ namespace FrontEnd.Pages.Order
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if(claim != null)
             {
-                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value,
-                    includeProperties: "Discount,ApplicationUser,UserAddress");
-
+                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value);
             }
         }
     }

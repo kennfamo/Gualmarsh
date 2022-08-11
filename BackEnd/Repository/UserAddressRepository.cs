@@ -21,12 +21,7 @@ namespace BackEnd.Repository
         
         public void Update(UserAddress userAddress)
         {
-            var obj = _db.UserAddress.FirstOrDefault(u=>u.Id == userAddress.Id);
-            obj.ApplicationUserId = userAddress.ApplicationUserId;
-            obj.CityId = userAddress.CityId;
-            obj.AddressLine1 = userAddress.AddressLine1;
-            obj.AddressLine2 = userAddress.AddressLine2;
-            obj.Phone = userAddress.Phone;
+            _db.UserAddress.Update(userAddress);
         }
     }
 }

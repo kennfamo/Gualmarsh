@@ -11,6 +11,7 @@ namespace BackEnd.Model
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Province")]
         public string Name {get; set;} 
 
     }

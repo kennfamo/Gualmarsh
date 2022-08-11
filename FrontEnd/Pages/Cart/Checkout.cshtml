@@ -1,5 +1,7 @@
 ﻿@page
 @model FrontEnd.Pages.Cart.SummaryModel
+@inject IOptions<BackEnd.Utility.StripeSettings> Stripe
+@using Microsoft.Extensions.Options
 @section Styles {
    @{
     <partial name="_CheckoutStylesPartial"/>
@@ -84,20 +86,17 @@
                                              <h5 class="card-title">Shipping information</h5>
                                             <div class="row">
                                                 @foreach(var address in Model.UserAddressList){
-                                                <div class="col-lg-4 col-sm-6">
-                                                    <div class="card shipping-address">
-                                                        <div class="card-body">
-                                                            <a href="reviews.html" class="float-right ml-1">Edit</a>
-                            
-                                                            <h5 class="font-size-14">@address.FirstName @address.LastName</h5>
-                                                            <p class="mb-0">@address.AddressLine1, @address.AddressLine2</p>
-                                                            <p class="mb-0">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
-                                                            <p class="mb-0">Phone: @address.Phone</p>                                                                    
-                                                                        
-                                                            <button class="btn btn-sm btn-warning text-dark w-xs mt-2">Use Address</button>
-                                                        </div>   
-                                                    </div>                                                              
-                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label class="card-radio-site-label mb-3">
+                                                        <input asp-for="OrderHeader.UserAddressId" type="radio" id=@("user-address" + @address.Id) class="card-radio-site-input" value="@address.Id"/>
+                                                        <div class="card-radio-site">
+                                                            <h5 class="font-size-14 mb-2">@address.FirstName @address.LastName</h5>
+                                                            <p class="fw-light mb-0" style="white-space: pre-line">@address.AddressLine1, @address.AddressLine2</p>
+                                                            <p class="fw-light mb-0" style="white-space: pre-line">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
+                                                            <p class="fw-light mb-0"><strong>Phone:</strong> @address.Phone</p>
+                                                        </div>
+                                                    </label>
+                                                </div>                                                
                                                 }                                        
                                             </div>
                                             <button type="button" onclick="newShippingAddress()" class="btn btn-primary float-end">Add New Address</button>
@@ -108,65 +107,67 @@
                                             <div id="add-shipping-toggle" style="display: none">
                                                 <h5 class="card-title">Add new shipping address</h5>
                                                 <br>
-                                                    <div>
-                                                        <div>                                                                    
+                                                <div>                                                                 
+                                                    <div class="form-group mb-4">
+                                                        <label asp-for="UserAddress.AddressLine1"></label>
+                                                        <textarea asp-for="UserAddress.AddressLine1" class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                    </div>
+                                                    <div class="form-group mb-4">
+                                                        <label asp-for="UserAddress.AddressLine2"></label>
+                                                        <textarea asp-for="UserAddress.AddressLine2" class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                    </div>
+                                                    <div class="row">                                                                        
+                                                        <div class="col-lg-4">
                                                             <div class="form-group mb-4">
-                                                                <label for="billing-address">Address Line 1</label>
-                                                                <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                                <label asp-for="UserAddress.FirstName"></label>
+                                                                <input asp-for="UserAddress.FirstName" type="text" class="form-control" placeholder="Enter first name" />
                                                             </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
                                                             <div class="form-group mb-4">
-                                                                <label for="billing-address">Address Line 2</label>
-                                                                <textarea class="form-control" rows="1" placeholder="Enter full address"></textarea>
+                                                                <label asp-for="UserAddress.LastName"></label>
+                                                                <input asp-for="UserAddress.LastName" type="text" class="form-control" placeholder="Enter last name" />
                                                             </div>
-                                                            <div class="row">                                                                        
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4">
-                                                                        <label for="billing-name">First Name</label>
-                                                                        <input type="text" class="form-control" placeholder="Enter first name" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4">
-                                                                        <label for="billing-name">Last Name</label>
-                                                                        <input type="text" class="form-control" placeholder="Enter last name" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4">
-                                                                        <label for="billing-phone">Phone</label>
-                                                                        <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no." />
-                                                                    </div>
-                                                                </div>                                                    
-                                                            </div>                                                                  
-                                                            <div class="row">    
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4 mb-lg-0">
-                                                                        <label asp-for="UserAddress.City.Canton.Province"></label>
-                                                                        <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
-                                                                        id="province" name="ProvinceId" class="form-select">
-                                                                            <option disabled selected>--Select Province--</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4 mb-lg-0">
-                                                                        <label asp-for="UserAddress.City.Canton"></label>
-                                                                        <select disabled asp-for="UserAddress.City.CantonId" id="canton" class="form-select">
-                                                                            <option disabled selected>--Select Canton--</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group mb-4 mb-lg-0">
-                                                                        <label asp-for="UserAddress.City"></label>
-                                                                        <select disabled asp-for="UserAddress.CityId" id="city" asp-items="Model.CityList" class="form-select">
-                                                                            <option disabled selected>--Select City--</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group mb-4">
+                                                                <label asp-for="UserAddress.Phone"></label>
+                                                                <input asp-for="UserAddress.Phone" type="text" class="form-control" placeholder="Enter Phone no." />
+                                                            </div>
+                                                        </div>                                                    
+                                                    </div>                                                                  
+                                                    <div class="row">    
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group mb-4 mb-lg-0">
+                                                                <label asp-for="UserAddress.City.Canton.Province"></label>
+                                                                <select asp-items="Model.ProvinceList"
+                                                                id="province" name="ProvinceId" class="form-select">
+                                                                    <option disabled selected>--Select Province--</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group mb-4 mb-lg-0">
+                                                                <label asp-for="UserAddress.City.Canton"></label>
+                                                                <select disabled asp-items="Model.CantonList" id="canton" class="form-select">
+                                                                    <option disabled selected>--Select Canton--</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group mb-4 mb-lg-0">
+                                                                <label asp-for="UserAddress.City"></label>
+                                                                <select disabled asp-for="UserAddress.CityId" asp-items="Model.CityList" id="city" class="form-select">
+                                                                    <option disabled selected>--Select City--</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <br />  
+                                                    <div class="mb-5">
+                                                        <button type="submit" asp-page-handler="address" class="btn btn-success float-end">Save New Address</button>                                                   
+                                                    </div>
+                                                </div>
                                             </div>                                        
                                         </div>
                                     </div>
@@ -217,7 +218,7 @@
                                                 <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
                                             </div>
                                             <div class="mt-4 text-end">
-                                                <input type="submit" class="btn btn-success" value="Complete order"/>
+                                                <input type="submit" class="btn btn-success" value="Complete Order"/>
                                             </div>
                                         </div>
                                     </div>

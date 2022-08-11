@@ -92,27 +92,35 @@
 										</td>
 									</tr>
 									}
-									<tr>
+									<tr class="text-end">
 										<th scope="row">
 											Discount Code: 
 										</th>		
 										<td>
 											@if(Model.Discount == null)
 											{
-												<input type="text" size="10" name="discountCode" />
-												<input type="submit" asp-page-handler="discount" value="Apply"/>
+												<div class="col-sm-5">
+													<div class="input-group">
+														<input type="text" class="form-control" size="10" name="discountCode" />
+														<input type="submit" class="input-group-addon btn btn-success waves-effect waves-light" asp-page-handler="discount" value="Apply"/>
+													</div>
+												</div>												
 											}
 											else
 											{
-												<input type="text" disabled size="10" name="discountCode" value="@Model.Discount.Name"/>
-												<input type="submit" asp-page-handler="discountRemove" value="Remove"/>
+												<div class="col-sm-5">
+													<div class="input-group">
+														<input type="text" class="form-control" disabled size="10" name="discountCode" value="@Model.Discount.Name"/>
+														<input type="submit" class="input-group-addon btn btn-danger waves-effect waves-light" asp-page-handler="discountRemove" value="Remove"/>
+													</div>	
+												</div>
 											}
 										</td>
 									</tr>
 									<tr class="bg-light text-end">
 													
 										<th scope="row" colspan="6">
-											Sub Total :
+											Cart Total :
 										</th>
 													
 										<td>
@@ -145,7 +153,7 @@
 									<tr class="bg-light text-end">
 													
 										<th scope="row" colspan="6">
-											Total:
+											Order Subtotal:
 										</th>
 										@if (Model.Discount != null)
 										{
