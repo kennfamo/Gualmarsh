@@ -103,7 +103,8 @@
         public DateTimeOffset CreateTime { get; set; }
         [JsonProperty("links")]
         public List<Link> Links { get; set; }
-
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
     public partial class Link
     {

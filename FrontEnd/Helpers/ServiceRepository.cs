@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Security.Policy;
 using NuGet.Common;
 
-namespace ClienteAPI.Helpers
+namespace FrontEnd.Helpers
 {
     public class ServiceRepository
     {
@@ -33,18 +33,6 @@ namespace ClienteAPI.Helpers
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",Token);
 
         }
-        public HttpResponseMessage GetResponse(string url)
-        {
-            return Client.GetAsync(url).Result;
-        }
-        public HttpResponseMessage PutResponse(string url, object model)
-        {
-            return Client.PutAsJsonAsync(url, model).Result;
-        }
-        public HttpResponseMessage PostResponse(string url, object model)
-        {
-            return Client.PostAsJsonAsync(url, model).GetAwaiter().GetResult();
-        }
         public HttpResponseMessage PostAsyncEncoded(string url, Dictionary<string, string> dict)
         {
             
@@ -54,10 +42,6 @@ namespace ClienteAPI.Helpers
         {
 
             return Client.PostAsync(url, stringContent).GetAwaiter().GetResult();
-        }
-        public HttpResponseMessage DeleteResponse(string url)
-        {
-            return Client.DeleteAsync(url).Result;
         }
     }
 }

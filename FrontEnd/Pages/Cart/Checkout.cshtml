@@ -179,21 +179,32 @@
                                             <h5 class="font-size-14">Payment method :</h5>
                             
                                             <div class="row">
-                                                <div class="col-lg-4 col-sm-6">
+                                                <div class="col-lg-3 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
-                                                            <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption1" class="card-radio-input" value="PayPal" />
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption1" class="card-radio-input" value="Credit / Debit Card" />
+                                                            <div class="card-radio">
+                                                                <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
+                                                                <span>Credit / Debit Card</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label mb-3">
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption2" class="card-radio-input" value="PayPal" />
                                                             <div class="card-radio">
                                                                 <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
                                                                 <span>PayPal</span>
                                                             </div>
                                                         </label>
                                                     </div>
-                                                </div>                            
-                                                <div class="col-lg-4 col-sm-6">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
-                                                            <input asp-for="OrderHeader.PaymentType" onclick="sinpe()" type="radio" id="pay-methodoption2" class="card-radio-input" value="SINPE Móvil" />
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="sinpe()" type="radio" id="pay-methodoption3" class="card-radio-input" value="SINPE Móvil" />
                                                             <div class="card-radio">
                                                                 <i class="fas fa-mobile-alt font-size-24 align-middle me-2"></i>
                                                                 <span>SINPE Móvil</span>
@@ -201,10 +212,10 @@
                                                         </label>
                                                     </div>
                                                 </div>                            
-                                                <div class="col-lg-4 col-sm-6">
+                                                <div class="col-lg-3 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
-                                                            <input asp-for="OrderHeader.PaymentType" onclick="cash()" type="radio" id="pay-methodoption3" class="card-radio-input" value="Cash on Delivery"/>
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="cash()" type="radio" id="pay-methodoption4" class="card-radio-input" value="Cash on Delivery"/>
                                                             <div class="card-radio">
                                                                 <i class="far fa-money-bill-alt font-size-24 align-middle me-2"></i>
                                                                 <span>Cash on Delivery</span>
