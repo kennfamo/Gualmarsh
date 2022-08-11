@@ -36,7 +36,7 @@ namespace FrontEnd.Pages.Products
                 RatingTotal += ratingInt;
 
             }
-            RatingAverage = RatingTotal / ReviewList.Count();
+            //RatingAverage = RatingTotal / ReviewList.Count();
         }
         
         public IActionResult OnPost()

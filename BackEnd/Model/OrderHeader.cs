@@ -37,16 +37,20 @@ namespace BackEnd.Model
         public string Status { get; set; }        
         public string? DiscountCode { get; set; }
         [ForeignKey("DiscountCode")]
+        [ValidateNever]
         public Discount Discount { get; set; }
         [DisplayFormat(DataFormatString = "{0:N}")]
         public double Shipping { get; set; }
         public string PaymentType { get; set; }
         public int? UserAddressId { get; set; } = null!;
         [ForeignKey("UserAddressId")]
+        [ValidateNever]
         public UserAddress UserAddress { get; set; }
         public int? SiteId { get; set; }
         [ForeignKey("SiteId")]
+        [ValidateNever]
         public Site Site{ get; set; }
+        public string? SessionId { get; set; }
         public OrderHeader()
         {
             this.OrderDate = DateTime.Now;

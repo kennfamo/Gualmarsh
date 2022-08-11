@@ -1,5 +1,7 @@
 ﻿@page
 @model FrontEnd.Pages.Cart.SummaryModel
+@inject IOptions<BackEnd.Utility.StripeSettings> Stripe
+@using Microsoft.Extensions.Options
 @section Styles {
    @{
     <partial name="_CheckoutStylesPartial"/>
@@ -138,7 +140,7 @@
                                                         <div class="col-lg-4">
                                                             <div class="form-group mb-4 mb-lg-0">
                                                                 <label asp-for="UserAddress.City.Canton.Province"></label>
-                                                                <select asp-for="UserAddress.City.Canton.ProvinceId" asp-items="Model.ProvinceList"
+                                                                <select asp-items="Model.ProvinceList"
                                                                 id="province" name="ProvinceId" class="form-select">
                                                                     <option disabled selected>--Select Province--</option>
                                                                 </select>
@@ -147,7 +149,7 @@
                                                         <div class="col-lg-4">
                                                             <div class="form-group mb-4 mb-lg-0">
                                                                 <label asp-for="UserAddress.City.Canton"></label>
-                                                                <select disabled asp-for="UserAddress.City.CantonId" asp-items="Model.CantonList" id="canton" class="form-select">
+                                                                <select disabled asp-items="Model.CantonList" id="canton" class="form-select">
                                                                     <option disabled selected>--Select Canton--</option>
                                                                 </select>
                                                             </div>
@@ -216,7 +218,7 @@
                                                 <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
                                             </div>
                                             <div class="mt-4 text-end">
-                                                <input type="submit" class="btn btn-success" value="Complete order"/>
+                                                <input type="submit" class="btn btn-success" value="Complete Order"/>
                                             </div>
                                         </div>
                                     </div>

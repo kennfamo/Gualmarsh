@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace FrontEnd.Pages.Cart
@@ -87,7 +88,7 @@ namespace FrontEnd.Pages.Cart
                 UserAddress.ApplicationUserId = claim.Value;
                 _unitOfWork.UserAddress.Add(UserAddress);
                 _unitOfWork.Save();
-                return Page();
+                return RedirectToPage();
             }
             return Page();
         }
@@ -115,11 +116,29 @@ namespace FrontEnd.Pages.Cart
                 {
                     OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;  
                 }
-                OrderHeader.DiscountCode = DiscountCode;
+                if (DiscountCode == null)
+                {
+                    OrderHeader.DiscountCode = "NODISC";
+                }
+                else
+                {
+                    OrderHeader.DiscountCode = DiscountCode;
+                }
+                if (OrderHeader.SiteId == null)
+                {
+                    OrderHeader.SiteId = 15;
+                }
+                
+                if (OrderHeader.UserAddressId == null)
+                {
+                    OrderHeader.UserAddressId = 8;
+                }               
+
                 OrderHeader.Status = StaticDetails.StatusPending;
                 OrderHeader.OrderDate = System.DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;
                 _unitOfWork.OrderHeader.Add(OrderHeader);
+                
                 _unitOfWork.Save();
 
                 foreach (var item in ShoppingCartList)
@@ -133,12 +152,52 @@ namespace FrontEnd.Pages.Cart
                         Quantity = item.Quantity
                     };
                     _unitOfWork.OrderDetails.Add(orderDetails);
-                    _unitOfWork.Save();
                 }
-
-                _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartList);
                 _unitOfWork.Save();
-                return RedirectToPage("/Cart/Index");
+
+                if (OrderHeader.PaymentType == "Credit / Debit Card")
+                {                    
+                    //Stripe Payment section
+                    var domain = "https://localhost:44320";
+                    var options = new SessionCreateOptions
+                    {
+                        LineItems = new List<SessionLineItemOptions>(),
+                        PaymentMethodTypes = new List<string>
+                    {
+                        "card",
+                    },
+                        Mode = "payment",
+                        SuccessUrl = domain + $"/cart/OrderConfirmation?id={OrderHeader.Id}",
+                        CancelUrl = domain + "/cart/index",
+                    };
+
+                    //Add Line Items
+                    foreach (var item in ShoppingCartList)
+                    {
+                        var sessionLineItem = new SessionLineItemOptions
+                        {
+                            PriceData = new SessionLineItemPriceDataOptions
+                            {
+                                UnitAmount = (long)(item.Product.Price * 100),
+                                Currency = "CRC",
+                                ProductData = new SessionLineItemPriceDataProductDataOptions
+                                {
+                                    Name = item.Product.Name
+                                },
+                            },
+                            Quantity = item.Quantity
+                        };
+                        options.LineItems.Add(sessionLineItem);
+                    }
+                    var service = new SessionService();
+                    Session session = service.Create(options);
+                    Response.Headers.Add("Location", session.Url);
+
+                    OrderHeader.SessionId = session.Id;
+                    //OrderHeader.PaymentIntentId = session.PaymentIntentId;
+                    _unitOfWork.Save();
+                    return new StatusCodeResult(303); 
+                }
             }
             return Page();
         }

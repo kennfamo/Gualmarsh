@@ -27,7 +27,7 @@ namespace BackEnd.Repository
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, string ? includeProperties=null)
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string ? includeProperties=null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
