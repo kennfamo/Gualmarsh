@@ -93,63 +93,7 @@ namespace FrontEnd.Pages.Cart
             }
 
         }
-        public string OrderBodyToJson(OrderHeader orderHeader)
-        {
-            int i = 0;
-            double total = 0.00;
-            Item[] itemArray = new Item[ShoppingCartList.Count()];
-            foreach (var item in ShoppingCartList)
-            {
-                Item orderDetails = new()
-                {
-                    Name = item.Product.Name,
-                    Quantity = item.Quantity.ToString(),
-                    UnitAmount = new UnitAmount()
-                    {
-                        CurrencyCode = "USD",
-                        Value = item.Product.Price.ToString()
-                    }
-                };
-                ItemTotal itemTotal = new()
-                {
-                    CurrencyCode = "USD",
-                    Value = item.Product.Price.ToString()
-                };
-                itemArray[i] = orderDetails;
-                total += (item.Product.Price * item.Quantity);
-                i++;
-            }
-            PaypalOrderDetails? paypalOrderDetails = new PaypalOrderDetails
-            {
-                Intent = "CAPTURE",
-                PurchaseUnits = new PurchaseUnit[]
-                {
-                    new PurchaseUnit()
-                    {
-                        Items = itemArray,
-                        Amount = new Amount()
-                        {
-                            CurrencyCode = "USD",
-                            Value = total.ToString(),
-                            Breakdown = new Breakdown()
-                            {
-                                ItemTotal = new ItemTotal()
-                                {
-                                    CurrencyCode = "USD",
-                                    Value = total.ToString(),
-                                }
-                            }
-                        },
-                    }
-                },
-                ApplicationContext = new ApplicationContext()
-                {
-                    ReturnUrl = "https://localhost:7063/Cart/Checkout?handler=CapturePayment",
-                    CancelUrl = "https://localhost:7063/Cart/"
-                }
-            };
-            return JsonConvert.SerializeObject(paypalOrderDetails);
-        }
+        
         public JsonResult OnGetCanton(int provinceId)
         {
             CantonList = _unitOfWork.Canton.GetAll(filter: u => u.ProvinceId == provinceId).Select(i => new SelectListItem()
@@ -293,9 +237,10 @@ namespace FrontEnd.Pages.Cart
                     PayPalLogin();
                     try
                     {
+                        ConvertToJson convertToJson = new ConvertToJson();  
                         ServiceRepository serviceObj = new ServiceRepository(AccessToken);
                         
-                        var stringContent = new StringContent(OrderBodyToJson(OrderHeader), Encoding.UTF8, "application/json");
+                        var stringContent = new StringContent(convertToJson.OrderBodyToJson(ShoppingCartList, OrderHeader), Encoding.UTF8, "application/json");
                         HttpResponseMessage response = serviceObj.PostAsyncStringContent("v2/checkout/orders/", stringContent);
                         var content = response.Content.ReadAsStringAsync().Result;
                         response.EnsureSuccessStatusCode();
