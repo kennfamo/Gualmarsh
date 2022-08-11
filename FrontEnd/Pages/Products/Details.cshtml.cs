@@ -36,7 +36,11 @@ namespace FrontEnd.Pages.Products
                 RatingTotal += ratingInt;
 
             }
-            RatingAverage = RatingTotal / ReviewList.Count();
+            if (ReviewList.Count() > 0)
+            {
+                RatingAverage = RatingTotal / ReviewList.Count();
+            }
+            
         }
         
         public IActionResult OnPost()
