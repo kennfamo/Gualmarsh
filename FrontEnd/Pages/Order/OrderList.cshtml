@@ -2,7 +2,7 @@
 @model FrontEnd.Pages.Order.OrderDetailsModel
 @section Styles {
    @{
-    <partial name="_OrderListStylesPartial"/>
+	<partial name="_OrderListStylesPartial"/>
     }
 }
 <div class="row ">
@@ -12,24 +12,14 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-6">
-						<h2>Tus Ordenes</h5>											
-					</div>	
-					<div class="col-md-6">
-						<div class="form-inline float-md-end">
-							<div class="search-box ms-2">
-								<div class="position-relative">
-									<input type="text" class="form-control rounded" placeholder="Buscar...">
-									<i class="mdi mdi-magnify search-icon"></i>
-								</div>
-							</div>
-						</div>
-					</div>										
+						<h2>Your Orders</h5>											
+					</div>													
 				</div>
 				<div id="orderlist-nav-pills-wizard" class="twitter-bs-wizard">
 					<div class="row">
 						<ul class="nav nav-tabs nav-tabs-custom">
 							<li class="nav-item">
-								<a href="#all-info" class="nav-link" id="allorders" data-bs-toggle="tab">All Orders</a>
+								<a href="#all-info" class="nav-link active" id="allorders" data-bs-toggle="tab">All Orders</a>
 							</li>
 							<li class="nav-item">
 								<a href="#inprocess-info" class="nav-link" id="inprocess" data-bs-toggle="tab">In Process</a>
@@ -51,7 +41,7 @@
 					<br>
 					<div class="tab-content twitter-bs-wizard-tab-content">
 					<!--All-->					
-						<div class="tab-pane" id="all-info">
+						<div class="tab-pane active" id="all-info">
 							@foreach(var order in Model.OrderHeaderList){
 								<div class="container">
 									<div class="card-order-list">
@@ -60,10 +50,10 @@
 												<div class="col-8">
 													<div class="row">
 														<div class="col-3">
-															<span>FECHA ORDEN</span>
+															<span>ORDER DATE</span>
 														</div>
 														<div class="col-3">
-															<span>TOTAL</span>
+															<span>ORDER TOTAL</span>
 														</div>
 													</div>
 													<div class="row">
@@ -81,9 +71,9 @@
 													</div>
 													<div class="row">
 														<ul class="text-end">
-															<a href="">Ver Orden</a>
+															<a href="">View Order</a>
 															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">Ver Factura</a>
+															<a href="">Ver Invoice</a>
 														</ul>
 													</div>
 												</div>
@@ -333,7 +323,7 @@
 										<div class="card-body">
 											<div class="row">
 												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
+													<img src="" alt="1" class="avatar-lg">														
 												</div>
 												<div class="col-2">
 													<div class="row">
@@ -543,6 +533,6 @@
 </div>
 @section Scripts {
    @{
-    <partial name="_OrderListScriptsPartial"/>
+	<partial name="_OrderListScriptsPartial"/>
     }
 }

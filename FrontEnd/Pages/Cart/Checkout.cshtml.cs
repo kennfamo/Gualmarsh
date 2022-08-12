@@ -172,7 +172,7 @@ namespace FrontEnd.Pages.Cart
                 if (OrderHeader.PaymentType == "Credit / Debit Card")
                 {
                     //Stripe Payment section
-                    var domain = "https://localhost:7063";
+                    var domain = "https://localhost:44320";
                     var options = new SessionCreateOptions
                     {
                         LineItems = new List<SessionLineItemOptions>(),
@@ -242,6 +242,10 @@ namespace FrontEnd.Pages.Cart
 
                         throw;
                     }
+                }
+                else
+                {
+                    return RedirectToPage("/Cart/OrderConfirmation", new { id = OrderHeader.Id });
                 }
 
                 return RedirectToPage("/Cart/Index");
