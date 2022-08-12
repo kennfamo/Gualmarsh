@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
+@using BackEnd.Extensions
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -7,7 +7,15 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    <span class="d-none d-xl-inline-block ms-1">@UserManager.GetUserName(User)</span>
+		    <span class="d-none d-xl-inline-block ms-1">@if(@User.GetFullName() is not null)
+				{
+					@User.GetFullName()
+				}
+				else
+				{
+					@UserManager.GetUserName(User)
+				}
+				</span>
 		    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 	    </button>
 	    <div class="dropdown-menu dropdown-menu-end">

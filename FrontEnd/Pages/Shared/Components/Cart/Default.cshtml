@@ -1,33 +1,44 @@
 ﻿@model FrontEnd.Pages.Components.Cart.CartViewModel
 <div class="dropdown d-inline-block">
-	<button type="button" class="btn header-item noti-icon waves-effect mb-2" style="padding:14px 28px; margin-bottom: -5px" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-shopping-cart-fill"></i>
-		@if (Model.ShoppingCartListViewModel != null)
+	
+	@if (Model.ShoppingCartListViewModel != null)
+	{
+		if (Model.ShoppingCartListViewModel.Count() > 0)
 		{
-			if(Model.ShoppingCartListViewModel.Count() <= 2) 
-			{
-				<span class="noti-dot-small">@Model.ShoppingCartListViewModel.Count()</span>
-			}
-			else
-			{
-				if(Model.ShoppingCartListViewModel.Count() > 2 && Model.ShoppingCartListViewModel.Count() <= 9) 
+			<button type="button" class="btn header-item noti-icon waves-effect mb-2" style="padding:14px 28px; margin-bottom: -5px" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+				<i class="ri-shopping-cart-fill"></i>
+				@if (Model.ShoppingCartListViewModel.Count() <= 2)
 				{
-					<span class="noti-dot-small-sm">@Model.ShoppingCartListViewModel.Count()</span>
+					<span class="noti-dot-small">@Model.ShoppingCartListViewModel.Count()</span>
+
 				}
 				else
 				{
-					<span class="noti-dot-big">@Model.ShoppingCartListViewModel.Count()</span>
-				}	
-				
-			}
-			<p class="font-size-2">₡@Model.CartTotalViewModel</p>
+					if (Model.ShoppingCartListViewModel.Count() > 2 && Model.ShoppingCartListViewModel.Count() <= 9)
+					{
+						<span class="noti-dot-small-sm">@Model.ShoppingCartListViewModel.Count()</span>
+					}
+					else
+					{
+						<span class="noti-dot-big">@Model.ShoppingCartListViewModel.Count()</span>
+					}
+
+				}
+
+				<p class="font-size-2">₡@Model.CartTotalViewModel</p>
+			</button>
 		}
 		else
 		{
-			<span class="noti-dot-small">0</span>
-		}	
-		
-	</button>
-	
+			<a asp-page="/Cart/Index">
+				<button type="button" class="btn header-item noti-icon waves-effect mb-2" style="padding:14px 28px; margin-bottom: -5px">
+					<i class="ri-shopping-cart-fill"></i>
+					<span class="noti-dot-small">0</span>
+				</button>
+			</a>
+
+		}
+	}
 	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
 		<div class="p-3">
 			<div class="row align-items-center">

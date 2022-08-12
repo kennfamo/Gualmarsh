@@ -17,7 +17,7 @@ namespace FrontEnd.Pages.Cart
 
         public void OnGet(int id)
         {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
         }
     }
 }

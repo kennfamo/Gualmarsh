@@ -5,8 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Stripe.Checkout;
+using Newtonsoft.Json;
 using System.Security.Claims;
+using System.Security.Policy;
+using System.Security.Principal;
+using System.Text;
+using System.Text.Json.Nodes;
+using Stripe.Checkout;
+using FrontEnd.Helpers;
 
 namespace FrontEnd.Pages.Cart
 {
@@ -19,23 +25,28 @@ namespace FrontEnd.Pages.Cart
         public IEnumerable<SelectListItem> CityList { get; set; }
         public IEnumerable<SelectListItem> ProvinceList { get; set; }
         public IEnumerable<SelectListItem> CantonList { get; set; }
-        public IEnumerable<Site> SiteList { get; set; }
+        public IEnumerable<BackEnd.Model.Site> SiteList { get; set; }
         public OrderHeader OrderHeader { get; set; }
+        public OrderDetails OrderDetails { get; set; }
         public UserAddress UserAddress { get; set; }
         public string? DiscountAmount { get; set; }
         public string? DiscountCode { get; set; }
         private readonly IUnitOfWork _unitOfWork;
-
+        public string? AccessToken { get; set; }
+        [TempData]
+        public string? PayOrderId { get; set; }
+        [TempData]
+        public int? OrderHeaderId { get; set; }
         public SummaryModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            
+
         }
         public void OnGet()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            
+
             if (claim != null)
             {
                 OrderHeader = new OrderHeader();
@@ -50,16 +61,39 @@ namespace FrontEnd.Pages.Cart
                 DiscountAmount = (string)TempData.Peek("DiscountAmount");
                 DiscountCode = (string)TempData.Peek("DiscountCode");
                 ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
-                UserAddressList  = _unitOfWork.UserAddress.GetAll(filter: u => u.ApplicationUserId == claim.Value,
+                UserAddressList = _unitOfWork.UserAddress.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "City,City.Canton,City.Canton.Province,ApplicationUser");
                 ProvinceList = _unitOfWork.Province.GetAll().Select(i => new SelectListItem()
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-                }); 
+                });
             }
         }
+        public void PayPalLogin()
+        {
+            try
+            {
+                ServiceRepository serviceObj = new ServiceRepository();
+                var dict = new Dictionary<string, string>();
+                dict.Add("Content-Type", "application/x-www-form-urlencoded");
+                dict.Add("grant_type", "client_credentials");
+                HttpResponseMessage response = serviceObj.PostAsyncEncoded("v1/oauth2/token/", dict);
+                response.EnsureSuccessStatusCode();
 
+                var content = response.Content.ReadAsStringAsync().Result;
+                PaypalModel? paypal = JsonConvert.DeserializeObject<PaypalModel>(content);
+                AccessToken = paypal.AccessToken;
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        
         public JsonResult OnGetCanton(int provinceId)
         {
             CantonList = _unitOfWork.Canton.GetAll(filter: u => u.ProvinceId == provinceId).Select(i => new SelectListItem()
@@ -114,7 +148,7 @@ namespace FrontEnd.Pages.Cart
                 }
                 else
                 {
-                    OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;  
+                    OrderHeader.Total = OrderHeader.Subtotal + OrderHeader.Shipping;
                 }
                 if (DiscountCode == null)
                 {
@@ -128,17 +162,17 @@ namespace FrontEnd.Pages.Cart
                 {
                     OrderHeader.SiteId = 15;
                 }
-                
+
                 if (OrderHeader.UserAddressId == null)
                 {
                     OrderHeader.UserAddressId = 8;
-                }               
+                }
 
                 OrderHeader.Status = StaticDetails.StatusPending;
                 OrderHeader.OrderDate = System.DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;
                 _unitOfWork.OrderHeader.Add(OrderHeader);
-                
+
                 _unitOfWork.Save();
 
                 foreach (var item in ShoppingCartList)
@@ -156,9 +190,9 @@ namespace FrontEnd.Pages.Cart
                 _unitOfWork.Save();
 
                 if (OrderHeader.PaymentType == "Credit / Debit Card")
-                {                    
+                {
                     //Stripe Payment section
-                    var domain = "https://localhost:44320";
+                    var domain = "https://localhost:7063";
                     var options = new SessionCreateOptions
                     {
                         LineItems = new List<SessionLineItemOptions>(),
@@ -167,8 +201,8 @@ namespace FrontEnd.Pages.Cart
                         "card",
                     },
                         Mode = "payment",
-                        SuccessUrl = domain + $"/cart/OrderConfirmation?id={OrderHeader.Id}",
-                        CancelUrl = domain + "/cart/index",
+                        SuccessUrl = domain + $"/Cart/OrderConfirmation?id={OrderHeader.Id}",
+                        CancelUrl = domain + "/Cart/Index",
                     };
 
                     //Add Line Items
@@ -192,14 +226,69 @@ namespace FrontEnd.Pages.Cart
                     var service = new SessionService();
                     Session session = service.Create(options);
                     Response.Headers.Add("Location", session.Url);
-
                     OrderHeader.SessionId = session.Id;
                     //OrderHeader.PaymentIntentId = session.PaymentIntentId;
                     _unitOfWork.Save();
-                    return new StatusCodeResult(303); 
+                    return new StatusCodeResult(303);
+
                 }
+                else if (OrderHeader.PaymentType.Equals("PayPal"))
+                {
+                    PayPalLogin();
+                    try
+                    {
+                        ConvertToJson convertToJson = new ConvertToJson();  
+                        ServiceRepository serviceObj = new ServiceRepository(AccessToken);
+                        
+                        var stringContent = new StringContent(convertToJson.OrderBodyToJson(ShoppingCartList, OrderHeader), Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = serviceObj.PostAsyncStringContent("v2/checkout/orders/", stringContent);
+                        var content = response.Content.ReadAsStringAsync().Result;
+                        response.EnsureSuccessStatusCode();
+
+                        PaypalResponse? paypalResponse = JsonConvert.DeserializeObject<PaypalResponse>(content);
+                        string approveUrl;
+                        PayOrderId = paypalResponse.Id;
+                        OrderHeaderId = OrderHeader.Id;
+                        foreach (var url in paypalResponse.Links)
+                        {
+                            if (url.Rel.Equals("approve"))
+                            {
+                                approveUrl = url.Href;
+                                return Redirect(approveUrl);
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+
+                return RedirectToPage("/Cart/Index");
             }
             return Page();
         }
+        public IActionResult OnGetCapturePayment()
+        {
+            PayPalLogin();
+            try
+            {
+                PaypalModel test = new PaypalModel();
+                var stringContent = new StringContent(JsonConvert.SerializeObject(test), Encoding.UTF8, "application/json");
+                ServiceRepository serviceObj = new ServiceRepository(AccessToken);
+                HttpResponseMessage response = serviceObj.PostAsyncStringContent("/v2/checkout/orders/" + PayOrderId + "/capture", stringContent);
+                var content = response.Content.ReadAsStringAsync().Result;
+                response.EnsureSuccessStatusCode();
+                return RedirectToPage("/Cart/OrderConfirmation", new { id = OrderHeaderId });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+        }
     }
 }
+
