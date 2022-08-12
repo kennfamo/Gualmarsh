@@ -38,7 +38,7 @@ namespace FrontEnd.Pages.Products
         {
             _db.Product.Add(Product);
             _db.Save();
-            return RedirectToPage("Index2");
+            return RedirectToPage("List");
         }
     }
 }

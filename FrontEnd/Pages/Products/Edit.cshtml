@@ -40,7 +40,7 @@
             <label asp-for="Product.Price"></label>
             <input asp-for="Product.Price" class="form-control"/>
         </div>
-        <<div class="mb-3">
+        <div class="mb-3">
             <label asp-for="Product.ProductSubcategoryId"></label>
             <select asp-for="Product.ProductSubcategoryId" asp-items="Model.ProductSubcategoryList" class="form-select">
                 <option disabled selected>--Select Product Subcategory--</option>
@@ -52,7 +52,23 @@
                 <option disabled selected>--Select Product Discount--</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label asp-for="Product.Image1"></label>
+            <input asp-for="Product.Image1" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Image2"></label>
+            <input asp-for="Product.Image2" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Image3"></label>
+            <input asp-for="Product.Image3" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Image4"></label>
+            <input asp-for="Product.Image4" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
-        <a asp-page="Index2" class="btn btn-secondary" style="width:150px">Back To List</a>
+        <a asp-page="List" class="btn btn-secondary" style="width:150px">Back To List</a>
     </div>
 </form>
