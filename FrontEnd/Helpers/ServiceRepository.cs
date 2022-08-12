@@ -33,6 +33,17 @@ namespace FrontEnd.Helpers
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",Token);
 
         }
+        public ServiceRepository(int id)
+        {
+            Client = new HttpClient();
+            Client.BaseAddress = new Uri("https://tipodecambio.paginasweb.cr/api");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        }
+        public HttpResponseMessage GetResponse(string url)
+        {
+            return Client.GetAsync(url).Result;
+        }
         public HttpResponseMessage PostAsyncEncoded(string url, Dictionary<string, string> dict)
         {
             

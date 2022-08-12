@@ -37,6 +37,7 @@ namespace FrontEnd.Pages.Cart
         public string? PayOrderId { get; set; }
         [TempData]
         public int? OrderHeaderId { get; set; }
+        private CurrencyExchange CurrencyExchange { get; set; }
         public SummaryModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -68,31 +69,10 @@ namespace FrontEnd.Pages.Cart
                     Text = i.Name,
                     Value = i.Id.ToString()
                 });
+                
             }
         }
-        public void PayPalLogin()
-        {
-            try
-            {
-                ServiceRepository serviceObj = new ServiceRepository();
-                var dict = new Dictionary<string, string>();
-                dict.Add("Content-Type", "application/x-www-form-urlencoded");
-                dict.Add("grant_type", "client_credentials");
-                HttpResponseMessage response = serviceObj.PostAsyncEncoded("v1/oauth2/token/", dict);
-                response.EnsureSuccessStatusCode();
-
-                var content = response.Content.ReadAsStringAsync().Result;
-                PaypalModel? paypal = JsonConvert.DeserializeObject<PaypalModel>(content);
-                AccessToken = paypal.AccessToken;
-
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-        }
+        
         
         public JsonResult OnGetCanton(int provinceId)
         {
@@ -234,13 +214,12 @@ namespace FrontEnd.Pages.Cart
                 }
                 else if (OrderHeader.PaymentType.Equals("PayPal"))
                 {
-                    PayPalLogin();
                     try
                     {
-                        ConvertToJson convertToJson = new ConvertToJson();  
-                        ServiceRepository serviceObj = new ServiceRepository(AccessToken);
-                        
-                        var stringContent = new StringContent(convertToJson.OrderBodyToJson(ShoppingCartList, OrderHeader), Encoding.UTF8, "application/json");
+                        Extensions extensions = new Extensions();  
+                        ServiceRepository serviceObj = new ServiceRepository(extensions.PayPalLogin());
+                        CurrencyExchange = extensions.CurrencyExchangeRate();
+                        var stringContent = new StringContent(extensions.OrderBodyToJson(ShoppingCartList, OrderHeader, CurrencyExchange), Encoding.UTF8, "application/json");
                         HttpResponseMessage response = serviceObj.PostAsyncStringContent("v2/checkout/orders/", stringContent);
                         var content = response.Content.ReadAsStringAsync().Result;
                         response.EnsureSuccessStatusCode();
@@ -271,12 +250,12 @@ namespace FrontEnd.Pages.Cart
         }
         public IActionResult OnGetCapturePayment()
         {
-            PayPalLogin();
             try
             {
-                PaypalModel test = new PaypalModel();
-                var stringContent = new StringContent(JsonConvert.SerializeObject(test), Encoding.UTF8, "application/json");
-                ServiceRepository serviceObj = new ServiceRepository(AccessToken);
+                Extensions extensions = new Extensions();
+                JsonProperties blankModel = new JsonProperties();
+                var stringContent = new StringContent(JsonConvert.SerializeObject(blankModel), Encoding.UTF8, "application/json");
+                ServiceRepository serviceObj = new ServiceRepository(extensions.PayPalLogin());
                 HttpResponseMessage response = serviceObj.PostAsyncStringContent("/v2/checkout/orders/" + PayOrderId + "/capture", stringContent);
                 var content = response.Content.ReadAsStringAsync().Result;
                 response.EnsureSuccessStatusCode();

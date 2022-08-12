@@ -1,11 +1,11 @@
-﻿namespace FrontEnd.Pages.Cart
+﻿namespace FrontEnd.Helpers
 {
     using System.Collections.Generic;
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
-    public partial class PaypalModel
+    public partial class JsonProperties
     {
         [JsonProperty("access_token")]
         public string? AccessToken { get; set; }
@@ -116,6 +116,16 @@
 
         [JsonProperty("method")]
         public string Method { get; set; }
+    }
+    public partial class CurrencyExchange
+    {
+        [JsonProperty("compra")]
+        public string? Compra { get; set; }
+        [JsonProperty("venta")]
+        public string? Venta { get; set; }
+        [JsonProperty("fecha")]
+        public string? Fecha { get; set; }
+
     }
 }
 
