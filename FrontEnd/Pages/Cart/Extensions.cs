@@ -31,7 +31,7 @@ namespace FrontEnd.Pages.Cart
             }
 
         }
-        public string OrderBodyToJson(IEnumerable<ShoppingCart> shoppingCartList, OrderHeader orderHeader, CurrencyExchange currencyExchange)
+        public string OrderBodyToJson(string domain, IEnumerable<ShoppingCart> shoppingCartList, OrderHeader orderHeader, CurrencyExchange currencyExchange)
         {
             double dollarRate = Double.Parse(currencyExchange.Venta);
             int i = 0;
@@ -83,8 +83,8 @@ namespace FrontEnd.Pages.Cart
                 },
                 ApplicationContext = new ApplicationContext()
                 {
-                    ReturnUrl = "https://localhost:7063/Cart/Checkout?handler=CapturePayment",
-                    CancelUrl = "https://localhost:7063/Cart/"
+                    ReturnUrl = "https://" + domain + "/Cart/Checkout?handler=CapturePayment",
+                    CancelUrl = "https://" + domain + "/Cart/"
                 }
             };
             return JsonConvert.SerializeObject(paypalOrderDetails);
