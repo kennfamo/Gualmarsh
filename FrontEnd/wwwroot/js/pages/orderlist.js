@@ -1,6 +1,7 @@
 ﻿$('#allorders').on("click", function () {
     $('#orderlist-nav-pills-wizard').bootstrapWizard('show', 0);
 });
+
 $('#inprocess').on("click", function () {
 
     $('#orderlist-nav-pills-wizard').bootstrapWizard('show', 1);

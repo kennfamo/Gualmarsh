@@ -243,6 +243,10 @@ namespace FrontEnd.Pages.Cart
                         throw;
                     }
                 }
+                else
+                {
+                    return RedirectToPage("/Cart/OrderConfirmation", new { id = OrderHeader.Id });
+                }
 
                 return RedirectToPage("/Cart/Index");
             }

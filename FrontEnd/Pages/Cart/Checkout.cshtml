@@ -66,19 +66,22 @@
                                             <p class="card-title-desc">Choose the site where you want to pickup your order.</p>
                                             <div class="row mb-2">
                                                 @foreach(var site in Model.SiteList){
-                                                <div class="col-lg-4">
-                                                    <div>
-                                                        <label class="card-radio-site-label mb-3">
-                                                            <input asp-for="OrderHeader.SiteId" type="radio" id=@("site-address" + @site.Id) class="card-radio-site-input" value="@site.Id"/>
-                                                            <div class="card-radio-site">
-                                                                <h5 class="font-size-14 mb-2">@site.Name</h5>
-                                                                <p class="fw-light mb-0" style="white-space: pre-line">@site.Address</p>
-                                                                <p class="fw-light mb-0"><strong>Phone:</strong> @site.Phone</p>
-                                                                <p class="fw-light" style="white-space: pre-line"><strong>Schedule:</strong> @site.ScheduleHour, @site.ScheduleDay</p>
+                                                    if (@site.Id != 15)
+                                                    {
+                                                        <div class="col-lg-4">
+                                                            <div>
+                                                                <label class="card-radio-site-label mb-3">
+                                                                    <input asp-for="OrderHeader.SiteId" type="radio" id=@("site-address" + @site.Id) class="card-radio-site-input" value="@site.Id"/>
+                                                                    <div class="card-radio-site">
+                                                                        <h5 class="font-size-14 mb-2">@site.Name</h5>
+                                                                        <p class="fw-light mb-0" style="white-space: pre-line">@site.Address</p>
+                                                                        <p class="fw-light mb-0"><strong>Phone:</strong> @site.Phone</p>
+                                                                        <p class="fw-light" style="white-space: pre-line"><strong>Schedule:</strong> @site.ScheduleHour, @site.ScheduleDay</p>
+                                                                    </div>
+                                                                </label>
                                                             </div>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                        </div>
+                                                    }
                                                 }
                                             </div>
                                         </div>
@@ -86,17 +89,19 @@
                                              <h5 class="card-title">Shipping information</h5>
                                             <div class="row">
                                                 @foreach(var address in Model.UserAddressList){
-                                                <div class="col-lg-4">
-                                                    <label class="card-radio-site-label mb-3">
-                                                        <input asp-for="OrderHeader.UserAddressId" type="radio" id=@("user-address" + @address.Id) class="card-radio-site-input" value="@address.Id"/>
-                                                        <div class="card-radio-site">
-                                                            <h5 class="font-size-14 mb-2">@address.FirstName @address.LastName</h5>
-                                                            <p class="fw-light mb-0" style="white-space: pre-line">@address.AddressLine1, @address.AddressLine2</p>
-                                                            <p class="fw-light mb-0" style="white-space: pre-line">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
-                                                            <p class="fw-light mb-0"><strong>Phone:</strong> @address.Phone</p>
-                                                        </div>
-                                                    </label>
-                                                </div>                                                
+                                                    if(@address.Id != 8){
+                                                        <div class="col-lg-4">
+                                                            <label class="card-radio-site-label mb-3">
+                                                                <input asp-for="OrderHeader.UserAddressId" type="radio" id=@("user-address" + @address.Id) class="card-radio-site-input" value="@address.Id"/>
+                                                                <div class="card-radio-site">
+                                                                    <h5 class="font-size-14 mb-2">@address.FirstName @address.LastName</h5>
+                                                                    <p class="fw-light mb-0" style="white-space: pre-line">@address.AddressLine1, @address.AddressLine2</p>
+                                                                    <p class="fw-light mb-0" style="white-space: pre-line">@address.City.Name, @address.City.Canton.Name, @address.City.Canton.Province.Name @address.City.PostalCode</p>
+                                                                    <p class="fw-light mb-0"><strong>Phone:</strong> @address.Phone</p>
+                                                                </div>
+                                                            </label>
+                                                        </div>   
+                                                    }
                                                 }                                        
                                             </div>
                                             <button type="button" onclick="newShippingAddress()" class="btn btn-primary float-end">Add New Address</button>
@@ -179,7 +184,8 @@
                                             <h5 class="font-size-14">Payment method :</h5>
                             
                                             <div class="row">
-                                                <div class="col-lg-3 col-sm-6">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-lg-4 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
                                                             <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption1" class="card-radio-input" value="Credit / Debit Card" />
@@ -190,18 +196,21 @@
                                                         </label>
                                                     </div>
                                                 </div> 
-                                                <div class="col-lg-3 col-sm-6">
+                                                <div class="col-lg-4 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
-                                                            <input asp-for="OrderHeader.PaymentType" onclick="cc_debit()" type="radio" id="pay-methodoption2" class="card-radio-input" value="PayPal" />
+                                                            <input asp-for="OrderHeader.PaymentType" onclick="paypal()" type="radio" id="pay-methodoption2" class="card-radio-input" value="PayPal" />
                                                             <div class="card-radio">
                                                                 <i class="fab fa-cc-mastercard font-size-24 align-middle me-2"></i>
                                                                 <span>PayPal</span>
                                                             </div>
                                                         </label>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-3 col-sm-6">
+                                                </div>                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-lg-4 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
                                                             <input asp-for="OrderHeader.PaymentType" onclick="sinpe()" type="radio" id="pay-methodoption3" class="card-radio-input" value="SINPE Móvil" />
@@ -212,7 +221,7 @@
                                                         </label>
                                                     </div>
                                                 </div>                            
-                                                <div class="col-lg-3 col-sm-6">
+                                                <div class="col-lg-4 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label mb-3">
                                                             <input asp-for="OrderHeader.PaymentType" onclick="cash()" type="radio" id="pay-methodoption4" class="card-radio-input" value="Cash on Delivery"/>
@@ -224,9 +233,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div id="sinpe-toggle" style="display: none">
                                                 <h5 class="my-3 font-size-14">For SINPE Móvil payment</h5>
                                                 <p class="card-title-desc">Please send a SINPE Móvil transfer to +506 8582-5555 with the order number as the detail. Order number will be provided once the order process is completed. </p>
+                                            </div>
+                                            <div id="paypal-toggle" style="display: none">
+                                                <h5 class="my-3 font-size-14">For PayPal payment</h5>
+                                                <p class="card-title-desc">You will be redirected to PayPal. Your order amount will be shown in USD.</p>
+                                            </div>
+                                            <div id="cc-toggle" style="display: none">
+                                                <h5 class="my-3 font-size-14">For Credit / Debit Card payment</h5>
+                                                <p class="card-title-desc">You will be redirected to Stripe for payment.</p>
+                                            </div>
+                                            <div id="cash-toggle" style="display: none">
+                                                <h5 class="my-3 font-size-14">For Cash payment</h5>
+                                                <p class="card-title-desc">We don't accept 50,000 bills.</p>
                                             </div>
                                             <div class="mt-4 text-end">
                                                 <input type="submit" class="btn btn-success" value="Complete Order"/>

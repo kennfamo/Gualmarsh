@@ -81,27 +81,54 @@ function newShippingAddress() {
 };
 
 function sinpe() {
-    var x = document.getElementById("sinpe-toggle");
-    if (x.style.display === "none") {
-        x.style.display = "block";
+    var sinpe = document.getElementById("sinpe-toggle");
+    var cc_debit = document.getElementById("cc-toggle");
+    var cash = document.getElementById("cash-toggle");
+    var paypal = document.getElementById("paypal-toggle");
+    if (sinpe.style.display === "none") {
+        sinpe.style.display = "block";
+        cc_debit.style.display = "none";
+        cash.style.display = "none";
+        paypal.style.display = "none";
     }
-    else {
-        x.style.display = "none";
-    }
-}
+};
 
 function cc_debit() {
-    var x = document.getElementById("sinpe-toggle");
-    if (x.style.display === "block") {
-        x.style.display = "none";
+    var sinpe = document.getElementById("sinpe-toggle");
+    var cc_debit = document.getElementById("cc-toggle");
+    var cash = document.getElementById("cash-toggle");
+    var paypal = document.getElementById("paypal-toggle");
+    if (cc_debit.style.display === "none") {
+        cc_debit.style.display = "block";
+        sinpe.style.display = "none";
+        cash.style.display = "none";
+        paypal.style.display = "none";
     }
-}
+};
 
 function cash() {
-    var x = document.getElementById("sinpe-toggle");
-    if (x.style.display === "block") {
-        x.style.display = "none";
+    var sinpe = document.getElementById("sinpe-toggle");
+    var cc_debit = document.getElementById("cc-toggle");
+    var cash = document.getElementById("cash-toggle");
+    var paypal = document.getElementById("paypal-toggle");
+    if (cash.style.display === "none") {
+        cc_debit.style.display = "none";
+        sinpe.style.display = "none";
+        cash.style.display = "block";
+        paypal.style.display = "none";
     }
-}
+};
 
+function paypal() {
+    var sinpe = document.getElementById("sinpe-toggle");
+    var cc_debit = document.getElementById("cc-toggle");
+    var cash = document.getElementById("cash-toggle");
+    var paypal = document.getElementById("paypal-toggle");
+    if (paypal.style.display === "none") {
+        cc_debit.style.display = "none";
+        sinpe.style.display = "none";
+        cash.style.display = "none";
+        paypal.style.display = "block";
+    }
+};
 
