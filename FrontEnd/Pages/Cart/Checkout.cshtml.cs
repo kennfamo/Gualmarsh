@@ -172,7 +172,7 @@ namespace FrontEnd.Pages.Cart
                 if (OrderHeader.PaymentType == "Credit / Debit Card")
                 {
                     //Stripe Payment section
-                    var domain = "https://localhost:44320";
+                    var domain = "https://" + HttpContext.Request.Host;
                     var options = new SessionCreateOptions
                     {
                         LineItems = new List<SessionLineItemOptions>(),
@@ -219,7 +219,7 @@ namespace FrontEnd.Pages.Cart
                         Extensions extensions = new Extensions();  
                         ServiceRepository serviceObj = new ServiceRepository(extensions.PayPalLogin());
                         CurrencyExchange = extensions.CurrencyExchangeRate();
-                        var stringContent = new StringContent(extensions.OrderBodyToJson(ShoppingCartList, OrderHeader, CurrencyExchange), Encoding.UTF8, "application/json");
+                        var stringContent = new StringContent(extensions.OrderBodyToJson(HttpContext.Request.Host.ToString(), ShoppingCartList, OrderHeader, CurrencyExchange), Encoding.UTF8, "application/json");
                         HttpResponseMessage response = serviceObj.PostAsyncStringContent("v2/checkout/orders/", stringContent);
                         var content = response.Content.ReadAsStringAsync().Result;
                         response.EnsureSuccessStatusCode();
