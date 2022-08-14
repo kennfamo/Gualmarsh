@@ -20,26 +20,11 @@ namespace FrontEnd.Pages.Cart
 
         public void OnGet(int id)
         {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
-            if(orderHeader.PaymentType == "Credit / Debit Card")
-            {
-                if (orderHeader.SessionId != null)
-                {
-                    var service = new SessionService();
-                    Session session = service.Get(orderHeader.SessionId);
-                    if (session.PaymentStatus.ToLower() == "paid")
-                    {
-                        orderHeader.Status = StaticDetails.StatusInProcess;
-                        _unitOfWork.Save();
-                    }
-                }
-            }
-            else 
-            {
-                orderHeader.Status = StaticDetails.StatusInProcess;
-                _unitOfWork.Save();
-            }
-            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
+            OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id, 
+                includeProperties: "ApplicationUser,Discount,UserAddress,UserAddress.City,UserAddress.City.Canton,UserAddress.City.Canton.Province");
+            OrderHeader.Status = StaticDetails.StatusInProcess;
+            _unitOfWork.Save();            
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == OrderHeader.ApplicationUserId).ToList();
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
             OrderId = id;

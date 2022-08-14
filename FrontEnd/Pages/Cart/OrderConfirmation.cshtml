@@ -1,14 +1,128 @@
 ﻿@page
 @model FrontEnd.Pages.Cart.OrderConfirmationModel
-<div class="container row">
-    <div class="col-12 text-center mb-5">
-        <h1 class="text-primary text-center">Order Placed Successfully!</h1>
-        Your Order Number is : @Model.OrderId<br /><br />
+<br />
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img src="~/images/logo-bg-light.png" class="img-fluid mt-6 ms-3" alt="logo-bg">
+                                </div>                                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10 mt-5 ms-3">
+                                    <h1 style="font-size: 40px;">Thanks for shopping with Gualmarsh</h1>
+                                    <h5>Enjoy your order and we hope you continue shopping with us.</h5>
+                                </div>                                                
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <img src="~/images/confirmation.jpeg" class="img-fluid" alt="confirmation"/>
+                        </div>
+                    </div>                                    
+                </div>
+            </div>
+        </div>
+        <h5 style="font-size:20px">Thank you for your order</p>
+        <div class="row">
+            <div class="alert alert-success" style="font-size:16px">
+                <p class="mb-0">An order confirmation has been sent to <strong>@Model.OrderHeader.ApplicationUser.Email</strong></p>
+                <p class="mb-0">Your order number is <strong>@Model.OrderHeader.Id</strong></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    @if(Model.OrderHeader.DeliveryType == "Deliver to Address"){
+                    <p class="font-size-20 mt-2"><i class="fas fa-truck-moving"></i> We will send you an email with tracking information when your item ships.</p>
+                    }
+                    <div class="row">
+                        @if (Model.OrderHeader.DeliveryType == "Deliver to Address")
+                        {
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Shipping Address</h5>
+                                        <hr>                          
+                                        <h5 class="font-size-14">@Model.OrderHeader.UserAddress.FirstName @Model.OrderHeader.UserAddress.LastName</h5>
+                                        <p class="font-size-14 fw-normal mb-1" style="white-space: pre-line">@Model.OrderHeader.UserAddress.AddressLine1, @Model.OrderHeader.UserAddress.AddressLine2</p>
+                                        <p class="font-size-14 fw-normal mb-0"><strong>Phone:</strong> @Model.OrderHeader.UserAddress.Phone</p> 
+                                    </div>
+                                </div>                                                
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Shipping Address</h5>
+                                        <hr>                          
+                                        <h5 class="font-size-14">Bradley McMillian</h5>
+                                        <p class="font-size-14 fw-normal mb-1">109 Clarksburg Park Road Show Low, AZ 85901</p>
+                                        <p class="font-size-14 fw-normal mb-0">Mo. 012-345-6789</p>  
+                                    </div>
+                                </div>                                                
+                            </div> 
+                        }
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Order Summary</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <h5 class="font-size-14">Subtotal<span class="font-size-12"> (1 item)</span></h5>
+                                        </div>
+                                        <div class="col-lg-5 text-end">
+                                            <p class="font-size-14 fw-bold"><strong>$7.48</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <h5 class="font-size-14">Shipping</h5>
+                                        </div>
+                                        <div class="col-lg-5 text-end">
+                                            <p class="font-size-14 fw-bold"><strong>$7.48</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-lg-7">
+                                            <h5 class="font-size-14">Discount</h5>
+                                        </div>
+                                        <div class="col-lg-5 text-end">
+                                            <p class="font-size-14 fw-bold"><strong>$1.58</strong></p>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <h5 class="font-size-18 fw-bold text-primary">Total</h5>
+                                        </div>
+                                        <div class="col-lg-5 text-end">
+                                            <p class="font-size-18 text-primary fw-bold"><strong>$15.48</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Payment Type</h5>
+                                    <hr>
+                                    <i class="fas fa-mobile-alt font-size-18 align-middle me-2"></i><span class="font-size-14">Credit / Debit Card</span>
+                                </div>
+                                </div>                                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <br />
-    <br />
-    <div class="col-12 text-center mt-5" style="color:maroon">
-        <br />
-        Your order has been placed successfully! <br />
-    </div>
-</div> 
+</div>    
