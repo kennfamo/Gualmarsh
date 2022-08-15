@@ -19,15 +19,20 @@ namespace FrontEnd.Pages.Order
         }
 
         public IEnumerable<OrderHeader> OrderHeaderList { get; set; }
-        public IEnumerable<OrderDetails> OrderDetails { get; set; }
+        public IEnumerable<OrderDetails> OrderDetailsList { get; set; }
+        public List<IEnumerable<OrderDetails>> FinalList { get; set; }
+       
+
+       
         public void OnGet()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            FinalList = new List<IEnumerable<OrderDetails>>();
             if (claim != null)
             {
-                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value,
-                    includeProperties: "Discount,ApplicationUser,UserAddress");
+                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value);
+                OrderDetailsList = _unitOfWork.OrderDetails.GetAll(includeProperties: "OrderHeader,OrderHeader.Discount,OrderHeader.ApplicationUser,OrderHeader.UserAddress,Product");
             }
         }
     }

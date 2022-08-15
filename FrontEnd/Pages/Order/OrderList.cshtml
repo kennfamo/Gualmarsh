@@ -73,30 +73,36 @@
 														<ul class="text-end">
 															<a href="">View Order</a>
 															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">Ver Invoice</a>
+															<a href="">View Invoice</a>
 														</ul>
 													</div>
 												</div>
 											</div>	
 										</div>
 										<div class="card-body">
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="product_detail.html" class="text-primary fw-bold fs-5">TEST</a>
+											@foreach(var item in Model.OrderDetailsList.Where(u=>u.OrderId == order.Id)){												
+												<div class="row">
+													<div class="col-2">														
+														<img src="@item.Product.Image1" alt="1" class="avatar-lg">														
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
+													<div class="col-6">
+														<div class="row">
+															<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+														</div>
+														<br>
+														<br>
+													</div>	
+													<div class="col-4">
+														<button class="btn btn-warning float-end">Add Review</button>
 													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
 												</div>
-											</div>											
+											}
 										</div>																														
 									</div>
 								</div>
@@ -113,10 +119,10 @@
 											<div class="col-8">
 												<div class="row">
 													<div class="col-3">
-														<span>FECHA ORDEN</span>
+														<span>ORDER DATE</span>
 													</div>
 													<div class="col-3">
-														<span>TOTAL</span>
+														<span>ORDER TOTAL</span>
 													</div>
 												</div>
 												<div class="row">
@@ -134,49 +140,39 @@
 												</div>
 												<div class="row">
 													<ul class="text-end">
-														<a href="">Ver Orden</a>
+														<a href="">View Order</a>
 														<span>&nbsp&nbsp|&nbsp&nbsp</span>
-														<a href="">Ver Factura</a>
+														<a href="">View Invoice</a>
 													</ul>
 												</div>
 											</div>
 										</div>	
 									</div>
 									<div class="card-body">
-										<div class="row">
-											<div class="col-2">														
-												<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-											</div>
-											<div class="col-2">
-												<div class="row">
-													<a href="product_detail.html" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+										@foreach (var item in Model.OrderDetailsList.Where(u => u.OrderId == order.Id))
+										{
+											<div class="row">
+												<div class="col-2">
+													<img src="@item.Product.Image1" alt="1" class="avatar-lg">
 												</div>
-												<div class="row">
-													<span class="text-secondary fs-7">₡50000</span>
+												<div class="col-6">
+													<div class="row">
+														<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+													</div>
+													<div class="row">
+														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+													</div>
+													<div class="row">
+														<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+													</div>
+													<br>
+													<br>
 												</div>
-												<br>
-												<br>
-											</div>	
-											<div class="col-8">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-2">														
-												<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-											</div>
-											<div class="col-2">
-												<div class="row">
-													<a href="" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+												<div class="col-4">
+													<button class="btn btn-warning float-end">Add Review</button>
 												</div>
-												<div class="row">
-													<span class="text-secondary fs-7">₡50000</span>
-												</div>
-												<br>
-												<br>
-											</div>	
-											<div class="col-8">
 											</div>
-										</div>
+										}
 									</div>																														
 								</div>
 							</div>
@@ -193,10 +189,10 @@
 											<div class="col-8">
 												<div class="row">
 													<div class="col-3">
-														<span>FECHA ORDEN</span>
+														<span>ORDER DATE</span>
 													</div>
 													<div class="col-3">
-														<span>TOTAL</span>
+														<span>ORDER TOTAL</span>
 													</div>
 												</div>
 												<div class="row">
@@ -214,52 +210,41 @@
 												</div>
 												<div class="row">
 													<ul class="text-end">
-														<a href="">Ver Orden</a>
+														<a href="">View Order</a>
 														<span>&nbsp&nbsp|&nbsp&nbsp</span>
-														<a href="">Ver Factura</a>
+														<a href="">View Invoice</a>
 													</ul>
 												</div>
 											</div>
 										</div>	
 									</div>
 									<div class="card-body">
-										<div class="row">
-											<div class="col-2">														
-												<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-											</div>
-											<div class="col-2">
-												<div class="row">
-													<a href="product_detail.html" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+										@foreach (var item in Model.OrderDetailsList.Where(u => u.OrderId == order.Id))
+										{
+											<div class="row">
+												<div class="col-2">
+													<img src="@item.Product.Image1" alt="1" class="avatar-lg">
 												</div>
-												<div class="row">
-													<span class="text-secondary fs-7">₡50000</span>
+												<div class="col-6">
+													<div class="row">
+														<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+													</div>
+													<div class="row">
+														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+													</div>
+													<div class="row">
+														<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+													</div>
+													<br>
+													<br>
 												</div>
-												<br>
-												<br>
-											</div>	
-											<div class="col-8">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-2">														
-												<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-											</div>
-											<div class="col-2">
-												<div class="row">
-													<a href="" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+												<div class="col-4">
+													<button class="btn btn-warning float-end">Add Review</button>
 												</div>
-												<div class="row">
-													<span class="text-secondary fs-7">₡50000</span>
-												</div>
-												<br>
-												<br>
-											</div>	
-											<div class="col-8">
 											</div>
-										</div>
+										}
 									</div>																														
-								</div>
-								
+								</div>								
 								<br>
 							</div>
 						}
@@ -274,10 +259,10 @@
 												<div class="col-8">
 													<div class="row">
 														<div class="col-3">
-															<span>FECHA ORDEN</span>
+															<span>ORDER DATE</span>
 														</div>
 														<div class="col-3">
-															<span>TOTAL</span>
+															<span>ORDER TOTAL</span>
 														</div>
 													</div>
 													<div class="row">
@@ -295,52 +280,41 @@
 													</div>
 													<div class="row">
 														<ul class="text-end">
-															<a href="">Ver Orden</a>
+															<a href="">View Order</a>
 															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">Ver Factura</a>
+															<a href="">View Invoice</a>
 														</ul>
 													</div>
 												</div>
 											</div>	
 										</div>
 										<div class="card-body">
-											<div class="row">
-												<div class="col-2">														
-													<img src="" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="product_detail.html" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+											@foreach (var item in Model.OrderDetailsList.Where(u => u.OrderId == order.Id))
+											{
+												<div class="row">
+													<div class="col-2">
+														<img src="@item.Product.Image1" alt="1" class="avatar-lg">
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
+													<div class="col-6">
+														<div class="row">
+															<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+														</div>
+														<br>
+														<br>
 													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+													<div class="col-4">
+														<button class="btn btn-warning float-end">Add Review</button>
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
-													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
 												</div>
-											</div>
+											}
 										</div>																														
-									</div>
-								
+									</div>								
 									<br>
 								</div>
 							}
@@ -355,10 +329,10 @@
 												<div class="col-8">
 													<div class="row">
 														<div class="col-3">
-															<span>FECHA ORDEN</span>
+															<span>ORDER DATE</span>
 														</div>
 														<div class="col-3">
-															<span>TOTAL</span>
+															<span>ORDER TOTAL</span>
 														</div>
 													</div>
 													<div class="row">
@@ -376,52 +350,41 @@
 													</div>
 													<div class="row">
 														<ul class="text-end">
-															<a href="">Ver Orden</a>
+															<a href="">View Order</a>
 															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">Ver Factura</a>
+															<a href="">Veiew Invoice</a>
 														</ul>
 													</div>
 												</div>
 											</div>	
 										</div>
 										<div class="card-body">
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="product_detail.html" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+											@foreach (var item in Model.OrderDetailsList.Where(u => u.OrderId == order.Id))
+											{
+												<div class="row">
+													<div class="col-2">
+														<img src="@item.Product.Image1" alt="1" class="avatar-lg">
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
+													<div class="col-6">
+														<div class="row">
+															<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+														</div>
+														<br>
+														<br>
 													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+													<div class="col-4">
+														<button class="btn btn-warning float-end">Add Review</button>
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
-													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
 												</div>
-											</div>
+											}
 										</div>																														
-									</div>
-								
+									</div>								
 									<br>
 								</div>
 							}
@@ -436,10 +399,10 @@
 												<div class="col-8">
 													<div class="row">
 														<div class="col-3">
-															<span>FECHA ORDEN</span>
+															<span>ORDER DATE</span>
 														</div>
 														<div class="col-3">
-															<span>TOTAL</span>
+															<span>ORDER TOTAL</span>
 														</div>
 													</div>
 													<div class="row">
@@ -457,52 +420,41 @@
 													</div>
 													<div class="row">
 														<ul class="text-end">
-															<a href="">Ver Orden</a>
+															<a href="">View Order</a>
 															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">Ver Factura</a>
+															<a href="">View Invoice</a>
 														</ul>
 													</div>
 												</div>
 											</div>	
 										</div>
 										<div class="card-body">
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="product_detail.html" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+											@foreach (var item in Model.OrderDetailsList.Where(u => u.OrderId == order.Id))
+											{
+												<div class="row">
+													<div class="col-2">
+														<img src="@item.Product.Image1" alt="1" class="avatar-lg">
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
+													<div class="col-6">
+														<div class="row">
+															<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+														</div>
+														<div class="row">
+															<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+														</div>
+														<br>
+														<br>
 													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-2">														
-													<img src="static/images/product/img-1.png" alt="1" class="avatar-lg">														
-												</div>
-												<div class="col-2">
-													<div class="row">
-														<a href="" class="text-primary fw-bold fs-5">Full sleeve t-shirt</a>
+													<div class="col-4">
+														<button class="btn btn-warning float-end">Add Review</button>
 													</div>
-													<div class="row">
-														<span class="text-secondary fs-7">₡50000</span>
-													</div>
-													<br>
-													<br>
-												</div>	
-												<div class="col-8">
 												</div>
-											</div>
+											}
 										</div>																														
-									</div>
-								
+									</div>								
 									<br>
 								</div>
 							}
