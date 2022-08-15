@@ -2,10 +2,11 @@
 @model FrontEnd.Pages.Cart.SummaryModel
 @inject IOptions<BackEnd.Utility.StripeSettings> Stripe
 @using Microsoft.Extensions.Options
+@{
+    ViewData["Title"] = "Checkout";
+}
 @section Styles {
-   @{
     <partial name="_CheckoutStylesPartial"/>
-    }
 }
 <form method="post">
 <div class="row">

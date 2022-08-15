@@ -83,8 +83,8 @@ namespace FrontEnd.Pages.Cart
                 },
                 ApplicationContext = new ApplicationContext()
                 {
-                    ReturnUrl = "https://" + domain + "/Cart/Checkout?handler=CapturePayment",
-                    CancelUrl = "https://" + domain + "/Cart/"
+                    ReturnUrl = "https://" + domain + "/cart/checkout?handler=CapturePayment",
+                    CancelUrl = "https://" + domain + "/cart/"
                 }
             };
             return JsonConvert.SerializeObject(paypalOrderDetails);

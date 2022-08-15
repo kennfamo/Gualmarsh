@@ -19,12 +19,14 @@ namespace FrontEnd.Pages.Products
         public IEnumerable<Product> ProductList { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryListFilter { get; set; }
+        public ProductSubcategory ProductSubcategory { get; set; }
 
-        public void OnGet(int id)
+        public void OnGet(string name)
         {
-            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Id == id);
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Name == name);
             ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
-            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+            ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
+            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == ProductSubcategory.Id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
         }
         public JsonResult OnGetAutoComplete()
         {

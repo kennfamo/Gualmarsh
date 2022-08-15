@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
@@ -51,6 +52,7 @@ StripeConfiguration.ApiKey = key;
 app.UseAuthentication();;
 
 app.UseAuthorization();
+
 
 app.MapRazorPages();
 app.MapControllers();

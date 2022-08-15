@@ -10,11 +10,14 @@
 				<div class="row">
 					@foreach (var item in Model)
 					{
+					var routeName = item.Name.Replace('-', ' ');
+
 					<div class="col-md-2">
 						<h5 class="font-size-14">@item.ProductCategory.Name</h5>
 						<ul class="list-unstyled megamenu-list">
 							
-							<li> <a asp-route-id="@item.Id" asp-page="/Products/Index">@item.Name</a>
+								<li>
+									<a asp-route-name="@item.Name" asp-page="/Products/Index">@routeName</a>
 							</li>
 							
 						</ul>

@@ -116,10 +116,7 @@ namespace FrontEnd.Pages.Cart
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(filter: u => u.ApplicationUserId == claim.Value,
                     includeProperties: "Product,Product.ProductSubcategory,Product.ProductSubcategory.ProductCategory");
 
-                foreach (var cartItem in ShoppingCartList)
-                {
-                    OrderHeader.Subtotal += (cartItem.Product.Price * cartItem.Quantity);
-                }
+                
                 DiscountAmount = (string)TempData.Peek("DiscountAmount");
                 DiscountCode = (string)TempData.Peek("DiscountCode");
                 if (DiscountAmount != null)
@@ -181,8 +178,8 @@ namespace FrontEnd.Pages.Cart
                         "card",
                     },
                         Mode = "payment",
-                        SuccessUrl = domain + $"/Cart/OrderConfirmation?id={OrderHeader.Id}",
-                        CancelUrl = domain + "/Cart/Index",
+                        SuccessUrl = domain + $"/cart/orderconfirmation?id={OrderHeader.Id}",
+                        CancelUrl = domain + "/cart/",
                     };
 
                     //Add Line Items

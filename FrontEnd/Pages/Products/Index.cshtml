@@ -1,9 +1,12 @@
-﻿@page
+﻿@page "/Products/Category/{name}"
 @model FrontEnd.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
 @section Styles {
-   @{
-    <partial name="_ProductStylesPartial"/>
-    }
+     <partial name="_ProductStylesPartial"/>;
+     
+    
 }
 <div class="row">
 <div class="col-xl-3 col-lg-4">

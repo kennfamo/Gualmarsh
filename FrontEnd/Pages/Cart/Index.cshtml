@@ -1,9 +1,10 @@
 ﻿@page
 @model FrontEnd.Pages.Cart.IndexModel
+@{
+    ViewData["Title"] = "Cart";
+}
 @section Styles {
-   @{
-		<partial name="_ShoppingCartStylesPartial"/>
-	}
+	<partial name="_ShoppingCartStylesPartial"/>
 }
 <form method="post">
     <br />

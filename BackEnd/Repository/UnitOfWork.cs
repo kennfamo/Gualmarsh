@@ -31,6 +31,7 @@ namespace BackEnd.Repository
             OrderHeader = new OrderHeaderRepository(_db);
             ProductSubcategory = new ProductSubcategoryRepository(_db);
             Site = new SiteRepository(_db);
+            HelpfulReview = new HelpfulReviewRepository(_db);
         }
 
         public IProductCategoryRepository ProductCategory { get; private set; }
@@ -48,6 +49,7 @@ namespace BackEnd.Repository
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IProductSubcategoryRepository ProductSubcategory { get; private set; }
         public ISiteRepository Site { get; private set; }
+        public IHelpfulReviewRepository HelpfulReview { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

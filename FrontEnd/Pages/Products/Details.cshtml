@@ -1,5 +1,8 @@
 ﻿@page
 @model FrontEnd.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = Model.ShoppingCart.Product.Name;
+}
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -182,43 +185,59 @@
                                 </div>
                                 <div class="text-muted">(@if (Model.ReviewList.Count() == 1)
                                     {
-                                        <text>1 Customer Review</text>
+                                        <text>1 Review</text>
 
                                     }else{
-                                        <text>@Model.ReviewList.Count() Customer Reviews</text>
+                                        <text>@Model.ReviewList.Count() Reviews</text>
                                     })
                                 </div>
                             </div>
-                            <a asp-page="Reviews" asp-route-id="@Model.ShoppingCart.ProductId" class="float-end">View All Reviews</a>
-                            <div class="border p-4 rounded">
-                            @foreach (var item in Model.ReviewList)
+                            @if (Model.ReviewList.Count() > 0)
                             {
+                                <a asp-page="Reviews" asp-route-id="@Model.ShoppingCart.ProductId" class="float-end">View All Reviews</a>
+                                <div class="border p-4 rounded">
+                                @foreach (var item in Model.ReviewList)
+                                {
                                     int ratingInt = Int32.Parse(item.Rating);
-                                    
                                     <div class="d-flex border-bottom pb-3">
-                                    <div class="flex-1">
-                                        <div class="d-inline-flex mb-3">
-                                            <div class="text-muted me-3">
-                                                <span class="mdi mdi-star @if(ratingInt >0){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingInt >1){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingInt >2){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingInt >3){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingInt >4){ <text>text-warning</text>}"></span>
+                                        <div class="flex-1">
+                                            <div class="d-inline-flex mb-3">
+                                                <div class="text-muted me-3">
+                                                    <span class="mdi mdi-star @if(ratingInt >0){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingInt >1){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingInt >2){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingInt >3){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingInt >4){ <text>text-warning</text>}"></span>
+                                                </div>
                                             </div>
+                                            <h5 class="font-size-17 mb-3">@item.Title</h5>
+                                            <p class="text-muted mb-2">@item.Body</p>
+                                            <br>
+                                            <h5 class="font-size-14 mb-3 fst-italic">@item.ApplicationUser.FirstName @item.ApplicationUser.LastName</h5>                                                            
+                                            <ul class="list-inline product-review-link mb-0">
+                                                <li class="list-inline-item">
+                                                    @if (Model.HelpfulReviewList != null)
+                                                    {
+                                                        if (Model.HelpfulReviewList.Where(u => u.ReviewId == item.Id).Count() > 0)
+                                                        {
+                                                            <p>@Model.HelpfulReviewList.Where(u=> u.ReviewId == item.Id).Count() people found this helpful</p>
+                                                        }
+                                                        if (Model.HelpfulReviewListUser != null){
+                                                            if (Model.HelpfulReviewListUser.Where(u => u.ReviewId == item.Id).Count() > 0)
+                                                            {
+                                                                <a asp-page-handler="unhelpful" asp-route-id="@item.Id" asp-route-product="@item.ProductId" class="text-primary"><i class="mdi mdi-thumb-up text-primary align-middle me-1"></i> Helpful</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a asp-page-handler="helpful" asp-route-id="@item.Id" asp-route-product="@item.ProductId"><i class="mdi mdi-thumb-up align-middle me-1"></i> Helpful</a>
+                                                            }
+                                                        }
+                                                    }
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <h5 class="font-size-17 mb-3">@item.Title</h5>
-                                        <p class="text-muted mb-2">@item.Body</p>
-                                        <br>
-                                        <h5 class="font-size-14 mb-3 fst-italic">@item.ApplicationUser.FirstName @item.ApplicationUser.LastName</h5>                                                            
-                                        <ul class="list-inline product-review-link mb-0">
-                                            <li class="list-inline-item">
-                                                <a href="#"><i class="mdi mdi-thumb-up align-middle me-1"></i> Helpful</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <p class="float-sm-end font-size-12">@item.CreatedDate</p>
-                                </div> 
-                            
+                                        <p class="float-sm-end font-size-12">@item.CreatedDate</p>
+                                    </div> 
                             }
                                 @*<div class="d-flex border-bottom py-3">
                                     <div class="flex-1">
@@ -252,7 +271,8 @@
                                     </div>
                                     <p class="float-sm-end font-size-12">04 Jan, 2020</p>
                                 </div>*@
-                            </div>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div class="col-xl-2"></div>
