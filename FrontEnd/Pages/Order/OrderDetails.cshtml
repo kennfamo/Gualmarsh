@@ -1,0 +1,118 @@
+﻿@page
+@model FrontEnd.Pages.Order.OrderDetailsModel
+<div class="row">
+	<div class="col-lg-3"></div>
+	<div class="col-lg-6">
+		<div class="row">
+			<a class="mt-3 mb-2" asp-page="OrderList">Back To Orders</a>
+			<h3 class="mb-2">View Order Details</h3>
+			<span class="font-size-16 mb-2">Ordered on @Model.OrderDetailVM.OrderHeader.OrderDate &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Order #GMSH-@Model.OrderDetailVM.OrderHeader.Id</span>
+		</div>
+		<div class="row">
+			<div class="card mb-2">
+				<div class="card-body">
+					<div class="row">
+						@if (Model.OrderDetailVM.OrderHeader.DeliveryType == "Deliver to Address")
+						{
+							<div class="col-lg-4">
+								<h5 class="font-size-14">Shipping Address</h5>
+								<h5 class="font-size-14">@Model.OrderDetailVM.OrderHeader.UserAddress.FirstName @Model.OrderDetailVM.OrderHeader.UserAddress.LastName</h5>
+								<p class="font-size-14 fw-normal mb-0" style="white-space: pre-line">@Model.OrderDetailVM.OrderHeader.UserAddress.AddressLine1, @Model.OrderDetailVM.OrderHeader.UserAddress.AddressLine2</p>
+								<p class="font-size-14 fw-normal mb-0"><strong>Phone:</strong> @Model.OrderDetailVM.OrderHeader.UserAddress.Phone</p>
+							</div>
+						}else{
+							<div class="col-lg-4">
+								<h5 class="font-size-14">Site Address</h5>
+								<h5 class="font-size-14 mb-1">@Model.OrderDetailVM.OrderHeader.Site.Name</h5>
+								<p class="font-size-14 fw-normal mb-0" style="white-space: pre-line">@Model.OrderDetailVM.OrderHeader.Site.Address</p>
+								<p class="font-size-14 fw-normal mb-0"><strong>Phone:</strong> @Model.OrderDetailVM.OrderHeader.Site.Phone</p>
+								<p class="font-size-14 fw-normal" style="white-space: pre-line"><strong>Schedule:</strong> @Model.OrderDetailVM.OrderHeader.Site.ScheduleHour, @Model.OrderDetailVM.OrderHeader.Site.ScheduleDay</p>
+							</div>
+						}
+						<div class="col-lg-4">
+							<h5 class="font-size-14">Payment Method</h5>
+							@if (Model.OrderDetailVM.OrderHeader.PaymentType == "SINPE Móvil")
+							{
+                                <i class="fas fa-mobile-alt font-size-18 align-middle me-2"></i>
+                            }
+							else if (Model.OrderDetailVM.OrderHeader.PaymentType == "Cash on Delivery")
+                            {
+                                <i class="far fa-money-bill-alt font-size-18 align-middle me-2"></i>
+                            }
+							else if (Model.OrderDetailVM.OrderHeader.PaymentType == "Credit / Debit Card")
+                            {
+                                <i class="fab fa-cc-mastercard font-size-18 align-middle me-2"></i>
+                            }
+                            else
+                            {
+                                <i class="fab fa-cc-paypal font-size-18 align-middle me-2"></i>
+                            }
+							<span class="font-size-14">@Model.OrderDetailVM.OrderHeader.PaymentType</span>
+						</div>
+						<div class="col-lg-2">
+							<h5 class="font-size-14">Order Summary</h5>
+							<p class="mb-0"><strong class="text-start">Products:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+							<p class="mb-0"><strong class="text-start">Discount:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+							<p class="mb-0"><strong class="text-start">Shipping:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+							<hr>
+							<p class="mb-0"><strong class="text-start">Order Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+						</div>
+						<div class="col-lg-2 text-end">
+							<h5 class="font-size-14" style="color: transparent;">Order Summary</h5>
+							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Subtotal</p>
+							<p class="mb-0"> - ₡@((Model.OrderDetailVM.OrderHeader.Discount.DiscountPercent / 100) * (Model.OrderDetailVM.OrderHeader.Subtotal))</p>
+							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Shipping</p>
+							<hr>
+							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Total</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="card mt-0">
+				<div class="card-body">
+					@foreach (var item in Model.OrderDetailVM.OrderDetails){
+					<div class="row">
+						<div class="col-lg-2">
+							<img src="@item.Product.Image1" alt="1" class="avatar-lg">
+						</div>
+						<div class="col-lg-8">
+							<div class="row">
+								<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Name</a>
+							</div>
+							<div class="row">
+								<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
+							</div>
+							<div class="row">
+									<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Price</span></p>
+							</div>
+							<div class="row">
+								<p class="mb-0"><strong>Category: </strong><span class="fw-medium">@item.Product.ProductSubcategory.ProductCategory.Name</span></p>
+							</div>
+							<div class="row">
+								<p class="mb-0"><strong>Brand: </strong><span class="fw-medium">@item.Product.Brand</span></p>
+							</div>
+								<div class="row">
+									<p class="mb-0"><strong>SKU: </strong><span class="fw-medium">@item.Product.SKU</span></p>
+								</div>
+							<br>
+							<br>
+						</div>
+						<div class="col-lg-2">
+							<br>
+							<div class="row">
+									<p class="mb-0"><strong>Total: </strong><span class="fw-medium">₡@(item.Quantity * item.Price)</span></p>
+							</div>
+							<br>
+							<div class="row">
+									<button class="btn btn-warning btn-sm float-end">Add Review</button>
+							</div>
+						</div>
+					</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,5 +1,5 @@
 ﻿@page
-@model FrontEnd.Pages.Order.OrderDetailsModel
+@model FrontEnd.Pages.Order.OrderListModel
 @section Styles {
    @{
 	<partial name="_OrderListStylesPartial"/>
@@ -71,9 +71,7 @@
 													</div>
 													<div class="row">
 														<ul class="text-end">
-															<a href="">View Order</a>
-															<span>&nbsp&nbsp|&nbsp&nbsp</span>
-															<a href="">View Invoice</a>
+															<a asp-page="OrderDetails" asp-route-id="@order.Id">View Order</a>
 														</ul>
 													</div>
 												</div>
@@ -157,13 +155,13 @@
 												</div>
 												<div class="col-6">
 													<div class="row">
-														<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														<a href="product_detail.html" class="text-primary fw-bold fs-5">@item.Name</a>
 													</div>
 													<div class="row">
 														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
 													</div>
 													<div class="row">
-														<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Product.Price</span></p>
+														<p class="mb-0"><strong>Unit Price: </strong><span class="fw-medium">₡@item.Price</span></p>
 													</div>
 													<br>
 													<br>
