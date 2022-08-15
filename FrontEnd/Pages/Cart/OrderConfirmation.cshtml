@@ -32,7 +32,7 @@
         <div class="row">
             <div class="alert alert-success" style="font-size:16px">
                 <p class="mb-0">An order confirmation has been sent to <strong>@Model.OrderHeader.ApplicationUser.Email</strong></p>
-                <p class="mb-0">Your order number is <strong>@Model.OrderHeader.Id</strong></p>
+                    <p class="mb-0">Your order number is <strong>GMSH-@Model.OrderHeader.Id</strong></p>
             </div>
         </div>
         <div class="row">
@@ -61,11 +61,12 @@
                             <div class="col-lg-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5>Shipping Address</h5>
+                                        <h5>Site Address</h5>
                                         <hr>                          
-                                        <h5 class="font-size-14">Bradley McMillian</h5>
-                                        <p class="font-size-14 fw-normal mb-1">109 Clarksburg Park Road Show Low, AZ 85901</p>
-                                        <p class="font-size-14 fw-normal mb-0">Mo. 012-345-6789</p>  
+                                        <h5 class="font-size-14 mb-2">@Model.OrderHeader.Site.Name</h5>
+                                        <p class="font-size-14 fw-normal mb-1" style="white-space: pre-line">@Model.OrderHeader.Site.Address</p>
+                                        <p class="font-size-14 fw-normal mb-0"><strong>Phone:</strong> @Model.OrderHeader.Site.Phone</p>
+                                        <p class="font-size-14 fw-normal" style="white-space: pre-line"><strong>Schedule:</strong> @Model.OrderHeader.Site.ScheduleHour, @Model.OrderHeader.Site.ScheduleDay</p>
                                     </div>
                                 </div>                                                
                             </div> 
@@ -77,35 +78,41 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-lg-7">
-                                            <h5 class="font-size-14">Subtotal<span class="font-size-12"> (1 item)</span></h5>
+                                            <h5 class="font-size-14">Subtotal (
+                                                @if (Model.OrderDetailsList.Count() == 1){
+                                                    <span class="font-size-12">1 item</span>
+                                                }else{
+                                                    <span class="font-size-12">@Model.OrderDetailsList.Count() items</span>
+                                                })
+                                            </h5>
                                         </div>
                                         <div class="col-lg-5 text-end">
-                                            <p class="font-size-14 fw-bold"><strong>$7.48</strong></p>
+                                                <p class="font-size-14 fw-bold"><strong>₡@Model.OrderHeader.Subtotal</strong></p>
                                         </div>
                                     </div>
+                                        <div class="row ">
+                                            <div class="col-lg-7">
+                                                <h5 class="font-size-14">Discount</h5>
+                                            </div>
+                                            <div class="col-lg-5 text-end">
+                                                <p class="font-size-14 fw-bold"><strong>- ₡@((Model.OrderHeader.Discount.DiscountPercent / 100) * (Model.OrderHeader.Subtotal))</strong></p>
+                                            </div>
+                                        </div>
                                     <div class="row">
                                         <div class="col-lg-7">
                                             <h5 class="font-size-14">Shipping</h5>
                                         </div>
                                         <div class="col-lg-5 text-end">
-                                            <p class="font-size-14 fw-bold"><strong>$7.48</strong></p>
+                                                <p class="font-size-14 fw-bold"><strong>₡@Model.OrderHeader.Shipping</strong></p>
                                         </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-lg-7">
-                                            <h5 class="font-size-14">Discount</h5>
-                                        </div>
-                                        <div class="col-lg-5 text-end">
-                                            <p class="font-size-14 fw-bold"><strong>$1.58</strong></p>
-                                        </div>
-                                    </div>
+                                    </div>                                    
                                     <hr class="mt-0">
                                     <div class="row">
                                         <div class="col-lg-7">
                                             <h5 class="font-size-18 fw-bold text-primary">Total</h5>
                                         </div>
                                         <div class="col-lg-5 text-end">
-                                            <p class="font-size-18 text-primary fw-bold"><strong>$15.48</strong></p>
+                                                <p class="font-size-18 text-primary fw-bold"><strong>₡@Model.OrderHeader.Total</strong></p>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +123,22 @@
                                 <div class="card-body">
                                     <h5>Payment Type</h5>
                                     <hr>
-                                    <i class="fas fa-mobile-alt font-size-18 align-middle me-2"></i><span class="font-size-14">Credit / Debit Card</span>
+                                    @if(Model.OrderHeader.PaymentType == "SINPE Móvil"){
+                                        <i class="fas fa-mobile-alt font-size-18 align-middle me-2"></i>
+                                    }
+                                    else if(Model.OrderHeader.PaymentType == "Cash on Delivery")
+                                    {
+                                        <i class="far fa-money-bill-alt font-size-18 align-middle me-2"></i>
+                                    }
+                                    else if (Model.OrderHeader.PaymentType == "Credit / Debit Card")
+                                    {
+                                        <i class="fab fa-cc-mastercard font-size-18 align-middle me-2"></i>
+                                    }
+                                    else
+                                    {
+                                            <i class="fab fa-cc-paypal font-size-18 align-middle me-2"></i>
+                                    }
+                                    <span class="font-size-14">@Model.OrderHeader.PaymentType</span>
                                 </div>
                                 </div>                                                
                         </div>

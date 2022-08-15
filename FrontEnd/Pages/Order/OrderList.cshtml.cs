@@ -9,18 +9,17 @@ using System.Security.Claims;
 namespace FrontEnd.Pages.Order
 {
     [Authorize]
-    public class OrderDetailsModel : PageModel
+    public class OrderListModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public OrderDetailsModel(IUnitOfWork unitOfWork)
+        public OrderListModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public IEnumerable<OrderHeader> OrderHeaderList { get; set; }
         public IEnumerable<OrderDetails> OrderDetailsList { get; set; }
-        public List<IEnumerable<OrderDetails>> FinalList { get; set; }
        
 
        
@@ -28,7 +27,6 @@ namespace FrontEnd.Pages.Order
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            FinalList = new List<IEnumerable<OrderDetails>>();
             if (claim != null)
             {
                 OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value);
