@@ -42,7 +42,7 @@ namespace BackEnd.Model
         [DisplayFormat(DataFormatString = "{0:N}")]
         public double Shipping { get; set; }
         public string PaymentType { get; set; }
-        public int? UserAddressId { get; set; } = null!;
+        public int? UserAddressId { get; set; }
         [ForeignKey("UserAddressId")]
         [ValidateNever]
         public UserAddress UserAddress { get; set; }

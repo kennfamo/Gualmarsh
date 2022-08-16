@@ -39,7 +39,7 @@ namespace FrontEnd.Pages.Products
                 Review.CreatedDate = System.DateTime.Now;
                 _unitOfWork.Review.Add(Review);
                 _unitOfWork.Save();
-                return RedirectToPage("../Order/OrderList");
+                return Redirect("/Products/" + Product.ShortName + "/" + Product.Id);
             }
             return Page();
             

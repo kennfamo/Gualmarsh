@@ -142,7 +142,7 @@ namespace FrontEnd.Pages.Cart
 
                 if (OrderHeader.UserAddressId == null)
                 {
-                    OrderHeader.UserAddressId = 8;
+                    OrderHeader.UserAddressId = 9;
                 }
 
                 OrderHeader.Status = StaticDetails.StatusPending;

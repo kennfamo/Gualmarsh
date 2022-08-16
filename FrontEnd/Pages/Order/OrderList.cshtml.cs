@@ -30,7 +30,7 @@ namespace FrontEnd.Pages.Order
             if (claim != null)
             {
                 OrderHeaderList = _unitOfWork.OrderHeader.GetAll(filter: u => u.ApplicationUserId == claim.Value);
-                OrderDetailsList = _unitOfWork.OrderDetails.GetAll(includeProperties: "OrderHeader,OrderHeader.Discount,OrderHeader.ApplicationUser,OrderHeader.UserAddress,Product");
+                OrderDetailsList = _unitOfWork.OrderDetails.GetAll(includeProperties: "OrderHeader,OrderHeader.ApplicationUser,Product");
             }
         }
     }

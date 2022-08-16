@@ -90,7 +90,7 @@
                                              <h5 class="card-title">Shipping information</h5>
                                             <div class="row">
                                                 @foreach(var address in Model.UserAddressList){
-                                                    if(@address.Id != 8){
+                                                    if(@address.Id != 9){
                                                         <div class="col-lg-4">
                                                             <label class="card-radio-site-label mb-3">
                                                                 <input asp-for="OrderHeader.UserAddressId" type="radio" id=@("user-address" + @address.Id) class="card-radio-site-input" value="@address.Id"/>
