@@ -85,7 +85,7 @@
 													</div>
 													<div class="col-6">
 														<div class="row">
-															<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 														</div>
 														<div class="row">
 															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -97,7 +97,7 @@
 														<br>
 													</div>	
 													<div class="col-4">
-														<button class="btn btn-warning btn-sm float-end">Add Review</button>
+														<button asp-route-id="@item.Product.Id" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 													</div>
 												</div>
 											}
@@ -153,7 +153,7 @@
 												</div>
 												<div class="col-6">
 													<div class="row">
-														<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Name</a>
+														<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Name</a>
 													</div>
 													<div class="row">
 														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -165,7 +165,7 @@
 													<br>
 												</div>
 												<div class="col-4">
-													<button class="btn btn-warning btn-sm float-end">Add Review</button>
+													<button asp-route-id="@item.ProductId" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 												</div>
 											</div>
 										}
@@ -221,7 +221,7 @@
 												</div>
 												<div class="col-6">
 													<div class="row">
-															<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 													</div>
 													<div class="row">
 														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -233,7 +233,7 @@
 													<br>
 												</div>
 												<div class="col-4">
-													<button class="btn btn-warning btn-sm float-end">Add Review</button>
+													<button asp-route-id="@item.ProductId" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 												</div>
 											</div>
 										}
@@ -289,7 +289,7 @@
 													</div>
 													<div class="col-6">
 														<div class="row">
-															<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 														</div>
 														<div class="row">
 															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -301,7 +301,7 @@
 														<br>
 													</div>
 													<div class="col-4">
-														<button class="btn btn-warning btn-sm float-end">Add Review</button>
+														<button asp-route-id="@item.ProductId" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 													</div>
 												</div>
 											}
@@ -357,7 +357,7 @@
 													</div>
 													<div class="col-6">
 														<div class="row">
-															<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 														</div>
 														<div class="row">
 															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -369,7 +369,7 @@
 														<br>
 													</div>
 													<div class="col-4">
-														<button class="btn btn-warning btn-sm float-end">Add Review</button>
+														<button asp-route-id="@item.ProductId" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 													</div>
 												</div>
 											}
@@ -425,7 +425,7 @@
 													</div>
 													<div class="col-6">
 														<div class="row">
-															<a asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 														</div>
 														<div class="row">
 															<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
@@ -437,7 +437,7 @@
 														<br>
 													</div>
 													<div class="col-4">
-														<button class="btn btn-warning btn-sm float-end">Add Review</button>
+														<button asp-route-id="@item.ProductId" asp-page="../Products/AddReview" class="btn btn-warning btn-sm float-end">Add Review</button>
 													</div>
 												</div>
 											}

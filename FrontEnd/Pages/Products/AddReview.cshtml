@@ -1,0 +1,72 @@
+﻿@page
+@model FrontEnd.Pages.Products.AddReviewModel
+@section Styles {
+    <partial name="_RatingStylesPartial"/>
+}
+<br />
+<form method="post">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-8">
+                        <div class="justify-center flex">
+                            <img src="@Model.Product.Image1" alt="img-1" class="img-fluid mx-auto d-block tab-img rounded"
+                                 data-zoom="@Model.Product.Image1" width="260" height="260">
+                        </div>
+                        <div class="justify-center flex mt-3 mb-3">
+                            <h2 class="fw-bold">@Model.Product.Name</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-3"></div>
+                            <div class="col-xl-6">
+                                <div class="card" style="box-shadow: 0 0.0625rem 0.125rem 0.0625rem #00000026;">
+                                    <div class="card-body">
+                                        <div class="justify-center flex">
+                                            <span class="font-size-16">Select a Rating (required)</span>
+                                        </div>
+                                        <div class="justify-center flex">
+                                            <div class="rating-star">
+                                                <input asp-for="@Model.Review.Rating" type="hidden" class="rating" data-filled="mdi mdi-star text-warning" data-empty="mdi mdi-star-outline text-warning"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-12">
+                                                <label asp-for="@Model.Review.Body" class="fw-bold font-size-18"></label>
+                                                <textarea asp-for="@Model.Review.Body" class="form-control form-control-lg font-size-14" rows="7" type="text" placeholder="What did you like or dislike?" id="example-text-input"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-12">
+                                                <label asp-for="@Model.Review.Title" class="fw-bold font-size-18"></label>
+                                                <input asp-for="@Model.Review.Title" class="form-control form-control-lg font-size-14" type="text" placeholder="Summarize your review" id="example-text-input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="justify-center flex">
+                                    <button type="submit" class="btn btn-lg btn-primary waves-effect waves-light">Submit Review</button>
+                                </div>
+                                <br>
+                                <div class="justify-center flex">
+                                    <a asp-page="../Order/OrderList" class="text-decoration-underline">Cancel</a>
+                                </div>
+                            </div>
+                            <div class="col-xl-3"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2"></div>
+                </div>
+            </div>
+        </div>
+        <!-- end card -->
+    </div>
+</div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_RatingScriptsPartial" />
+    }
+}
