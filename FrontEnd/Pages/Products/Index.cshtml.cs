@@ -20,39 +20,41 @@ namespace FrontEnd.Pages.Products
         public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryListFilter { get; set; }
         public ProductSubcategory ProductSubcategory { get; set; }
-
-        public void OnGet(string name)
+        public double FilteredMaxPrice { get; set; }
+        public double FilteredMinPrice { get; set; }
+        public double MaxPrice { get; set; }
+        public double MinPrice { get; set; }
+        public void OnGet(string name, double min_price, double max_price)
         {
             ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Name == name);
             ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
             ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
-            ProductList = _unitOfWork.Product.GetAll(filter: u=>u.ProductSubcategoryId == ProductSubcategory.Id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
-        }
-        public JsonResult OnGetAutoComplete()
-        {
-            ProductList = _unitOfWork.Product.GetAll(includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
-            List<string> products = new List<string>();
-
+            ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
             foreach (var product in ProductList)
             {
-                products.Add(product.Name);
-                products.Add((product.Id).ToString());
+                if (product.Price > MaxPrice)
+                {
+                    MaxPrice = product.Price;
+                }
             }
-
-            return new JsonResult(products);
-        }
-        public IActionResult OnGetProdId(string search)
-        {
-            ProductList = _unitOfWork.Product.GetAll(filter: u => u.Name == search);
-            List<int> product = new List<int>();
-            foreach (var p in ProductList)
+            if (max_price != 0)
             {
-                product.Add(p.Id);
+                ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id && u.Price >= min_price && u.Price <= max_price, 
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                FilteredMaxPrice = max_price;
+                FilteredMinPrice = min_price;
             }
-
-
-            return new JsonResult(product);
+            else if (min_price != 0)
+            {
+                ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id && u.Price >= min_price,
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                FilteredMinPrice = min_price;   
+            }
+            
         }
+        
+        
         public void OnPostSubmit()
         {
             

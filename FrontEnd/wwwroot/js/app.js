@@ -71,11 +71,6 @@ File: Main Js File
     });
   }
 
-  function initMetisMenu() {
-    //metis menu
-    $("#side-menu").metisMenu();
-  }
-
   function initLeftMenuCollapse() {
     $("#vertical-menu-btn").on("click", function (event) {
       event.preventDefault();
@@ -333,8 +328,6 @@ File: Main Js File
   }
 
   function init() {
-    
-    initMetisMenu();
     initLeftMenuCollapse();
     initActiveMenu();
     initMenuItem();
