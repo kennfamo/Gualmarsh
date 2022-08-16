@@ -202,24 +202,16 @@
                     <div class="col-sm-6">
                         <div class="float-sm-end">
                             <ul class="pagination pagination-rounded mb-sm-0">
-                                <li class="page-item disabled">
+                                <li class="page-item">
                                     <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">5</a>
-                                </li>
+                                @for (var i = 1; i <= Model.TotalPages; i++ )
+                                    {
+                                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                            <a asp-page="/products/index" asp-route-pageIndex="@i" class="page-link">@i</a>
+                                        </li>
+                                    }
+
                                 <li class="page-item">
                                     <a href="#" class="page-link"><i class="mdi mdi-chevron-end"></i></a>
                                 </li>
