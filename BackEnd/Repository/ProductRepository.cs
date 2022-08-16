@@ -31,8 +31,9 @@ namespace BackEnd.Repository
             obj.Price = product.Price;
             obj.ProductSubcategoryId = product.ProductSubcategoryId;
             obj.DiscountCode = product.DiscountCode;
+            obj.ShortName = product.ShortName;
 
-            if(obj.Image1 != null)
+            if (obj.Image1 != null)
             {
                 obj.Image1 = product.Image1;
             }

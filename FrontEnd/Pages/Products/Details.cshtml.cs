@@ -26,11 +26,11 @@ namespace FrontEnd.Pages.Products
         public IEnumerable<HelpfulReview> HelpfulReviewListUser { get; set; }
         public int RatingTotal { get; set; }
         public int RatingAverage { get; set; }
-        public void OnGet(int id)
+        public void OnGet(string name, int id)
         {           
             ShoppingCart = new()
             {
-                Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
+                Product = _unitOfWork.Product.GetFirstOrDefault(u => u.ShortName == name, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
                 ProductId = id
             };
             ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");

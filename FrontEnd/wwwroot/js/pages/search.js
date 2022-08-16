@@ -36,9 +36,8 @@ const autoCompleteJS = new autoComplete(
     data: {
         src: async () => {
             try {
-                const source = await fetch('../Products/Index?handler=AutoComplete');
+                const source = await fetch('/search/');
                 const data = await source.json();
-                console.log(data)
                 return data;
             } catch (error) {
                 return error
@@ -77,18 +76,17 @@ autoCompleteJS.input.addEventListener("selection", function (event) {
     const feedback = event.detail;
     autoCompleteJS.input.blur();
     const selection = feedback.selection.value;
-    console.log(selection)
     var selectedText;
     autoCompleteJS.input.value = selection;
     $.ajax({
         async: false,
-        url: '/Products/Index?search=' + selection + '&handler=ProdId',
+        url: '/search?name=' + selection + '&handler=ProdId',
         dataType: 'json',
         success: function (data) {
             selectedText = data;
         }
     });
-    window.location.replace('/Products/Details?id=' + selectedText)
+    window.location.replace('/products/' + selectedText)
     
 
 });
