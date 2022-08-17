@@ -19,7 +19,6 @@ namespace FrontEnd.Pages.Products
             Configuration = configuration;
         }
 
-        public PaginatedList<Product> Products { get; set; }
         public IEnumerable<Product> ProductList { get; set; }
         public IEnumerable<Product> ProductListAll { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
@@ -71,8 +70,7 @@ namespace FrontEnd.Pages.Products
                 FilteredMinPrice = min_price;   
             }
             var pageSize = Configuration.GetValue("PageSize", 4);
-            //Products = await PaginatedList<Product>.CreateAsync(
-            //   studentsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+
 
         }
         
