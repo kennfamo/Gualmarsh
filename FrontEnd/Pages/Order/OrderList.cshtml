@@ -12,7 +12,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-6">
-						<h2>Your Orders</h5>											
+						<h5>Your Orders</h5>											
 					</div>													
 				</div>
 				<div id="orderlist-nav-pills-wizard" class="twitter-bs-wizard">
@@ -138,7 +138,7 @@
 												</div>
 												<div class="row">
 													<ul class="text-end">
-															<a asp-page="OrderDetails" asp-route-id="@order.Id">View Order</a>
+														<a asp-page="OrderDetails" asp-route-id="@order.Id">View Order</a>
 													</ul>
 												</div>
 											</div>
@@ -221,7 +221,7 @@
 												</div>
 												<div class="col-6">
 													<div class="row">
-															<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
+														<a asp-route-name="@item.Product.ShortName" asp-route-id="@item.Product.Id" asp-page="../Products/Details" class="text-primary fw-bold fs-5">@item.Product.Name</a>
 													</div>
 													<div class="row">
 														<p class="mb-0"><strong>Quantity: </strong><span class="fw-medium">@item.Quantity</span></p>
