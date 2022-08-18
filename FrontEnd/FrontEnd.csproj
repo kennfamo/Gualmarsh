@@ -26,4 +26,8 @@
     <ProjectReference Include="..\BackEnd\BackEnd.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\product\Carousel\" />
+  </ItemGroup>
+
 </Project>

@@ -2,17 +2,14 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home";
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <a href="#" class="logo">
-						<img src="~/images/logo-light.png" alt="logo-light">  
-					</a>
                     
 }
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            @await Component.InvokeAsync("Carousel")
+        </div>
+    </div>
+</div>
+
 
