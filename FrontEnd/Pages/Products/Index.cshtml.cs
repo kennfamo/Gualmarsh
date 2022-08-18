@@ -40,7 +40,7 @@ namespace FrontEnd.Pages.Products
         {
 
 
-            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Name == name);
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Name == name, includeProperties: "ProductCategory");
             ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
             ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
             ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,

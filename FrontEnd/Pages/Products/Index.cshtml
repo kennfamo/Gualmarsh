@@ -16,16 +16,14 @@
         <div class="card-body">
             <h5 class="font-size-14 mb-3">Categories</h5>
             <div class="accordion ecommerce" id="accordion">
-                    @foreach (var item in Model.ProductSubcategoryListFilter)
+                    @foreach (var item in Model.ProductSubcategoryList)
                     {
                         var routeName = item.Name.Replace('-', ' ');
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(item.Id)" aria-expanded="true" aria-controls="collapse@(item.Id)">
-                                    <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @item.ProductCategory.Name
-                                </button>
-                            </h2>
-                            <div id="collapse@(item.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div>
+                            <h5 class="accordion-header font-size-14" id="headingOne">                                
+                                <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @item.ProductCategory.Name                                
+                            </h5>
+                            <div>
                                 <div class="accordion-body">
                                     <ul class="list-unstyled categories-list mb-0">
                                         <li><a asp-route-name="@item.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @routeName</a></li>
@@ -160,10 +158,9 @@
                 </div>
 
                 <ul class="list-inline my-3 ecommerce-sortby-list">
-                    <li class="list-inline-item"><span class="fw-medium font-family-secondary">Ordenar por:</span></li>
-                    <li class="list-inline-item active"><a href="#">Popularidad</a></li>
-                    <li class="list-inline-item"><a href="#">Reciente</a></li>
-                    <li class="list-inline-item"><a href="#">Descuento</a></li>
+                    <li class="list-inline-item"><span class="fw-medium font-family-secondary">Order By:</span></li>
+                    <li class="list-inline-item active"><a href="#">Popularity</a></li>
+                    <li class="list-inline-item"><a href="#">Recent</a></li>
                 </ul>
                 <div class="row g-0">
                     @foreach(var product in Model.ProductList)
