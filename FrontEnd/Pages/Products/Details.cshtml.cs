@@ -50,12 +50,10 @@ namespace FrontEnd.Pages.Products
             TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 6));
             foreach (var review in ReviewList)
             {
-
-                int ratingInt = Int32.Parse(review.Rating);
-                RatingTotal += ratingInt;
+                RatingTotal += review.Rating;
 
             }
-            if (ReviewList.Count() > 0)
+            if (ReviewListAll.Count() > 0)
             {
                 RatingAverage = RatingTotal / ReviewList.Count();
             }

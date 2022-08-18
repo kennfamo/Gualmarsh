@@ -50,11 +50,11 @@
                         </div>
                         <ol class="total-reviews-list">
                             @{
-                                int fivePercent = Model.ReviewList.Where(u => u.Rating == "5").Count() * 100 / Model.ReviewList.Count();
-                                int fourPercent = Model.ReviewList.Where(u => u.Rating == "4").Count() * 100 / Model.ReviewList.Count();
-                                int threePercent = Model.ReviewList.Where(u => u.Rating == "3").Count() * 100 / Model.ReviewList.Count();
-                                int twoPercent = Model.ReviewList.Where(u => u.Rating == "2").Count() * 100 / Model.ReviewList.Count();
-                                int onePercent = Model.ReviewList.Where(u => u.Rating == "1").Count() * 100 / Model.ReviewList.Count();
+                                int fivePercent = Model.ReviewList.Where(u => u.Rating == 5).Count() * 100 / Model.ReviewList.Count();
+                                int fourPercent = Model.ReviewList.Where(u => u.Rating == 4).Count() * 100 / Model.ReviewList.Count();
+                                int threePercent = Model.ReviewList.Where(u => u.Rating == 3).Count() * 100 / Model.ReviewList.Count();
+                                int twoPercent = Model.ReviewList.Where(u => u.Rating == 2).Count() * 100 / Model.ReviewList.Count();
+                                int onePercent = Model.ReviewList.Where(u => u.Rating == 1).Count() * 100 / Model.ReviewList.Count();
                             }
                             <li>
                                 <div class="total-reviews-list-flex">
@@ -64,7 +64,7 @@
                                             <span class="total-reviews-progressbar" role="progressbar" style="width: @fivePercent%" aria-valuenow="@fivePercent" aria-valuemin="0" aria-valuemax="100"></span>
                                         </span>
                                     </span>                                                        
-                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "5").Count())</span>
+                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == 5).Count())</span>
                                                                                                               
                                 </div>                                                    
                             </li>
@@ -76,7 +76,7 @@
                                             <span class="total-reviews-progressbar" role="progressbar" style="width: @fourPercent%" aria-valuenow="@fourPercent" aria-valuemin="0" aria-valuemax="100"></span>
                                         </span>
                                     </span>
-                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "4").Count())</span>
+                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == 4).Count())</span>
                                 </div>                                                    
                             </li>
                             <li>
@@ -87,7 +87,7 @@
                                             <span class="total-reviews-progressbar" role="progressbar" style="width: @threePercent%" aria-valuenow="@threePercent" aria-valuemin="0" aria-valuemax="100"></span>
                                         </span>
                                     </span>
-                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "3").Count())</span>
+                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == 3).Count())</span>
                                 </div>                                                    
                             </li>
                             <li>
@@ -98,7 +98,7 @@
                                             <span class="total-reviews-progressbar" role="progressbar" style="width: @twoPercent%" aria-valuenow="@twoPercent" aria-valuemin="0" aria-valuemax="100"></span>
                                         </span>
                                     </span>
-                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "2").Count())</span>
+                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating ==2).Count())</span>
                                 </div>                                                    
                             </li>
                             <li>
@@ -109,7 +109,7 @@
                                             <span class="total-reviews-progressbar" role="progressbar" style="width: @onePercent%" aria-valuenow="@onePercent" aria-valuemin="0" aria-valuemax="100"></span>
                                         </span>
                                     </span>
-                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "1").Count())</span>
+                                    <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == 1).Count())</span>
                                 </div>                                                    
                             </li>
                         </ol>       
@@ -131,14 +131,11 @@
                                     <div class="card-body">
                                         <div class="d-inline-flex">
                                             <div class="text-muted me-3">
-                                                    @{
-                                                        int ratingPositive = Int32.Parse(Model.PositiveReview.Rating);
-                                                    }
-                                                <span class="mdi mdi-star @if(ratingPositive > 0){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingPositive > 1){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingPositive > 2){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingPositive > 3){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingPositive > 4){ <text>text-warning</text>}"></span>
+                                                <span class="mdi mdi-star @if(Model.PositiveReview.Rating > 0){ <text>text-warning</text>}"></span>
+                                                <span class="mdi mdi-star @if(Model.PositiveReview.Rating > 1){ <text>text-warning</text>}"></span>
+                                                <span class="mdi mdi-star @if(Model.PositiveReview.Rating > 2){ <text>text-warning</text>}"></span>
+                                                <span class="mdi mdi-star @if(Model.PositiveReview.Rating > 3){ <text>text-warning</text>}"></span>
+                                                <span class="mdi mdi-star @if(Model.PositiveReview.Rating > 4){ <text>text-warning</text>}"></span>
                                             </div>
                                         </div>
                                         <br>
@@ -161,14 +158,11 @@
                                         <div class="card-body">
                                             <div class="d-inline-flex">
                                                 <div class="text-muted me-3">
-                                                    @{
-                                                        int ratingNegative = Int32.Parse(Model.NegativeReview.Rating);
-                                                    }
-                                                    <span class="mdi mdi-star @if(ratingNegative > 0){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingNegative > 1){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingNegative > 2){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingNegative > 3){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingNegative > 4){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(Model.NegativeReview.Rating > 0){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(Model.NegativeReview.Rating > 1){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(Model.NegativeReview.Rating > 2){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(Model.NegativeReview.Rating > 3){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(Model.NegativeReview.Rating > 4){ <text>text-warning</text>}"></span>
                                                 </div>
                                             </div>
                                             <br>
@@ -200,16 +194,15 @@
                             <div class="d-inline-flex mb-3"></div>
                             <div class="border p-4 rounded mb-0">
                                 @foreach(var review in Model.ReviewList){
-                                    int ratingInt = Int32.Parse(review.Rating);
                                     <div class="d-flex border-bottom py-3">
                                         <div class="flex-1">
                                             <div class="d-inline-flex mb-3">
                                                 <div class="text-muted me-3">
-                                                    <span class="mdi mdi-star @if(ratingInt > 0){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt > 1){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt > 2){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt > 3){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt > 4){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(review.Rating > 0){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(review.Rating > 1){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(review.Rating > 2){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(review.Rating > 3){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(review.Rating > 4){ <text>text-warning</text>}"></span>
                                                 </div>
                                             </div>
                                             <h5 class="font-size-17 mb-3">@review.Title</h5>

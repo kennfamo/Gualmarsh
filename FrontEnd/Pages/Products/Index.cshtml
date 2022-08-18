@@ -25,8 +25,8 @@
                                 <ul class="list-unstyled categories-list mb-0">
                                 @foreach (var item in Model.ProductSubcategoryList)
                                 {
-                                    var routeName = item.Name.Replace('-', ' ');
-                                    <li><a asp-route-name="@item.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @routeName</a></li>
+                                    var route = item.Name.Replace('-', ' ');
+                                    <li><a asp-route-name="@item.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @route</a></li>
                                 }
                             </ul>
                         </div>
@@ -79,60 +79,29 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body border-top">
                 <div>
-                    <h5 class="font-size-14 mb-0"><a href="#collapseExample2" class="text-dark d-block" data-bs-toggle="collapse">Talla <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
-
+                    <h5 class="font-size-14 mb-0"><a href="#collapseExample2" class="text-dark d-block" data-bs-toggle="collapse">Rating <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
                     <div class="collapse show" id="collapseExample2">
-    
                         <div class="mt-4">
-                            <div class="form-check mt-2">
-                                <input type="radio" id="productsizeRadio1" name="productsizeRadio" class="form-check-input">
-                                <label class="form-check-label" for="productsizeRadio1">XL</label>
+                                <div class="form-check mt-2" >
+                                    <input type="radio" id="productRatingRadio1" name="productRatingRadio1" class="form-check-input">
+                                    <label class="form-check-label" for="productRatingRadio1">4 <i class="mdi mdi-star text-warning"></i>  or more</label>
+                                    <button id="clearLink" hidden class="float-end bg-white btn" style="background-color:transparent"><strong><u>Clear</u></strong></button>
                             </div>
                             <div class="form-check mt-2">
-                                <input type="radio" id="productsizeRadio2" name="productsizeRadio" class="form-check-input">
-                                <label class="form-check-label" for="productsizeRadio2">L</label>
+                                    <input type="radio" id="productRatingRadio2" name="productRatingRadio1" class="form-check-input">
+                                    <label class="form-check-label" for="productRatingRadio2">3 <i class="mdi mdi-star text-warning"></i>  or more</label>
                             </div>
                             <div class="form-check mt-2">
-                                <input type="radio" id="productsizeRadio3" name="productsizeRadio" class="form-check-input">
-                                <label class="form-check-label" for="productsizeRadio3">M</label>
+                                    <input type="radio" id="productRatingRadio3" name="productRatingRadio1" class="form-check-input">
+                                    <label class="form-check-label" for="productRatingRadio3">2 <i class="mdi mdi-star text-warning"></i>  or more</label>
                             </div>
                             <div class="form-check mt-2">
-                                <input type="radio" id="productsizeRadio4" name="productsizeRadio" class="form-check-input">
-                                <label class="form-check-label" for="productsizeRadio4">S</label>
+                                    <input type="radio" id="productRatingRadio4" name="productRatingRadio1" class="form-check-input">
+                                    <label class="form-check-label" for="productRatingRadio4">1 <i class="mdi mdi-star text-warning"></i> or more</label>
                             </div>
                         </div>
-    
-                    </div>
-                </div>
-            </div>
-            <div class="card-body border-top">
-                <div>
-                    <h5 class="font-size-14 mb-0"><a href="#collapseExample3" class="collapsed text-dark d-block" data-bs-toggle="collapse">Valoraciones <i class="mdi mdi-minus float-end accor-plus-icon"></i></a></h5>
-
-                    <div class="collapse" id="collapseExample3">
-    
-                        <div class="mt-4">
-                            <div class="form-check mt-2">
-                                <input type="radio" id="productratingRadio1" name="productratingRadio1" class="form-check-input">
-                                <label class="form-check-label" for="productratingRadio1">4 <i class="mdi mdi-star text-warning"></i>  o más</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input type="radio" id="productratingRadio2" name="productratingRadio1" class="form-check-input">
-                                <label class="form-check-label" for="productratingRadio2">3 <i class="mdi mdi-star text-warning"></i>  o más</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input type="radio" id="productratingRadio3" name="productratingRadio1" class="form-check-input">
-                                <label class="form-check-label" for="productratingRadio3">2 <i class="mdi mdi-star text-warning"></i>  o más</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input type="radio" id="productratingRadio4" name="productratingRadio1" class="form-check-input">
-                                <label class="form-check-label" for="productratingRadio4">1 <i class="mdi mdi-star text-warning"></i></label>
-                            </div>
-                        </div>
-    
                     </div>
                 </div>
             </div>
@@ -146,12 +115,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div>
-                            @foreach(var item in Model.ProductSubcategoryList)
-                            {
-                                var routeName = item.Name.Replace('-', ' ');
-                                <h5 style="display: inline">@item.ProductCategory.Name</h5> 
-                                <h5 style="display: inline"> -> @routeName</h5>
-                            }                                                      
+                            @{
+                                    var routeName = Model.ProductSubcategory.Name.Replace('-', ' ');
+                            }
+                                <h5 style="display: inline">@Model.ProductSubcategory.ProductCategory.Name</h5>
+                                <h5 style="display: inline"> -> @routeName</h5>                                                 
                         </div>
                     </div>                                      
                 </div>
@@ -164,21 +132,36 @@
                 <div class="row g-0">
                     @foreach(var product in Model.ProductList)
                     {
+                        int ratingTotal = 0;
                         <div class="col-xl-4">
-                            <div class="product-box">
-                                <div class="product-img">
-                                    <a asp-page="Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                            <a asp-page="Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                                <div class="product-box">
+                                    <div class="product-img">
                                         <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
-                                    </a>
+                                    </div>
+                                    <br>
+                                    <div class="text-center mt-2">
+                                        
+                                        <p class="font-size-14 mb-1">@product.Brand</p>
+                                        <h5 class="font-size-14 text-dark">@product.Name</h5>
+                                        @foreach(var review in Model.ReviewList.Where(u=>u.ProductId == product.Id))
+                                        {
+                                            ratingTotal += review.Rating;
+                                        }
+                                        @if (Model.ReviewList.Where(u=>u.ProductId == product.Id).Count() > 0)
+                                        {
+                                             int ratingAverage = ratingTotal / Model.ReviewList.Where(u => u.ProductId == product.Id).Count();
+                                            <span class="mdi mdi-star @if(ratingAverage > 0){<text>text-warning</text>}else{<text>text-muted</text>}"></span>
+                                            <span class="mdi mdi-star @if(ratingAverage > 1){<text>text-warning</text>}else{<text>text-muted</text>}"></span>
+                                            <span class="mdi mdi-star @if(ratingAverage > 2){<text>text-warning</text>}else{<text>text-muted</text>}"></span>
+                                            <span class="mdi mdi-star @if(ratingAverage > 3){<text>text-warning</text>}else{<text>text-muted</text>}"></span>
+                                            <span class="mdi mdi-star @if(ratingAverage > 4){<text>text-warning</text>}else{<text>text-muted</text>}"> </span>
+                                            <span class="text-muted">(@Model.ReviewList.Where(u => u.ProductId == product.Id).Count())</span>
+                                        }
+                                        <h5 class="mt-3 mb-0">₡@product.Price</h5>
+                                    </div>
                                 </div>
-                                <br>                    
-                                <div class="text-center mt-2">
-                                    <p class="font-size-14 mb-1">@product.Brand</p>
-                                        <h5 class="font-size-14"><a asp-page="Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id"  class="text-dark">@product.Name</a></h5>
-
-                                    <h5 class="mt-3 mb-0">₡@product.Price</h5>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     }
                     @if (Model.FilteredMaxPrice != 0)
@@ -190,6 +173,7 @@
                     }
                     <input type="hidden" id="filteredMinPrice" value="@Model.FilteredMinPrice" />
                     <input type="hidden" id="maxPrice" value="@Model.MaxPrice" />
+                    <input type="hidden" id="filteredRating" value="@Model.FilteredRating" />
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-6">

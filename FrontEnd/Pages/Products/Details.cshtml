@@ -68,58 +68,39 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end product img -->
                     </div>
                     <div class="col-xl-3">
                         <div class="mt-4 mt-xl-3">
                             <a href="#" class="text-primary">@Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</a>
                             <h5 class="mt-1 mb-3">@Model.ShoppingCart.Product.Name</h5>
-
                             <div class="d-inline-flex">
                                 <div class="text-muted me-3">
-                                     <span class="mdi mdi-star @if(Model.RatingAverage >0){
-                                        <text>text-warning</text>
-                                    }"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >1){
-                                        <text>text-warning</text>
-                                    }"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >2){
-                                        <text>text-warning</text>
-                                    }"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >3){
-                                        <text>text-warning</text>
-                                    }"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >4){
-                                        <text>text-warning</text>
-                                    }"></span>
+                                    <span class="mdi mdi-star @if(Model.RatingAverage >0){<text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @if(Model.RatingAverage >1){<text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @if(Model.RatingAverage >2){<text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @if(Model.RatingAverage >3){<text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @if(Model.RatingAverage >4){<text>text-warning</text>}"></span>
                                 </div>
-                                
-                            </div>
-                                                
+                            </div>             
                             <h5 class="mt-2">₡@Model.ShoppingCart.Product.Price</h5>
                             <hr class="my-4">
-
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div>                                                           
-
+                                    <div>
                                         <h5 class="font-size-14">Specification :</h5>
                                         <ul class="list-unstyled product-desc-list">
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.Brand</li>
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</li>
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.ContainerType</li>
                                             <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> @Model.ShoppingCart.Product.Weight</li>
-                                        </ul>
-                                                              
+                                        </ul>                    
                                     </div>
                                 </div>
-                            </div>                                               
-                                                
+                            </div>                  
                         </div>
                     </div>
                     <div class="col-xl-2"></div>
                 </div>
-                <!-- end row -->
                 <div class="row">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-8">
@@ -202,16 +183,15 @@
                                 <div class="border p-4 rounded">
                                 @foreach (var item in Model.ReviewList)
                                 {
-                                    int ratingInt = Int32.Parse(item.Rating);
                                     <div class="d-flex border-bottom mt-2 pb-3">
                                         <div class="flex-1">
                                             <div class="d-inline-flex mb-3">
                                                 <div class="text-muted me-3">
-                                                    <span class="mdi mdi-star @if(ratingInt >0){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt >1){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt >2){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt >3){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(ratingInt >4){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(item.Rating >0){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(item.Rating >1){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(item.Rating >2){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(item.Rating >3){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(item.Rating >4){ <text>text-warning</text>}"></span>
                                                 </div>
                                             </div>
                                             <h5 class="font-size-17 mb-3">@item.Title</h5>
@@ -279,6 +259,5 @@
                 
             </div>
         </div>
-        <!-- end card -->
     </div>
 </div>

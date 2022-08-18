@@ -12,11 +12,11 @@
 					<div class="col-md-2">
 							<h5 class="font-size-14">@category.Name</h5>
 						<ul class="list-unstyled megamenu-list">
-							@foreach (var item in Model.ProductSubcategoryList.Where(u=>u.ProductCategoryId == category.Id))
+							@foreach (var subcategory in Model.ProductSubcategoryList.Where(u=>u.ProductCategoryId == category.Id))
 							{
-								var routeName = item.Name.Replace('-', ' ');
+								var routeName = subcategory.Name.Replace('-', ' ');
 								<li>
-									<a asp-route-name="@item.Name" asp-page="/Products/Index">@routeName</a>
+									<a asp-route-name="@subcategory.Name" asp-page="/Products/Index">@routeName</a>
 							</li>
 							}
 						</ul>

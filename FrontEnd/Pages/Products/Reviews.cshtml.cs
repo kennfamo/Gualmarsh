@@ -46,8 +46,7 @@ namespace FrontEnd.Pages.Products
             TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 4));
             foreach (var review in ReviewList)
             {
-                int ratingInt = Int32.Parse(review.Rating);
-                RatingTotal += ratingInt;
+                RatingTotal += review.Rating;
             }
             if(ReviewList.Count() > 0)
             {

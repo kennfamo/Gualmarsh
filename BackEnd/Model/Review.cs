@@ -16,7 +16,7 @@ namespace BackEnd.Model
         public string Title { get; set; }
         [Required]
         public string Body { get; set; }        
-        public string Rating { get; set; }        
+        public int Rating { get; set; }        
         public DateTime CreatedDate { get; set; }
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
