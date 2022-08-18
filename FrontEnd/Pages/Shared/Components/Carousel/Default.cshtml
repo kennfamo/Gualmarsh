@@ -1,5 +1,8 @@
 ﻿@using BackEnd.Model
 @model IEnumerable<Product>
+@{
+    int i = 0;
+}
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -10,7 +13,10 @@
   <div class="carousel-inner">
         @foreach(var item in Model)
         {
-            <div class="carousel-item active">
+            i++;
+            var active = i == 1 ? "active" : "";
+
+            <div class="carousel-item @active">
               <img src="@item.Image1" class="d-block w-100" alt="...">
               <div class="carousel-caption d-none d-md-block">
                 <h5>@item.Name</h5>

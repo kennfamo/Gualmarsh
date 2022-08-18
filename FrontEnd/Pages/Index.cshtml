@@ -4,5 +4,12 @@
     ViewData["Title"] = "Home";
                     
 }
-@await Component.InvokeAsync("Carousel")
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            @await Component.InvokeAsync("Carousel")
+        </div>
+    </div>
+</div>
+
 
