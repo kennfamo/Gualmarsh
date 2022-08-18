@@ -1,5 +1,4 @@
-﻿@using BackEnd.Model
-@model IEnumerable<ProductSubcategory>
+﻿@model FrontEnd.Pages.Components.Cart.MenuViewModel
 <div class="dropdown dropdown-mega d-none d-lg-block ms-4">
 	<button type="button" class="btn header-item waves-effect" style="font-size: 18px;" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false" key="t-megamenu">
 		Products <i class="mdi mdi-chevron-down"></i> 
@@ -8,18 +7,18 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row">
-					@foreach (var item in Model)
+					@foreach (var category in Model.ProductCategoryList)
 					{
-					var routeName = item.Name.Replace('-', ' ');
-
 					<div class="col-md-2">
-						<h5 class="font-size-14">@item.ProductCategory.Name</h5>
+							<h5 class="font-size-14">@category.Name</h5>
 						<ul class="list-unstyled megamenu-list">
-							
+							@foreach (var item in Model.ProductSubcategoryList.Where(u=>u.ProductCategoryId == category.Id))
+							{
+								var routeName = item.Name.Replace('-', ' ');
 								<li>
 									<a asp-route-name="@item.Name" asp-page="/Products/Index">@routeName</a>
 							</li>
-							
+							}
 						</ul>
 					</div>
 					}

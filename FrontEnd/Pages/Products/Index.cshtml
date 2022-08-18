@@ -16,23 +16,22 @@
         <div class="card-body">
             <h5 class="font-size-14 mb-3">Categories</h5>
             <div class="accordion ecommerce" id="accordion">
-                    @foreach (var item in Model.ProductSubcategoryList)
-                    {
-                        var routeName = item.Name.Replace('-', ' ');
+                    <div>
+                        <h5 class="accordion-header font-size-14" id="headingOne">
+                                <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @Model.ProductSubcategory.ProductCategory.Name
+                        </h5>
                         <div>
-                            <h5 class="accordion-header font-size-14" id="headingOne">                                
-                                <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @item.ProductCategory.Name                                
-                            </h5>
-                            <div>
-                                <div class="accordion-body">
-                                    <ul class="list-unstyled categories-list mb-0">
-                                        <li><a asp-route-name="@item.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @routeName</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <div class="accordion-body">
+                                <ul class="list-unstyled categories-list mb-0">
+                                @foreach (var item in Model.ProductSubcategoryList)
+                                {
+                                    var routeName = item.Name.Replace('-', ' ');
+                                    <li><a asp-route-name="@item.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @routeName</a></li>
+                                }
+                            </ul>
                         </div>
-                    }
-
+                        </div>
+                    </div>
             </div>
         </div>
         <div class="card-body border-top">

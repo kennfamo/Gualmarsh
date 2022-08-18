@@ -39,10 +39,9 @@ namespace FrontEnd.Pages.Products
         public void OnGet(string name, double min_price, double max_price, int pageIndex)
         {
 
-
-            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.Name == name, includeProperties: "ProductCategory");
-            ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
             ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.ProductCategoryId == ProductSubcategory.ProductCategoryId, includeProperties: "ProductCategory");
+            ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
             ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
                     includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
             ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
