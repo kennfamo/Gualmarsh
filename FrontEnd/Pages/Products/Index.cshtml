@@ -171,7 +171,9 @@
                         <div class="col-xl-4">
                             <div class="product-box">
                                 <div class="product-img">
-                                    <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
+                                    <a asp-page="Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                                        <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
+                                    </a>
                                 </div>
                                 <br>                    
                                 <div class="text-center mt-2">
