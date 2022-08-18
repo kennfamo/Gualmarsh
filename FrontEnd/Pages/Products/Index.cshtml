@@ -171,7 +171,9 @@
                         <div class="col-xl-4">
                             <div class="product-box">
                                 <div class="product-img">
-                                    <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
+                                    <a asp-page="Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                                        <img src="@product.Image1" alt="img-5" class="img-fluid mx-auto d-block">
+                                    </a>
                                 </div>
                                 <br>                    
                                 <div class="text-center mt-2">
@@ -195,9 +197,6 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-6">
-                        <div>
-                            <p class="mb-sm-0 mt-2">Page <span class="fw-bold">2</span> Of <span class="fw-bold">113</span></p>
-                        </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="float-sm-end">

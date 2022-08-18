@@ -32,7 +32,7 @@
         <div class="row">
             <div class="alert alert-success" style="font-size:16px">
                 <p class="mb-0">An order confirmation has been sent to <strong>@Model.OrderHeader.ApplicationUser.Email</strong></p>
-                    <p class="mb-0">Your order number is <strong>GMSH-@Model.OrderHeader.Id</strong></p>
+                    <p class="mb-0">Your order number is <a asp-route-id="@Model.OrderHeader.Id" asp-page="../Order/OrderDetails"><strong>GMSH-@Model.OrderHeader.Id</strong></a></p>
             </div>
         </div>
         <div class="row">

@@ -11,29 +11,40 @@ namespace FrontEnd.Pages.Products
     public class DetailsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        
-        public DetailsModel(IUnitOfWork unitOfWork)
+        private readonly IConfiguration Configuration;
+
+        public DetailsModel(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
+            Configuration = configuration;
         }
 
         [BindProperty]
         public ShoppingCart ShoppingCart { get; set; }
         public IEnumerable<Review> ReviewList { get; set; }
+        public IEnumerable<Review> ReviewListAll { get; set; }
         public Review Review { get; set; }
         public HelpfulReview HelpfulReview { get; set; }
         public IEnumerable<HelpfulReview> HelpfulReviewList { get; set; }
         public IEnumerable<HelpfulReview> HelpfulReviewListUser { get; set; }
         public int RatingTotal { get; set; }
         public int RatingAverage { get; set; }
-        public void OnGet(string name, int id)
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+        public int Count { get; set; }
+        public int TotalPages { get; set; }
+        public void OnGet(string name, int id, int pageIndex)
         {           
             ShoppingCart = new()
             {
                 Product = _unitOfWork.Product.GetFirstOrDefault(u => u.ShortName == name, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
                 ProductId = id
             };
-            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
+            ReviewListAll = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
+            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser").
+                OrderBy(u => u.Id).Skip((pageIndex - 1) * 6).Take(6);
+            Count = ReviewListAll.Count();
+            TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 6));
             foreach (var review in ReviewList)
             {
 
@@ -52,6 +63,7 @@ namespace FrontEnd.Pages.Products
                 HelpfulReviewListUser = _unitOfWork.HelpfulReview.GetAll(u => u.ApplicationUserId == claim.Value);
             }
             HelpfulReviewList = _unitOfWork.HelpfulReview.GetAll();
+            var pageSize = Configuration.GetValue("PageSize", 4);
         }
 
         public IActionResult OnGetHelpful(int id, int product)

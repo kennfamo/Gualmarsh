@@ -149,6 +149,10 @@
                                                         <td>@Model.ShoppingCart.Product.ProductSubcategory.ProductCategory.Name</td>
                                                     </tr>
                                                     <tr>
+                                                        <th scope="row" style="width: 400px;">Subcategory</th>
+                                                        <td>@Model.ShoppingCart.Product.ProductSubcategory.Name</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th scope="row">Brand</th>
                                                         <td>@Model.ShoppingCart.Product.Brand</td>
                                                     </tr>
@@ -243,9 +247,30 @@
                                 </div>
                             }
                         </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 d-flex justify-content-center">
+                                <ul class="pagination pagination-rounded mb-sm-0">
+                                    <li class="page-item">
+                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                    </li>
+                                    @for (var i = 1; i <= Model.TotalPages; i++)
+                                    {
+                                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                            <a asp-page="/products/details" asp-route-pageIndex="@i" class="page-link">@i</a>
+                                        </li>
+                                    }
+                                    <li class="page-item">
+                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
                     </div>
                     <div class="col-xl-2"></div>
-                </div>                                    
+                </div> 
+                
             </div>
         </div>
         <!-- end card -->
