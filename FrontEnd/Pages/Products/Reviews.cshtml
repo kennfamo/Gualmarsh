@@ -112,27 +112,28 @@
                                     <span class="total-reviews-counts">(@Model.ReviewList.Where(u=>u.Rating == "1").Count())</span>
                                 </div>                                                    
                             </li>
-                        </ol>
-                        <a href="" class="btn btn-primary waves-effect waves-light">Write a review</a>
-                                            
+                        </ol>       
                     </div>
                     <div class="col-xl-1">
                         <div class="vr my-6 ms-2" style="height: 75%">
 
                         </div>
-                    </div>                                                          
+                    </div>
                     <div class="col-xl-5" style="margin-left: -5rem">
                         <div class="row">
                             <div class="col-lg-5">
-                                <h5 class="font-size-15 mt-5">Most Helpful Positive Review</h4>
+                            @if (Model.PositiveReview != null)
+                            {
+                                
+                                <h5 class="font-size-15 mt-5">Most Helpful Positive Review</h5>
                                 <br>
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-inline-flex">
                                             <div class="text-muted me-3">
-                                                @{
+                                                    @{
                                                         int ratingPositive = Int32.Parse(Model.PositiveReview.Rating);
-                                                }
+                                                    }
                                                 <span class="mdi mdi-star @if(ratingPositive > 0){ <text>text-warning</text>}"></span>
                                                 <span class="mdi mdi-star @if(ratingPositive > 1){ <text>text-warning</text>}"></span>
                                                 <span class="mdi mdi-star @if(ratingPositive > 2){ <text>text-warning</text>}"></span>
@@ -147,33 +148,37 @@
                                             <h5 class="font-size-14 mb-3 fst-italic">@Model.PositiveReview.ApplicationUser.FirstName @Model.PositiveReview.ApplicationUser.LastName</h5>
                                     </div>
                                 </div>
+                            }
                             </div>
                             <div class="col-lg-2">
                             </div>
                             <div class="col-lg-5">
-                                <h5 class="font-size-15 mt-5">Most Helpful Negative Review</h4>
-                                <br>
-                                <div class="card">
-                                   <div class="card-body">
-                                        <div class="d-inline-flex">
-                                            <div class="text-muted me-3">
-                                                @{
+                                @if (Model.NegativeReview != null)
+                                {
+                                    <h5 class="font-size-15 mt-5">Most Helpful Negative Review</h5>
+                                    <br>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-inline-flex">
+                                                <div class="text-muted me-3">
+                                                    @{
                                                         int ratingNegative = Int32.Parse(Model.NegativeReview.Rating);
-                                                }
-                                                <span class="mdi mdi-star @if(ratingNegative > 0){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingNegative > 1){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingNegative > 2){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingNegative > 3){ <text>text-warning</text>}"></span>
-                                                <span class="mdi mdi-star @if(ratingNegative > 4){ <text>text-warning</text>}"></span>
+                                                    }
+                                                    <span class="mdi mdi-star @if(ratingNegative > 0){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingNegative > 1){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingNegative > 2){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingNegative > 3){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @if(ratingNegative > 4){ <text>text-warning</text>}"></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <h5 class="fw-bolder-bolder font-size-16" style="color:black">@Model.NegativeReview.Title</h5>
-                                        <p class="text-muted">@Model.NegativeReview.Body</p>
+                                            <br>
+                                            <br>
+                                            <h5 class="fw-bolder-bolder font-size-16" style="color:black">@Model.NegativeReview.Title</h5>
+                                            <p class="text-muted">@Model.NegativeReview.Body</p>
                                             <h5 class="font-size-14 mb-3 fst-italic">@Model.NegativeReview.ApplicationUser.FirstName @Model.NegativeReview.ApplicationUser.LastName</h5>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>                                            
                     </div>
@@ -234,12 +239,9 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <p class="float-sm-end font-size-12">11 Feb, 2020</p>
+                                        <p class="float-sm-end font-size-12">@review.CreatedDate</p>
                                     </div>
                                 } 
-                                @{
-                                                        
-                                }
                             </div>
                         </div>
                         <br>
