@@ -33,6 +33,9 @@ namespace FrontEnd.Pages.Products
         public int PageIndex { get; set; } = 1;
         public int Count { get; set; }
         public int TotalPages { get; set; }
+        public bool ShowPrevious => PageIndex > 1;
+        public bool ShowNext => PageIndex < TotalPages;
+
         public void OnGet(string name, int id, int pageIndex)
         {           
             ShoppingCart = new()

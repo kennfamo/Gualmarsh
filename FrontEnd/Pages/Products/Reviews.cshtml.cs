@@ -10,6 +10,7 @@ namespace FrontEnd.Pages.Products
     public class ReviewsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IConfiguration Configuration;
         public Review Review { get; set; }
         public HelpfulReview HelpfulReview { get; set; }
         public Review PositiveReview { get; set; }
@@ -18,26 +19,41 @@ namespace FrontEnd.Pages.Products
         public IEnumerable<HelpfulReview> HelpfulReviewListUser { get; set; }
         public IEnumerable<Review> PositiveReviewList { get; set; }
         public IEnumerable<Review> NegativeReviewList { get; set; }
-        public ReviewsModel(IUnitOfWork unitOfWork)
+        public ReviewsModel(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
+            Configuration = configuration;
         }
         public IEnumerable<Review> ReviewList { get; set; }
+        public IEnumerable<Review> ReviewListAll { get; set; }
         public int RatingTotal{ get; set; }
         public int RatingAverage { get; set; }
         public Product Product { get; set; }
-        public void OnGet(int id)
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+        public int Count { get; set; }
+        public int TotalPages { get; set; }
+        public bool ShowPrevious => PageIndex > 1;
+        public bool ShowNext => PageIndex < TotalPages;
+
+        public void OnGet(int id, int pageIndex)
         {
             Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
-            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser");
+            ReviewListAll = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser");
+            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser").
+                OrderBy(u => u.Id).Skip((pageIndex - 1) * 4).Take(4);
+            Count = ReviewListAll.Count();
+            TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 4));
             foreach (var review in ReviewList)
             {
-
                 int ratingInt = Int32.Parse(review.Rating);
                 RatingTotal += ratingInt;
-
             }
-            RatingAverage = RatingTotal / ReviewList.Count();
+            if(ReviewList.Count() > 0)
+            {
+                RatingAverage = RatingTotal / ReviewList.Count();
+            }
+            
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
@@ -84,7 +100,7 @@ namespace FrontEnd.Pages.Products
             {
                 NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating.Equals("1") || u.Rating.Equals("2")));
             }
-
+            var pageSize = Configuration.GetValue("PageSize", 4);
         }
         public IActionResult OnGetHelpful(int id, int product)
         {
