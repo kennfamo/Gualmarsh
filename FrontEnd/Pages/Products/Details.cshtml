@@ -75,11 +75,11 @@
                             <h5 class="mt-1 mb-3">@Model.ShoppingCart.Product.Name</h5>
                             <div class="d-inline-flex">
                                 <div class="text-muted me-3">
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >0){<text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >1){<text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >2){<text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >3){<text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >4){<text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 0 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 1 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 2 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 3 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 4 ? "text-warning" : "text-muted")"></span>
                                 </div>
                             </div>             
                             <h5 class="mt-2">₡@Model.ShoppingCart.Product.Price</h5>
@@ -162,11 +162,11 @@
                             
                             <div class="d-inline-flex mb-3">
                                 <div class="text-muted me-3">
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >0){ <text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >1){ <text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >2){ <text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >3){ <text>text-warning</text>}"></span>
-                                    <span class="mdi mdi-star @if(Model.RatingAverage >4){ <text>text-warning</text>}"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 0 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 1 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 2 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 3 ? "text-warning" : "text-muted")"></span>
+                                    <span class="mdi mdi-star @(Model.RatingAverage > 4 ? "text-warning" : "text-muted")"></span>
                                 </div>
                                 <div class="text-muted">(@if (Model.ReviewList.Count() == 1)
                                     {
@@ -187,11 +187,11 @@
                                         <div class="flex-1">
                                             <div class="d-inline-flex mb-3">
                                                 <div class="text-muted me-3">
-                                                    <span class="mdi mdi-star @if(item.Rating >0){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(item.Rating >1){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(item.Rating >2){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(item.Rating >3){ <text>text-warning</text>}"></span>
-                                                    <span class="mdi mdi-star @if(item.Rating >4){ <text>text-warning</text>}"></span>
+                                                    <span class="mdi mdi-star @(item.Rating > 0 ? "text-warning" : "text-muted")"></span>
+                                                    <span class="mdi mdi-star @(item.Rating > 1 ? "text-warning" : "text-muted")"></span>
+                                                    <span class="mdi mdi-star @(item.Rating > 2 ? "text-warning" : "text-muted")"></span>
+                                                    <span class="mdi mdi-star @(item.Rating > 3 ? "text-warning" : "text-muted")"></span>
+                                                    <span class="mdi mdi-star @(item.Rating > 4 ? "text-warning" : "text-muted")"></span>
                                                 </div>
                                             </div>
                                             <h5 class="font-size-17 mb-3">@item.Title</h5>

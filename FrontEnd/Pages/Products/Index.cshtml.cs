@@ -18,13 +18,13 @@ namespace FrontEnd.Pages.Products
             _unitOfWork = unitOfWork;
             Configuration = configuration;
         }
-
         public IList<Product> ProductList { get; set; }
         public IEnumerable<Product> ProductListAll { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryListFilter { get; set; }
         public ProductSubcategory ProductSubcategory { get; set; }
         public IEnumerable<Review> ReviewList { get; set; }
+        public IOrderedEnumerable<IGrouping<int,OrderDetails>> OrderDetailsList { get; set; }
         public double FilteredMaxPrice { get; set; }
         public double FilteredMinPrice { get; set; }
         public double MaxPrice { get; set; }
@@ -35,18 +35,23 @@ namespace FrontEnd.Pages.Products
         public int Count { get; set; }
         public int TotalPages { get; set; }
         public int FilteredRating { get; set; }
+        public int Recent { get; set; }
 
-
-        public void OnGet(string name, double min_price, double max_price, int pageIndex, int rating)
+        public void OnGet(string name, double min_price, double max_price, int pageIndex, int rating, int recent)
         {
-
             ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
             ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.ProductCategoryId == ProductSubcategory.ProductCategoryId, includeProperties: "ProductCategory");
             ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
             ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
                     includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
-            ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
-                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory").OrderBy(u => u.Id).Skip((pageIndex -1) * 6).Take(6).ToList();
+            OrderDetailsList = _unitOfWork.OrderDetails.GetAll().GroupBy(u => u.ProductId).OrderByDescending(p => p.Count());
+            ProductList = new List<Product>();
+            foreach (var order in OrderDetailsList)
+            {
+                ProductList.Add(_unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategoryId == ProductSubcategory.Id, 
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"));
+            }
+            ProductList = ProductList.Skip((pageIndex - 1) * 6).Take(6).ToList();
             ReviewList = _unitOfWork.Review.GetAll();
             Count = ProductListAll.Count();
             TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 6));
@@ -57,20 +62,6 @@ namespace FrontEnd.Pages.Products
                     MaxPrice = product.Price;
                 }
             }
-            if (max_price != 0)
-            {
-                ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id && u.Price >= min_price && u.Price <= max_price, 
-                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory").ToList();
-                FilteredMaxPrice = max_price;
-                FilteredMinPrice = min_price;
-            }
-            else if (min_price != 0)
-            {
-                ProductList = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id && u.Price >= min_price,
-                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory").ToList();
-                FilteredMinPrice = min_price;   
-            }
-            var pageSize = Configuration.GetValue("PageSize", 4);
             if (rating != 0)
             {
                 int ratingTotal = 0;
@@ -90,13 +81,23 @@ namespace FrontEnd.Pages.Products
                 }
                 FilteredRating = rating;
             }
-
-        }
-        
-        
-        public void OnPostSubmit()
-        {
-            
+            if (max_price != 0)
+            {
+                ProductList = ProductList.Where(u => u.Price >= min_price && u.Price <= max_price).ToList();
+                FilteredMaxPrice = max_price;
+                FilteredMinPrice = min_price;
+            }
+            else if (min_price != 0)
+            {
+                ProductList = ProductList.Where(u => u.Price >= min_price).ToList();
+                FilteredMinPrice = min_price;
+            } 
+            if (recent == 1)
+            {
+                ProductList = ProductList.OrderByDescending(u => u.CreatedDate).ToList();
+                Recent = recent;
+            }
+            var pageSize = Configuration.GetValue("PageSize", 4);
         }
     }
 }

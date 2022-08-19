@@ -21,7 +21,7 @@ $(document).ready(function () {
     $("#pricerange").ionRangeSlider({
         skin: "round",
         type: "double",
-        grid: !0,
+        grid: true,
         step: 500,
         min: 0,
         max: maxLimit,
@@ -36,6 +36,14 @@ $(document).ready(function () {
                 searchParams.set("max_price", data.to);
                 window.location.search = searchParams.toString();
             } 
+            if (data.to == 0) {
+                searchParams.delete("max_price");
+                window.location.search = searchParams.toString();
+            }
+            if (data.from == 0) {
+                searchParams.delete("min_price");
+                window.location.search = searchParams.toString();
+            }
         }
     });
     $(document).on("click", "#productRatingRadio1", function () {
@@ -61,6 +69,14 @@ $(document).ready(function () {
     $("#clearLink").click(function () {
         searchParams.delete("rating");
         window.location.search = searchParams.toString(); 
+    });
+    $("#recentLink").click(function () {
+        searchParams.set("recent", 1);
+        window.location.search = searchParams.toString();
+    });
+    $("#popularityLink").click(function () {
+        searchParams.delete("recent");
+        window.location.search = searchParams.toString();
     });
 });
 

@@ -65,8 +65,8 @@ namespace FrontEnd.Pages.Products
             int maxNegativeCount = 0;
             int maxNegativeId = 0;
 
-            NegativeReviewList = _unitOfWork.Review.GetAll(u => u.Rating.Equals("1") || u.Rating.Equals("2"));
-            PositiveReviewList = _unitOfWork.Review.GetAll(u => u.Rating.Equals("4") || u.Rating.Equals("5"));
+            NegativeReviewList = _unitOfWork.Review.GetAll(u => u.Rating == 1 || u.Rating == 2);
+            PositiveReviewList = _unitOfWork.Review.GetAll(u => u.Rating == 4 || u.Rating == 5);
             foreach (var review in PositiveReviewList)
             {
                 if (HelpfulReviewList.Where(u => u.ReviewId == review.Id).Count() > maxPositiveCount)
@@ -89,7 +89,7 @@ namespace FrontEnd.Pages.Products
             }
             else
             {
-                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating.Equals("4") || u.Rating.Equals("5")));
+                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 4 || u.Rating ==5));
             }
             if (maxNegativeId != 0)
             {
@@ -97,7 +97,7 @@ namespace FrontEnd.Pages.Products
             }
             else
             {
-                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating.Equals("1") || u.Rating.Equals("2")));
+                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 1 || u.Rating == 2));
             }
             var pageSize = Configuration.GetValue("PageSize", 4);
         }
