@@ -10,6 +10,7 @@ namespace BackEnd.Repository.IRepository
     {
         IProductCategoryRepository ProductCategory { get; }
         IProductRepository Product { get; }
+        IProductPublicityRepository ProductPublicity { get; }
         IProvinceRepository Province { get; }
         IUserPaymentRepository UserPayment { get; }
         IApplicationUserRepository ApplicationUser { get; }

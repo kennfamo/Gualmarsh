@@ -1,0 +1,13 @@
+﻿@using BackEnd.Model
+@model IEnumerable<ProductPublicity>
+@foreach(var item in Model)
+{
+ <div class="card" style="width: 18rem;">
+  <img src="@item.Image1" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">@item.Title</h5>
+    <p class="card-text">@item.Message</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>   
+}
