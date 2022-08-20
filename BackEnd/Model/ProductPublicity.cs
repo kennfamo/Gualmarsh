@@ -16,10 +16,9 @@ namespace BackEnd.Model
         public string Title { get; set; }
         public string Message { get; set; }
         public string? Image1 { get; set; }
-
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public Province Category { get; set; }
+        public int ProductSubcategoryId { get; set; }
+        [ForeignKey("ProductSubcategoryId")]
+        public ProductSubcategory ProductSubcategory { get; set; }
 
     }
 }

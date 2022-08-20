@@ -1,13 +1,19 @@
-﻿@using BackEnd.Model
-@model IEnumerable<ProductPublicity>
-@foreach(var item in Model)
+﻿@model FrontEnd.Pages.Components.Publicity.PublicityViewModel
+@foreach(var item in Model.ProductPublicityList)
 {
- <div class="card" style="width: 18rem;">
+  <div class="card" style="width: 18rem;">
   <img src="@item.Image1" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">@item.Title</h5>
     <p class="card-text">@item.Message</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+            @foreach(var category in Model.ProductCategoryList)
+            {
+                @foreach (var subcategory in Model.ProductSubCategoryList.Where(u => u.ProductCategoryId == category.Id))
+                {
+                    var route = subcategory.Name.Replace('-', ' ');
+                    <a asp-route-name="@subcategory.Name" asp-page="/Products/Index"><i class="mdi mdi-circle-medium me-1"></i> @route</a>
+                }
+            }
   </div>
 </div>   
 }

@@ -2,7 +2,7 @@
 using BackEnd.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FrontEnd.Pages.Shared.Components.Publicity
+namespace FrontEnd.Pages.Components.Publicity
 {
     public class PublicityViewComponent : ViewComponent
     {
@@ -13,12 +13,23 @@ namespace FrontEnd.Pages.Shared.Components.Publicity
 
         }
         public IEnumerable<ProductPublicity> ProductPublicityList { get; set; }
+        public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
+        public IEnumerable<ProductCategory> ProductCategoryList { get; set; }
         public IViewComponentResult Invoke()
         {
 
-            ProductPublicityList = _unitOfWork.ProductPublicity.GetAll().Take(1);
+            ProductPublicityList = _unitOfWork.ProductPublicity.GetAll();
+            ProductCategoryList = _unitOfWork.ProductCategory.GetAll();
+            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
 
-            return View("Default", ProductPublicityList);
+            PublicityViewModel publicityViewModel = new PublicityViewModel()
+            {
+                ProductPublicityList = ProductPublicityList,
+                ProductSubCategoryList = ProductSubcategoryList,
+                ProductCategoryList = ProductCategoryList
+            };
+
+            return View("Default", publicityViewModel);
         }
     }
 }

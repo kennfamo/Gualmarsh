@@ -24,8 +24,8 @@ namespace BackEnd.Repository
             obj.Title = productPublicity.Title;
             obj.Message = productPublicity.Message;
             obj.Image1 = productPublicity.Image1;
-            obj.CategoryId = productPublicity.CategoryId;
-            obj.Category = productPublicity.Category;
+            obj.ProductSubcategoryId = productPublicity.ProductSubcategoryId;
+            obj.ProductSubcategory = productPublicity.ProductSubcategory;
         }
     }
  
