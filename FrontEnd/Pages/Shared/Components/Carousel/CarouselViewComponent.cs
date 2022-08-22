@@ -15,12 +15,12 @@ namespace FrontEnd.Pages.Shared.Components.Carousel
             _unitOfWork = unitOfWork;
 
         }
-        public IEnumerable<Product> ProductList { get; set; }
+        public IEnumerable<ProductPublicity> ProductList { get; set; }
 
         public IViewComponentResult Invoke()
         {
 
-            ProductList = _unitOfWork.Product.GetAll().Take(3);
+            ProductList = _unitOfWork.ProductPublicity.GetAll();
 
             return View("Default", ProductList);
         }
