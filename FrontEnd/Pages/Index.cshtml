@@ -4,14 +4,86 @@
     ViewData["Title"] = "Home";
                     
 }
+<br />
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">
-            @await Component.InvokeAsync("Carousel")
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    @await Component.InvokeAsync("Carousel")
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <img src="~/images/welcome_to_gualmarsh.jpeg" class="d-block img-fluid">
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <img src="~/images/welcome_to_gualmarsh.jpeg" class="d-block img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-lg-12">
+            <div class="card" style="background-color: #0071CE;">
+                <div class="card-body" >
+                    <div class="text-center">
+                        <img src="~/images/logo-sm-light.png" style="height:25px;" /><span style="color: #ffffff;" class="fw-bold font-size-20">&nbsp;&nbsp; Members get free shipping with no order minimum!</span>
+                    </div>                
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <h5 class="mb-3">Latest Products</h5>
+    </div>
+    <div class="row">
+        @foreach(var product in Model.ProductListLatest){
+            
+            <div class="col-lg-2">
+                <a asp-page="/Products/Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                    <img src="@product.Image1" class="rounded me-2" width="200">                    
+                </a>
+                <h5 class="mt-3">₡@product.Price</h5>
+                <p>@product.Name</p>
+            </div>           
+        }  
+        <hr />
+    </div>
+    <div class="row">
+        <h5 class="mb-3 mt-3">Great Value Products</h5>
+    </div>
+    <div class="row">
+        @foreach (var product in Model.ProductListGreatValue)
+        {
+
+            <div class="col-lg-2">
+                <a asp-page="/Products/Details" asp-route-name="@product.ShortName" asp-route-id="@product.Id">
+                    <img src="@product.Image1" class="rounded me-2" width="200">
+                </a>
+                <h5 class="mt-3">₡@product.Price</h5>
+                <p>@product.Name</p>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="row">
+        <h5 class="mb-3 mt-3">For you</h5>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 mt-3">
             @await Component.InvokeAsync("Publicity")
         </div>
     </div>

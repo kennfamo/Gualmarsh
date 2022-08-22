@@ -18,7 +18,7 @@ namespace FrontEnd.Pages.Components.Publicity
         public IViewComponentResult Invoke()
         {
 
-            ProductPublicityList = _unitOfWork.ProductPublicity.GetAll();
+            ProductPublicityList = _unitOfWork.ProductPublicity.GetAll(includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
             ProductCategoryList = _unitOfWork.ProductCategory.GetAll();
             ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
 
