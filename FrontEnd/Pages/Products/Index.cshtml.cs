@@ -21,7 +21,7 @@ namespace FrontEnd.Pages.Products
         public IList<Product> ProductList { get; set; }
         public IEnumerable<Product> ProductListAll { get; set; }
         public IEnumerable<ProductSubcategory> ProductSubcategoryList { get; set; }
-        public IEnumerable<ProductSubcategory> ProductSubcategoryListFilter { get; set; }
+        public ProductCategory ProductCategory { get; set; }
         public ProductSubcategory ProductSubcategory { get; set; }
         public IEnumerable<Review> ReviewList { get; set; }
         public IOrderedEnumerable<IGrouping<int,OrderDetails>> OrderDetailsList { get; set; }
@@ -36,25 +36,46 @@ namespace FrontEnd.Pages.Products
         public int TotalPages { get; set; }
         public int FilteredRating { get; set; }
         public int Recent { get; set; }
+        public bool ShowPrevious => PageIndex > 1;
+        public bool ShowNext => PageIndex < TotalPages;
 
         public void OnGet(string name, double min_price, double max_price, int pageIndex, int rating, int recent)
         {
-            ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.Name == name);
-            ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.ProductCategoryId == ProductSubcategory.ProductCategoryId, includeProperties: "ProductCategory");
-            ProductSubcategoryListFilter = _unitOfWork.ProductSubcategory.GetAll(includeProperties: "ProductCategory");
-            ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
-                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+            ProductSubcategory = _unitOfWork.ProductSubcategory.GetFirstOrDefault(filter: u => u.ShortName == name);
             OrderDetailsList = _unitOfWork.OrderDetails.GetAll().GroupBy(u => u.ProductId).OrderByDescending(p => p.Count());
             ProductList = new List<Product>();
-            foreach (var order in OrderDetailsList)
+            if (ProductSubcategory != null)
             {
-                var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategoryId == ProductSubcategory.Id,
+                ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.ProductCategoryId == ProductSubcategory.ProductCategoryId, includeProperties: "ProductCategory");
+                ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategoryId == ProductSubcategory.Id,
                     includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
-                if (product != null)
+                foreach (var order in OrderDetailsList)
                 {
-                    ProductList.Add(product);
+                    var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategoryId == ProductSubcategory.Id,
+                        includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                    if (product != null)
+                    {
+                        ProductList.Add(product);
+                    }
+
                 }
-                  
+            }
+            else
+            {
+                ProductCategory = _unitOfWork.ProductCategory.GetFirstOrDefault(filter: u => u.ShortName == name);
+                ProductSubcategoryList = _unitOfWork.ProductSubcategory.GetAll(filter: u => u.ProductCategory.Name == ProductCategory.Name, includeProperties: "ProductCategory");
+                ProductListAll = _unitOfWork.Product.GetAll(filter: u => u.ProductSubcategory.ProductCategoryId == ProductCategory.Id,
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                foreach (var order in OrderDetailsList)
+                {
+                    var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategory.ProductCategoryId == ProductCategory.Id,
+                        includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                    if (product != null)
+                    {
+                        ProductList.Add(product);
+                    }
+
+                }
             }
             var missingProducts = ProductListAll.Except(ProductList);
             foreach (var product in missingProducts)
@@ -84,7 +105,11 @@ namespace FrontEnd.Pages.Products
                     {
                         ratingTotal += review.Rating;
                     }
-                    int ratingAverage = ratingTotal / ReviewList.Where(u => u.ProductId == product.Id).Count();
+                    int ratingAverage = 0;
+                    if (ReviewList.Where(u => u.ProductId == product.Id).Count() > 0) 
+                    { 
+                        ratingAverage = ratingTotal / ReviewList.Where(u => u.ProductId == product.Id).Count();
+                    }
                     if (ratingAverage >= rating)
                     {
                         ProductList.Add(product);

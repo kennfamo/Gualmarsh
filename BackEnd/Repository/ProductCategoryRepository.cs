@@ -23,7 +23,8 @@ namespace BackEnd.Repository
         {
             var obj = _db.ProductCategory.FirstOrDefault(u=>u.Id == productCategory.Id);
             obj.Name = productCategory.Name;
-            
+            obj.ShortName = productCategory.ShortName;
+
         }
     }
 }

@@ -24,6 +24,7 @@ namespace BackEnd.Repository
             var obj = _db.ProductSubcategory.FirstOrDefault(u=>u.Id == productSubcategory.Id);
             obj.Name = productSubcategory.Name;
             obj.ProductCategoryId = productSubcategory.ProductCategoryId;
+            obj.ShortName = productSubcategory.ShortName;
 
         }
     }

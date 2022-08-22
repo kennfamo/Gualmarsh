@@ -17,16 +17,17 @@
             <h5 class="font-size-14 mb-3">Categories</h5>
             <div class="accordion ecommerce" id="accordion">
                     <div>
-                        <h5 class="accordion-header font-size-14" id="headingOne">
-                                <i class="mdi mdi-desktop-classic font-size-16 align-middle me-2"></i> @Model.ProductSubcategory.ProductCategory.Name
-                        </h5>
+                            <a asp-route-name="@(Model.ProductSubcategory != null ? Model.ProductSubcategory.ProductCategory.ShortName:Model.ProductCategory.ShortName)" asp-page="/Products/Index">
+                            <h5 class="accordion-header font-size-14" id="headingOne">
+                                @(Model.ProductSubcategory != null ? Model.ProductSubcategory.ProductCategory.Name:Model.ProductCategory.Name)
+                            </h5>
+                        </a>
                         <div>
                             <div class="accordion-body">
                                 <ul class="list-unstyled categories-list mb-0">
                                 @foreach (var item in Model.ProductSubcategoryList)
                                 {
-                                    var route = item.Name.Replace('-', ' ');
-                                    <li><a asp-route-name="@item.Name" asp-page="Index"><i class="mdi mdi-circle-medium me-1"></i> @route</a></li>
+                                    <li><a asp-route-name="@item.ShortName" asp-page="Index"><i class="mdi mdi-circle-medium me-1"></i>@item.Name</a></li>
                                 }
                             </ul>
                         </div>
@@ -77,19 +78,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div>
-                            @{
-                                var routeName = Model.ProductSubcategory.Name.Replace('-', ' ');
-                            }
-                                <h5 style="display: inline">@Model.ProductSubcategory.ProductCategory.Name</h5>
-                                <h5 style="display: inline"> -> @routeName</h5>                                                 
+                            <h5 style="display: inline">@(Model.ProductSubcategory != null ? Model.ProductSubcategory.ProductCategory.Name : Model.ProductCategory.Name)</h5>
+                                <h5 style="display: inline">  @(Model.ProductSubcategory != null ? "->" + Model.ProductSubcategory.Name : "")</h5>
                         </div>
                     </div>                                      
                 </div>
 
                 <ul class="list-inline my-3 ecommerce-sortby-list">
                     <li class="list-inline-item"><span class="fw-medium font-family-secondary">Order By:</span></li>
-                        <li class="list-inline-item"><button id="popularityLink" class="bg-white btn @(Model.Recent == 1 ? "text-muted" : "")" style="background-color:transparent">@if(Model.Recent != 1){<strong>Popularity</strong>}else{<text>Popularity</text>}</button></li>
-                        <li class="list-inline-item"><button id="recentLink" class="bg-white btn @(Model.Recent != 1 ? "text-muted" : "")" style="background-color:transparent">@if(Model.Recent == 1){<strong>Recent</strong>}else{<text>Recent</text>}</button></li>
+                        <li class="list-inline-item"><button id="popularityLink" class="bg-white btn @(Model.Recent == 1 ? "text-muted" : "")" style="background-color:transparent">@if(Model.Recent != 1){<strong class="text-primary">Popularity</strong>}else{<text>Popularity</text>}</button></li>
+                        <li class="list-inline-item"><button id="recentLink" class="bg-white btn @(Model.Recent != 1 ? "text-muted" : "")" style="background-color:transparent">@if(Model.Recent == 1){<strong class="text-primary">Recent</strong>}else{<text>Recent</text>}</button></li>
                 </ul>
                 <div class="row g-0">
                     @foreach(var product in Model.ProductList)
@@ -120,6 +118,16 @@
                                             <span class="mdi mdi-star @(ratingAverage > 4 ? "text-warning" : "text-muted")"> </span>
                                             <span class="text-muted">(@Model.ReviewList.Where(u => u.ProductId == product.Id).Count())</span>
                                         }
+                                        else
+                                        {
+                                                <span class="mdi mdi-star text-muted"></span>
+                                                <span class="mdi mdi-star text-muted"></span>
+                                                <span class="mdi mdi-star text-muted"></span>
+                                                <span class="mdi mdi-star text-muted"></span>
+                                                <span class="mdi mdi-star text-muted"></span>
+                                                <span class="text-muted">(0)</span>
+                                        }
+
                                         <h5 class="mt-3 mb-0">₡@product.Price</h5>
                                     </div>
                                 </div>
@@ -143,19 +151,22 @@
                     <div class="col-sm-6">
                         <div class="float-sm-end">
                             <ul class="pagination pagination-rounded mb-sm-0">
-                                <li class="page-item">
-                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                </li>
+                                @if(Model.ShowPrevious){
+                                    <li class="page-item">
+                                        <a asp-page="Index" asp-route-pageIndex="@(Model.PageIndex - 1)" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                    </li>
+                                } 
                                 @for (var i = 1; i <= Model.TotalPages; i++ )
                                     {
                                         <li class="page-item @(i == Model.PageIndex ? "active" : "")">
                                             <a asp-page="Index" asp-route-pageIndex="@i" class="page-link">@i</a>
                                         </li>
                                     }
-
-                                <li class="page-item">
-                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-end"></i></a>
-                                </li>
+                                @if (Model.ShowNext) {
+                                    <li class="page-item">
+                                        <a asp-page="Index" asp-route-pageIndex="@(Model.PageIndex + 1)" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>

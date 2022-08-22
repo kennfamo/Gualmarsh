@@ -14,6 +14,7 @@ namespace BackEnd.Model
         [Required]
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string ShortName { get; set; }
 
         public ProductCategory()
         {

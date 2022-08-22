@@ -1,14 +1,13 @@
 ﻿@model FrontEnd.Pages.Components.Publicity.PublicityViewModel
 <div class="row">
 @foreach (var item in Model.ProductPublicityList){
-var routeName = item.ProductSubcategory.Name.Replace('-', ' ');
 <div class="col-lg-4">
     <div class="card">
         <img src="@item.Image1" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Message</p>           
-            <a asp-route-name="@routeName" asp-page="/Products/Index" class="btn btn-outline-dark btn-rounded">Shop Now</a>
+            <a asp-route-name="@item.ProductSubcategory.ProductCategory.ShortName" asp-page="/Products/Index" class="btn btn-outline-dark btn-rounded">Shop Now</a>
         </div>
     </div>    
 </div>

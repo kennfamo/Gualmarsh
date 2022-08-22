@@ -10,16 +10,12 @@
 					@foreach (var category in Model.ProductCategoryList)
 					{
 					<div class="col-md-2">
-						<h5 class="font-size-14">@category.Name</h5>
+						<a asp-route-name="@category.ShortName" asp-page="/Products/Index"><h5 class="font-size-14">@category.Name</h5></a>
 						<ul class="list-unstyled megamenu-list">
-							<!--<li>
-								<a asp-route-name="@category.Name" asp-page="/Products/Index">View All</a>
-							</li>-->
 							@foreach (var subcategory in Model.ProductSubcategoryList.Where(u=>u.ProductCategoryId == category.Id))
 							{
-								var routeName = subcategory.Name.Replace('-', ' ');
 								<li>
-									<a asp-route-name="@subcategory.Name" asp-page="/Products/Index">@routeName</a>
+									<a asp-route-name="@subcategory.ShortName" asp-page="/Products/Index">@subcategory.Name</a>
 								</li>
 							}
 						</ul>						

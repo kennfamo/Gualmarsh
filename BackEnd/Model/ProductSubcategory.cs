@@ -14,6 +14,7 @@ namespace BackEnd.Model
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public string ShortName { get; set; }
         public int ProductCategoryId { get; set; }
         [ForeignKey("ProductCategoryId")]
         public ProductCategory ProductCategory { get; set; }

@@ -1,5 +1,8 @@
 ﻿@page
 @model FrontEnd.Pages.Order.OrderDetailsModel
+@{
+	ViewData["Title"] = "Order GMSH-" + Model.OrderDetailVM.OrderHeader.Id;
+}
 <div class="row">
 	<div class="col-lg-3"></div>
 	<div class="col-lg-6">
