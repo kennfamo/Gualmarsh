@@ -48,9 +48,21 @@ namespace FrontEnd.Pages.Products
             ProductList = new List<Product>();
             foreach (var order in OrderDetailsList)
             {
-                ProductList.Add(_unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategoryId == ProductSubcategory.Id, 
+                var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == order.Key && u.ProductSubcategoryId == ProductSubcategory.Id,
+                    includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory");
+                if (product != null)
+                {
+                    ProductList.Add(product);
+                }
+                  
+            }
+            var missingProducts = ProductListAll.Except(ProductList);
+            foreach (var product in missingProducts)
+            {
+                ProductList.Add(_unitOfWork.Product.GetFirstOrDefault(u => u.Id == product.Id,
                     includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"));
             }
+            Count = ProductListAll.Count();
             ProductList = ProductList.Skip((pageIndex - 1) * 6).Take(6).ToList();
             ReviewList = _unitOfWork.Review.GetAll();
             Count = ProductListAll.Count();
