@@ -7,7 +7,7 @@
 	<div class="col-lg-3"></div>
 	<div class="col-lg-6">
 		<div class="row">
-			<a class="mt-3 mb-2" asp-page="OrderList">Back To Orders</a>
+			<a class="mt-3 mb-2" asp-page="Index">Back To Orders</a>
 			<h3 class="mb-2">View Order Details</h3>
 			<span class="font-size-16 mb-2">Ordered on @Model.OrderDetailVM.OrderHeader.OrderDate &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Order #GMSH-@Model.OrderDetailVM.OrderHeader.Id</span>
 		</div>
@@ -63,7 +63,7 @@
 						<div class="col-lg-2 text-end">
 							<h5 class="font-size-14" style="color: transparent;">Order Summary</h5>
 							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Subtotal</p>
-							<p class="mb-0"> - ₡@((Model.OrderDetailVM.OrderHeader.Discount.DiscountPercent / 100) * (Model.OrderDetailVM.OrderHeader.Subtotal))</p>
+							<p class="mb-0"> - ₡@(Convert.ToInt32(Model.OrderDetailVM.OrderHeader.Discount.DiscountPercent / 100 * Model.OrderDetailVM.OrderHeader.Subtotal))</p>
 							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Shipping</p>
 							<hr>
 							<p class="mb-0">₡@Model.OrderDetailVM.OrderHeader.Total</p>

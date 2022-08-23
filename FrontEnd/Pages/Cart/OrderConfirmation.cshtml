@@ -98,7 +98,7 @@
                                                 <h5 class="font-size-14">Discount</h5>
                                             </div>
                                             <div class="col-lg-5 text-end">
-                                                <p class="font-size-14 fw-bold"><strong>- ₡@((Model.OrderHeader.Discount.DiscountPercent / 100) * (Model.OrderHeader.Subtotal))</strong></p>
+                                                <p class="font-size-14 fw-bold"><strong>- ₡@(Convert.ToInt32(Model.OrderHeader.Discount.DiscountPercent / 100 * Model.OrderHeader.Subtotal))</strong></p>
                                             </div>
                                         </div>
                                     <div class="row">
