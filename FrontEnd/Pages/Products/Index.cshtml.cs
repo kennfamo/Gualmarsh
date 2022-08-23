@@ -32,7 +32,6 @@ namespace FrontEnd.Pages.Products
 
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; } = 1;
-        public int Count { get; set; }
         public int TotalPages { get; set; }
         public int FilteredRating { get; set; }
         public int Recent { get; set; }
@@ -83,11 +82,9 @@ namespace FrontEnd.Pages.Products
                 ProductList.Add(_unitOfWork.Product.GetFirstOrDefault(u => u.Id == product.Id,
                     includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"));
             }
-            Count = ProductListAll.Count();
             ProductList = ProductList.Skip((pageIndex - 1) * 6).Take(6).ToList();
             ReviewList = _unitOfWork.Review.GetAll();
-            Count = ProductListAll.Count();
-            TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 6));
+            TotalPages = (int)Math.Ceiling(decimal.Divide(ProductListAll.Count(), 6));
             foreach (var product in ProductList)
             {
                 if (product.Price > MaxPrice)

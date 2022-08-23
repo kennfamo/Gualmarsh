@@ -25,13 +25,12 @@ namespace FrontEnd.Pages.Products
             Configuration = configuration;
         }
         public IEnumerable<Review> ReviewList { get; set; }
-        public IEnumerable<Review> ReviewListAll { get; set; }
+        public IEnumerable<Review> ReviewListFiltered { get; set; }
         public int RatingTotal{ get; set; }
         public int RatingAverage { get; set; }
         public Product Product { get; set; }
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; } = 1;
-        public int Count { get; set; }
         public int TotalPages { get; set; }
         public bool ShowPrevious => PageIndex > 1;
         public bool ShowNext => PageIndex < TotalPages;
@@ -39,11 +38,10 @@ namespace FrontEnd.Pages.Products
         public void OnGet(int id, int pageIndex)
         {
             Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
-            ReviewListAll = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser");
-            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser").
-                OrderBy(u => u.Id).Skip((pageIndex - 1) * 4).Take(4);
-            Count = ReviewListAll.Count();
-            TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 4));
+            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser");
+            ReviewListFiltered = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "Product,ApplicationUser").
+                OrderBy(u => u.Id).Skip((pageIndex - 1) * 6).Take(6);
+            TotalPages = (int)Math.Ceiling(decimal.Divide(ReviewList.Count(), 6));
             foreach (var review in ReviewList)
             {
                 RatingTotal += review.Rating;
@@ -65,8 +63,8 @@ namespace FrontEnd.Pages.Products
             int maxNegativeCount = 0;
             int maxNegativeId = 0;
 
-            NegativeReviewList = _unitOfWork.Review.GetAll(u => u.Rating == 1 || u.Rating == 2);
-            PositiveReviewList = _unitOfWork.Review.GetAll(u => u.Rating == 4 || u.Rating == 5);
+            NegativeReviewList = _unitOfWork.Review.GetAll(u => u.ProductId == id && (u.Rating == 1 || u.Rating == 2) );
+            PositiveReviewList = _unitOfWork.Review.GetAll(u => u.ProductId == id && (u.Rating == 4 || u.Rating == 5));
             foreach (var review in PositiveReviewList)
             {
                 if (HelpfulReviewList.Where(u => u.ReviewId == review.Id).Count() > maxPositiveCount)
@@ -85,19 +83,19 @@ namespace FrontEnd.Pages.Products
             }
             if (maxPositiveId != 0)
             {
-                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.Id == maxPositiveId);
+                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.Id == maxPositiveId, includeProperties: "Product,ApplicationUser");
             }
             else
             {
-                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 4 || u.Rating ==5));
+                PositiveReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 4 || u.Rating ==5), includeProperties: "Product,ApplicationUser");
             }
             if (maxNegativeId != 0)
             {
-                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.Id == maxNegativeId);
+                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.Id == maxNegativeId, includeProperties: "Product,ApplicationUser");
             }
             else
             {
-                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 1 || u.Rating == 2));
+                NegativeReview = _unitOfWork.Review.GetFirstOrDefault(u => u.ProductId == id && (u.Rating == 1 || u.Rating == 2), includeProperties: "Product,ApplicationUser");
             }
             var pageSize = Configuration.GetValue("PageSize", 4);
         }

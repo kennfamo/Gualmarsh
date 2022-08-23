@@ -22,7 +22,7 @@ namespace FrontEnd.Pages.Products
         [BindProperty]
         public ShoppingCart ShoppingCart { get; set; }
         public IEnumerable<Review> ReviewList { get; set; }
-        public IEnumerable<Review> ReviewListAll { get; set; }
+        public IEnumerable<Review> ReviewListFiltered { get; set; }
         public Review Review { get; set; }
         public HelpfulReview HelpfulReview { get; set; }
         public IEnumerable<HelpfulReview> HelpfulReviewList { get; set; }
@@ -31,7 +31,6 @@ namespace FrontEnd.Pages.Products
         public int RatingAverage { get; set; }
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; } = 1;
-        public int Count { get; set; }
         public int TotalPages { get; set; }
         public bool ShowPrevious => PageIndex > 1;
         public bool ShowNext => PageIndex < TotalPages;
@@ -43,17 +42,16 @@ namespace FrontEnd.Pages.Products
                 Product = _unitOfWork.Product.GetFirstOrDefault(u => u.ShortName == name, includeProperties: "ProductSubcategory,ProductSubcategory.ProductCategory"),
                 ProductId = id
             };
-            ReviewListAll = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
-            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser").
-                OrderBy(u => u.Id).Skip((pageIndex - 1) * 6).Take(6);
-            Count = ReviewListAll.Count();
-            TotalPages = (int)Math.Ceiling(decimal.Divide(Count, 6));
+            ReviewList = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser");
+            ReviewListFiltered = _unitOfWork.Review.GetAll(filter: u => u.ProductId == id, includeProperties: "ApplicationUser").
+                OrderBy(u => u.Id).Skip((pageIndex - 1) * 4).Take(4);
+            TotalPages = (int)Math.Ceiling(decimal.Divide(ReviewList.Count(), 4));
             foreach (var review in ReviewList)
             {
                 RatingTotal += review.Rating;
 
             }
-            if (ReviewListAll.Count() > 0)
+            if (ReviewList.Count() > 0)
             {
                 RatingAverage = RatingTotal / ReviewList.Count();
             }

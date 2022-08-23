@@ -181,7 +181,7 @@
                             {
                                 <a asp-page="Reviews" asp-route-id="@Model.ShoppingCart.ProductId" class="float-end">View All Reviews</a>
                                 <div class="border p-4 rounded">
-                                @foreach (var item in Model.ReviewList)
+                                @foreach (var item in Model.ReviewListFiltered)
                                 {
                                     <div class="d-flex border-bottom mt-2 pb-3">
                                         <div class="flex-1">

@@ -187,7 +187,8 @@
                             <h5 class="font-size-14">Reviews : </h5>
                             <div class="d-inline-flex mb-3"></div>
                             <div class="border p-4 rounded mb-0">
-                                @foreach(var review in Model.ReviewList){
+                                @foreach (var review in Model.ReviewListFiltered)
+                                {
                                     <div class="d-flex border-bottom py-3">
                                         <div class="flex-1">
                                             <div class="d-inline-flex mb-3">
