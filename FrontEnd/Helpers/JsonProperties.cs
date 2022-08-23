@@ -77,6 +77,10 @@
     {
         [JsonProperty("item_total")]
         public ItemTotal ItemTotal { get; set; }
+        [JsonProperty("discount")]
+        public ItemTotal Discount { get; set; }
+        [JsonProperty("shipping")]
+        public ItemTotal Shipping { get; set; }
     }
 
     public partial class ItemTotal

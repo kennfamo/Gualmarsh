@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using Stripe.Checkout;
 using FrontEnd.Helpers;
+using Stripe;
 
 namespace FrontEnd.Pages.Cart
 {
@@ -168,15 +169,16 @@ namespace FrontEnd.Pages.Cart
 
                 if (OrderHeader.PaymentType == "Credit / Debit Card")
                 {
+                    
                     //Stripe Payment section
                     var domain = "https://" + HttpContext.Request.Host;
                     var options = new SessionCreateOptions
                     {
                         LineItems = new List<SessionLineItemOptions>(),
                         PaymentMethodTypes = new List<string>
-                    {
-                        "card",
-                    },
+                        {
+                            "card",
+                        },
                         Mode = "payment",
                         SuccessUrl = domain + $"/cart/orderconfirmation?id={OrderHeader.Id}",
                         CancelUrl = domain + "/cart/",
@@ -200,11 +202,44 @@ namespace FrontEnd.Pages.Cart
                         };
                         options.LineItems.Add(sessionLineItem);
                     }
+                    if (!OrderHeader.DiscountCode.Equals("NODISC"))
+                    {
+
+                        var discount = _unitOfWork.Discount.GetFirstOrDefault(filter: u => u.Name == OrderHeader.DiscountCode);
+                        var coupon = new CouponCreateOptions { PercentOff = Decimal.Parse(discount.DiscountPercent.ToString()), Duration = "once" };
+                        var couponService = new CouponService();
+                        Coupon couponModel= couponService.Create(coupon);
+                        options.Discounts = new List<SessionDiscountOptions>
+                        {
+                            new SessionDiscountOptions
+                            {
+                                Coupon = couponModel.Id
+                            }
+                        };
+                    }
+                    if (OrderHeader.Shipping > 0)
+                    {
+                        options.ShippingOptions = new List<SessionShippingOptionOptions>
+                        {
+                            new SessionShippingOptionOptions
+                            {
+                                ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                                {
+                                    Type = "fixed_amount",
+                                    FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                                    {
+                                        Amount = 1500 * 100,
+                                        Currency = "CRC",
+                                    },
+                                    DisplayName = "Next Day Delivery"
+                                }
+                          },
+                        };
+                    }
                     var service = new SessionService();
                     Session session = service.Create(options);
                     Response.Headers.Add("Location", session.Url);
                     OrderHeader.SessionId = session.Id;
-                    //OrderHeader.PaymentIntentId = session.PaymentIntentId;
                     _unitOfWork.Save();
                     return new StatusCodeResult(303);
 
@@ -216,7 +251,7 @@ namespace FrontEnd.Pages.Cart
                         Extensions extensions = new Extensions();  
                         ServiceRepository serviceObj = new ServiceRepository(extensions.PayPalLogin());
                         CurrencyExchange = extensions.CurrencyExchangeRate();
-                        var stringContent = new StringContent(extensions.OrderBodyToJson(HttpContext.Request.Host.ToString(), ShoppingCartList, OrderHeader, CurrencyExchange), Encoding.UTF8, "application/json");
+                        var stringContent = new StringContent(extensions.OrderBodyToJson(HttpContext.Request.Host.ToString(), ShoppingCartList, OrderHeader, CurrencyExchange, DiscountAmount, OrderHeader.Shipping), Encoding.UTF8, "application/json");
                         HttpResponseMessage response = serviceObj.PostAsyncStringContent("v2/checkout/orders/", stringContent);
                         var content = response.Content.ReadAsStringAsync().Result;
                         response.EnsureSuccessStatusCode();

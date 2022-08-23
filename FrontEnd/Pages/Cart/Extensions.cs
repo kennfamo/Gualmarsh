@@ -31,7 +31,7 @@ namespace FrontEnd.Pages.Cart
             }
 
         }
-        public string OrderBodyToJson(string domain, IEnumerable<ShoppingCart> shoppingCartList, OrderHeader orderHeader, CurrencyExchange currencyExchange)
+        public string OrderBodyToJson(string domain, IEnumerable<ShoppingCart> shoppingCartList, OrderHeader orderHeader, CurrencyExchange currencyExchange, string discountAmount, double shipping)
         {
             double dollarRate = Double.Parse(currencyExchange.Venta);
             int i = 0;
@@ -58,6 +58,8 @@ namespace FrontEnd.Pages.Cart
                 total += Math.Round((item.Product.Price * item.Quantity / dollarRate), 2);
                 i++;
             }
+            discountAmount ??= "0";
+            
             PaypalOrderDetails? paypalOrderDetails = new PaypalOrderDetails
             {
                 Intent = "CAPTURE",
@@ -69,13 +71,23 @@ namespace FrontEnd.Pages.Cart
                         Amount = new Amount()
                         {
                             CurrencyCode = "USD",
-                            Value = total.ToString(),
+                            Value = Math.Round(total + Math.Round(shipping / dollarRate, 2) - (Double.Parse(discountAmount) / dollarRate), 2).ToString(),
                             Breakdown = new Breakdown()
                             {
                                 ItemTotal = new ItemTotal()
                                 {
                                     CurrencyCode = "USD",
                                     Value = total.ToString(),
+                                },
+                                Shipping = new ItemTotal()
+                                {
+                                    CurrencyCode = "USD",
+                                    Value =  Math.Round(shipping / dollarRate, 2).ToString()
+                                },
+                                Discount = new ItemTotal()
+                                {
+                                    CurrencyCode = "USD",
+                                    Value =  Math.Round(Double.Parse(discountAmount) / dollarRate, 2).ToString()
                                 }
                             }
                         },

@@ -21,6 +21,7 @@ namespace FrontEnd.Pages.Cart
 
         public void OnGet(int id)
         {
+            TempData.Remove("DiscountCode");
             OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id, 
                 includeProperties: "ApplicationUser,Discount,UserAddress,UserAddress.City,UserAddress.City.Canton,UserAddress.City.Canton.Province,Site");
             OrderHeader.Status = StaticDetails.StatusInProcess;
